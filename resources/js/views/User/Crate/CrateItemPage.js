@@ -18,7 +18,7 @@ import tokenThumbnail from "@/assets/img/test/weapon-2.png";
 // actions
 import { LogoutAction, } from '@/redux/actions/AuthActions';
 
-import { GetCrateInfoService, AddBatchTokenList, } from '@/services/UserServices';
+import { GetCrateInfoService, AddBatchTokenList, RegisterCratePayment, } from '@/services/UserServices';
 
 // contract
 import { useUmblCoreContract, useUmblMarketPlaceContract, useBusdContract } from "@/hooks";
@@ -164,6 +164,31 @@ export default function CrateItemPage() {
                 showErrorMsg(errMsg);
                 return;
             }
+
+            const numbericalPrice = window.web3.utils.fromWei(crateInfo.price, 'ether');
+
+            let userPaymentData = {
+                crateId: crateId,
+                price: numbericalPrice,
+                unit: 'BUSD',
+                wallet: account.toLowerCase()
+            };
+
+            RegisterCratePayment(userPaymentData).then(res => {
+                if(res.hasOwnProperty('success') && res.success === true) {
+                    
+                } else {
+                    setLoading(false);
+                    showErrorMsg(res);
+                    if(res.error === 'token') {
+                        dispatch(LogoutAction(history));
+                    }
+                }
+            }).catch(error => {
+                console.log(error);
+                showErrorMsg(error);
+                setLoading(false);
+            });
 
             let registerData = {
                 owner: ownerAddress,

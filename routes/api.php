@@ -16,6 +16,7 @@ use App\Http\Controllers\TokenTypeController;
 use App\Http\Controllers\BadgeTypeController;
 use App\Http\Controllers\ZoneTypeController;
 use App\Http\Controllers\PresetController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +47,7 @@ Route::group([
     ]);
     Route::post('/lootbox/buy', [CrateController::class, 'buy'])->name('lootbox.buy');
     Route::apiResource('inventory', InventoryController::class)->only(['index', 'show']);
-    Route::post('/equipment/switch/{equipment}', [TokenController::class, 'switch'])->name('equipment.switch');
+    // Route::post('/equipment/switch/{equipment}', [TokenController::class, 'switch'])->name('equipment.switch');
     Route::post('/wallet/nonce', [WalletController::class, 'getNonce'])->name('wallet.nonce');
     Route::post('/wallet/auth', [WalletController::class, 'getAuth'])->name('wallet.auth');
     Route::post('/wallet/connect', [WalletController::class, 'connect'])->name('wallet.connect');
@@ -54,6 +55,7 @@ Route::group([
     Route::post('/token/list', [TokenController::class, 'getList'])->name('token.list');
     Route::post('/account/profile', [AuthController::class, 'getUserInfo'])->name('account.profile');
     Route::get('/crates/{crate}', [CrateController::class, 'show'])->name('crate.info');
+    Route::post('/payment/crate', [PaymentController::class, 'registerCrate'])->name('payment.crate');
 });
 
 Route::group([

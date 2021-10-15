@@ -389,3 +389,17 @@ export const AssignTokenListData = (data) => {
         return error;;
     })
 }
+
+
+export const RegisterCratePayment = (data) => {
+    const http = new HttpService();
+    let postUrl = "user/payment/crate";
+    const tokenId = "user-token";
+
+    return http.postData(data, postUrl, tokenId).then((data) => {
+        console.log(data);
+        return data;
+    }).catch((error) => {
+        return error;;
+    })
+}

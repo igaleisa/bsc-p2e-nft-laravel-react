@@ -296,7 +296,7 @@ export default function AssignPage() {
     const newArray = tokenList;
     newArray[id].address = val;
 
-    if(web3.utils.isAddress(val)) {
+    if(window.web3.utils.isAddress(val)) {
       newArray[id].state = true;
     } else {
       newArray[id].state = false;
