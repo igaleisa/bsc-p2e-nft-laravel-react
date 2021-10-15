@@ -1,0 +1,260 @@
+$warm-red-color: #D84646;
+$light-blue-color: #569DBC;
+$light-green-color: #19E378;
+
+.inventoryBlock {
+    font-family: Microgramma;
+    width: 100%;
+    height: 100%;    
+    border: 1px solid #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+    transition: border-color 1s ease-in-out;
+
+    .fab, .fas, .far, .fal, .material-icons {
+        color: #fff;
+        font-size: 32px;
+        margin-right: 12px;
+    }      
+
+    .content-title {
+        color: #fff;
+        font-size: 24px;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    .content-small-text {
+        margin-top: 2px;
+        color: #98989A;
+        font-size: 12px;
+        text-transform: uppercase;
+        font-weight: normal;
+    }
+
+    &:hover {
+        cursor: pointer;
+        border: 1px solid $warm-red-color;
+        .content-title {
+            transition: color 1s ease-in-out;
+            color: $warm-red-color;
+        }    
+        .content-small-text {
+            transition: color 1s ease-in-out;
+            color: $light-blue-color;
+        }
+        .fab, .fas, .far, .fal, .material-icons {
+            transition: color 1s ease-in-out;
+            color: $warm-red-color;
+        }  
+    }
+}
+
+.whiteTitleText {
+    font-family: Microgramma;
+    color: $warm-red-color;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 2rem;
+}
+
+.lightBlueLink {
+    font-family: Microgramma;
+    margin: 10px 0;
+    color: $light-blue-color;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 12px;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.sweet-alert {
+    &.blackMsg {        
+        font-family: Microgramma;
+        color: white !important;
+        background-color: rgba(0,0,0,1) !important;
+        border-radius: 0.3125em;
+        box-shadow: rgb(0 0 0 / 8%) 0px 1px 1px inset, rgb(165 202 234) 0px 0px 8px;
+
+        h2 {
+            font-family: Microgramma;
+        }
+
+        .btn {
+            box-shadow: none !important;
+        }
+    }
+}
+
+.emptyBlock {
+    font-family: Microgramma;
+    width: 100%;
+    height: 100%;    
+    min-height: 120px;
+    border: 1px solid #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .content-title {
+        color: #fff;
+        font-size: 24px;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+}
+
+.itemBlock {
+    font-family: Microgramma;
+    margin: 20px 0px;
+    border: 1px solid $light-green-color;
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    transition: all .5s ease-in-out;   
+
+    .itemImg {
+        border: 1px solid #000;
+        box-shadow: rgb(0 0 0 / 8%) 0px 1px 1px inset, rgb(165 202 234) 0px 0px 3px;
+        img {
+            width: 72px;
+            height: 72px;
+        }
+    }
+    .itemContent {
+        margin-left: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .itemName {
+            font-size: 16px;
+            font-weight: bold;
+            transition: all .5s ease-in-out;   
+        }
+        .itemBottom {
+            margin-top: 20px;
+            display: flex;
+            .itemCategory{
+                font-size: 10px;
+                color: $light-blue-color;                
+            }
+            .itemRarity {
+                margin-left: 8px;
+                font-size: 10px;
+                color: #fff;
+            }
+        }
+    }
+    .itemAction {
+        font-size: 14px;
+        margin: 0 4px 0 10px;
+        transition: all .5s ease-in-out;   
+    }
+    .itemRarity {
+        font-weight: bold;
+        color: $light-blue-color;
+        position: absolute;
+        top: 6px;
+        right: 12px;
+    }
+
+    &:hover {
+        cursor: pointer;
+        box-shadow: rgb(0 0 0 / 8%) 0px 1px 1px inset, rgb(165 202 234) 0px 0px 12px;
+
+        .itemName {
+            color: $light-green-color;
+        }      
+        .itemAction {
+            color: $warm-red-color;  
+        }
+        .itemCategory {
+            font-weight: bold;
+        }
+    }
+}
+
+.itemDescText {
+    margin-top: 20px;
+    color: #fff;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 1.5rem;
+    font-weight: normal;
+}
+
+.itemImage {
+    margin-top: 40px;
+    img {
+        width: 100%;
+        height: 100%;
+        border: 3px solid #494949;
+        box-shadow: 0 0 7px 0 rgb(255 125 182 / 50%), 0 0 7px 0 rgb(255 125 182 / 50%);
+    }
+}
+
+.bottomAttributes {
+    font-family: Microgramma;
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-start;
+    .categorySmallText { 
+        color: $light-blue-color;
+        text-transform: uppercase;
+        font-weight: normal;
+        font-size: 16px;
+        margin-right: 8px;
+    }
+    .raritySmallText { 
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: normal;
+        font-size: 16px;
+    }
+}
+
+.itemAttributeBlock {
+    margin-top: 60px;
+
+    .blockTitle {
+        font-family: Microgramma;
+        color: #fff;
+        font-size: 24px;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .attributeTable {
+        display: flex;
+
+        .table-attribute {
+            width: 100%;
+            background: none;
+            font-family: Microgramma;
+            color: #fff;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-weight: bold;
+            border: 1px solid #fff;
+            padding: 20px;
+
+            td {
+                padding: 10px;
+                border-bottom: 1px solid hsla(0,0%,100%,.1)!important;
+            }
+        }
+
+
+    }
+}
+
+

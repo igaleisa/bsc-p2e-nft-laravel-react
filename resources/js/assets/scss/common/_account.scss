@@ -1,0 +1,235 @@
+$warm-red-color: #D84646;
+$light-blue-color: #569DBC;
+$light-green-color: #19E378;
+$gray-color: #636363;
+$danger-color: #C24F5E;
+$border-color: rgba(86,157,188,.5);
+
+.account-navbar {
+    font-family: Microgramma;
+    text-transform: uppercase;
+    margin: 30px 20px 20px 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: #fff;
+
+    .account-navbar-item {
+        margin-right: 30px;
+        cursor: pointer;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding-bottom: 3px;
+
+        &.active {
+            border-bottom: 2px solid $warm-red-color;
+            color: $warm-red-color;
+        }
+
+        &:hover {
+            color: $warm-red-color;
+        }
+
+        .account-navbar-item-icon {
+            font-size: 18px;
+        }
+        .account-navbar-item-text {
+            margin-left: 6px;
+            font-size: 14px;
+        }
+    }
+}
+
+.account-block {
+    font-family: Microgramma;
+    text-transform: uppercase;
+    padding: 20px;
+    width: 100%;
+    min-height: 160px;
+    border: 1px solid $gray-color;
+    color: #fff;    
+    font-weight: normal;
+    font-size: 14px;
+    text-align: left;
+
+    .account-name-email {
+        margin-bottom: 20px;
+
+        .account-name-text {
+            font-family: Microgramma;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        .account-email-text {
+            text-transform: lowercase;
+            font-weight: normal;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+    }
+
+    .account-warning {
+        text-transform: uppercase;
+        .account-warning-text {
+            font-family: Microgramma;
+            color: $danger-color;
+            font-size: 18px;
+        }
+        .account-warning-link {
+            cursor: pointer;
+            color: $light-blue-color;
+        }
+    }
+}
+
+.account-attribute {
+    margin: 20px 30px 20px 0px;
+
+    .account-attribute-title {
+        text-decoration: underline;
+        margin-bottom: 10px;
+    }
+
+    .account-attribute-content {
+        &>div:last-child {
+            border: none;
+        }
+        .account-attribute-item {
+            margin-left: 20px;
+            padding: 4px 4px 2px 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 1px solid $border-color;
+        }
+    }
+}
+
+.account-actions-container {
+    display: flex;
+    align-items: center;
+}
+.account-actions-block {
+    padding: 20px;
+    border-left: 1px solid $border-color;
+    @media (max-width: 991px) {
+        border-left: none;
+    }
+    .account-actions-title {
+        margin: 20px 0 10px 0;
+    }
+}
+
+.wideMsg {
+    width: 500px !important;
+}
+
+.referral_link_block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .referral_link_text {
+        font-size: 12px;
+        text-transform: lowercase;        
+    }
+
+    .referral_link_btn {
+        cursor: pointer;
+        margin-left: 10px;
+        font-size: 20px;        
+        padding: 10px;
+        border-radius: 8px;
+
+        &:hover, &:active {
+            background: rgba(255, 255, 255, 0.1);
+        }
+    }
+}
+
+.tfa-block {
+    text-align: center;
+
+    .whiteTitleText {
+        color: #fff;
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .graySmallText {
+        color: $light-blue-color;
+        font-size: 14px;
+    }
+}
+
+.profile-block {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    img {
+        width: 50px;
+        height: 50px;
+        margin-right: 20px;
+    }
+
+    .whiteTitleText {
+        color: #fff;        
+    }
+
+    .smallDescText {
+        color: $light-blue-color
+    }
+}
+
+.badges-block {
+    margin-top: 30px;
+
+    .badges-title {
+        color: $light-blue-color;
+        margin-bottom: 20px;
+    }
+
+    .badges-block-container {
+        width: 100%;
+        padding: 10px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr) );
+        column-gap: 10px;
+        row-gap: 15px;
+
+        .badge-item-block {
+            padding: 0px;
+            min-height: 120px;
+            border: 1px solid $gray-color;
+            text-align: center;
+
+            .badge-item-image {
+                padding: 0 10px 10px 10px;
+                border-bottom: 1px solid $gray-color;
+                img {
+                    width: 96px;
+                    height: 96px;
+                }
+            }
+
+            .badge-item-rarity {
+                font-size: 10px;
+                color: $light-blue-color;
+                padding: 4px;
+            } 
+
+            .badge-item-class {
+                color: #fff;
+                padding: 10px;
+                border-bottom: 1px solid $gray-color;
+            }            
+
+            .badge-item-action {
+                padding: 10px;
+            }
+        }
+    }
+}

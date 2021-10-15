@@ -1,0 +1,37 @@
+.p20 {
+    padding: 20px !important;
+}
+
+.admin-mint-form {
+    padding: 30px 10px 10px 10px;
+
+    .admin-mint-form-header {
+        margin-bottom: 0px !important;
+    }
+}
+
+.mint-preset-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    label {
+        padding-top: 0 !important;
+    }
+
+    .mint-preset-count {
+        div {
+            padding-top: 0 !important;
+        }
+    }
+
+    .msg-success {
+        color: green;
+        padding-top: 20px;
+    }
+
+    .msg-danger {
+        color: red;
+        padding-top: 20px;
+    }
+}
