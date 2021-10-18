@@ -5,10 +5,8 @@ const initState = {
     isEmailVerifyRequired: false,
     isAuthenticated: false,
     isAdmin: false,
-    currentUser: null,
-    token: localStorage.getItem("user-token")
-        ? localStorage.getItem("user-token")
-        : null,
+    currentUserEmail: null,
+    currentUserName: null,
     error: "",    
 };
 
@@ -31,7 +29,8 @@ const AuthReducer = (state = initState, action) => {
                 isEmailVerifyRequired: false,            
                 isAuthenticated: false,
                 isAdmin: false,
-                currentUser: null,
+                currentUserEmail: null,
+                currentUserName: null
             };
         case ActionTypes.LOADING:
             return {
@@ -43,7 +42,8 @@ const AuthReducer = (state = initState, action) => {
                 ...state,
                 isEmailVerifyRequired: true,
                 isAuthenticated: false,
-                currentUser: action.payload.user.email,
+                currentUserEmail: action.payload.user.email,
+                currentUserName: action.payload.user.name,
                 loading: false,
                 error: "",  
             };
@@ -52,10 +52,22 @@ const AuthReducer = (state = initState, action) => {
                 ...state,
                 loading: false,
                 error: action.payload,
-                currentUser: null,
+                currentUserEmail: null,
+                currentUserName: null,
                 isAuthenticated: false,
                 isAdmin: false,
                 isEmailVerifyRequired: false,
+            };
+        case ActionTypes.PROFILE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isEmailVerifyRequired: action.payload.user.emailVerificationRequired,
+                isAuthenticated: action.payload.user.emailVerificationRequired === true ? false : true,
+                isAdmin: action.payload.user.role === "admin",
+                currentUserEmail: action.payload.user.email,
+                currentUserName: action.payload.user.username,
+                error: "",
             };
         case ActionTypes.LOGIN_SUCCESS:
             return {
@@ -64,8 +76,8 @@ const AuthReducer = (state = initState, action) => {
                 isEmailVerifyRequired: action.payload.user.emailVerificationRequired,
                 isAuthenticated: action.payload.user.emailVerificationRequired === true ? false : true,
                 isAdmin: action.payload.user.role === "admin",
-                currentUser: action.payload.user.email,
-                token: action.payload.token,
+                currentUserEmail: action.payload.user.email,
+                currentUserName: action.payload.user.username,
                 error: "",
             };
         case ActionTypes.LOGIN_ERROR:
@@ -73,7 +85,8 @@ const AuthReducer = (state = initState, action) => {
                 ...state,
                 loading: false,
                 error: action.payload.error,
-                currentUser: null,
+                currentUserEmail: null,
+                currentUserName: null,
                 isAuthenticated: false,
                 isAdmin: false,
                 isEmailVerifyRequired: false,
@@ -84,9 +97,9 @@ const AuthReducer = (state = initState, action) => {
                 loading: false,
                 isAuthenticated: false,
                 isAdmin: false,
-                currentUser: null,
-                isEmailVerifyRequired: false,
-                token: null,
+                currentUserEmail: null,
+                currentUserName: null,
+                isEmailVerifyRequired: false,                
                 error: "",
             };
         case ActionTypes.LOGOUT_ERROR:
@@ -97,7 +110,8 @@ const AuthReducer = (state = initState, action) => {
                 isAdmin: false,
                 isEmailVerifyRequired: false,
                 error: action.payload.error,
-                currentUser: null,
+                currentUserEmail: null,
+                currentUserName: null
             }; 
         case ActionTypes.CODE_ERROR:
             return {
@@ -107,8 +121,8 @@ const AuthReducer = (state = initState, action) => {
                 isAdmin: false,
                 isEmailVerifyRequired: false,
                 error: action.payload,
-                currentUser: null,
-                token: null,
+                currentUserEmail: null,
+                currentUserName: null,
             };
         default:
             return state;

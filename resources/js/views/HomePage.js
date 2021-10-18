@@ -47,6 +47,7 @@ import {
   ResetLoadingAction, 
   ResetErrorAction, 
   LogoutAction,
+  UpdateProfileAction,
 } from '@/redux/actions/AuthActions';
 
 import { 
@@ -282,6 +283,7 @@ export default function HomePage() {
       } else {
         GetUserAccountProfileService().then(res => {
           if(res.hasOwnProperty('success') && res.success === true) {
+            dispatch(UpdateProfileAction(res));
             if(res.user.emailVerificationRequired) {
               setPageStatus(PageStatus.VERIFICATION);
             } else {
@@ -296,6 +298,8 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
+    console.log('Checking updated status!');
+    
     if(isAuthenticated) {
       setPageStatus(PageStatus.AUTHORIZED);
     } else if(isEmailVerifyRequired) {

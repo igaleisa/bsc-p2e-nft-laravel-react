@@ -38,6 +38,12 @@ export const RegisterAction = (credentials, history) => {
     }
 }
 
+export const UpdateProfileAction = (data) => {
+    return (dispatch) => {
+        dispatch({type: ActionTypes.PROFILE_SUCCESS, payload: data});
+    }
+}
+
 export const LoginAction = (credentials, history) => {
     return (dispatch) => {
         dispatch({type: ActionTypes.RESTART_AUTH_RESPONSE});
