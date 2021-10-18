@@ -39,9 +39,6 @@ Route::apiResource('tokentypes', TokenTypeController::class)->only(['index']);
 Route::apiResource('badgetypes', BadgeTypeController::class)->only(['index']);
 Route::apiResource('zonetypes', ZoneTypeController::class)->only(['index']);
 
-Route::get('email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify'); // Make sure to keep this as your route name
-Route::get('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
-
 Route::group([
     'middleware' => ['jwt.verify', 'role:user'],
     'prefix' => 'user',  
@@ -60,6 +57,7 @@ Route::group([
     Route::post('/account/profile', [AuthController::class, 'getUserInfo'])->name('account.profile');
     Route::get('/crates/{crate}', [CrateController::class, 'show'])->name('crate.info');
     Route::post('/payment/crate', [PaymentController::class, 'registerCrate'])->name('payment.crate');
+    Route::get('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 });
 
 Route::group([

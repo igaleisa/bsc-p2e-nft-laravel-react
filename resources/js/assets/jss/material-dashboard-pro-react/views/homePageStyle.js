@@ -293,7 +293,8 @@ const homePageStyle = theme => ({
     marginRight: "12px",
   },
   verifyButton: {
-    textAlign: "center"
+    textAlign: "center",
+    marginBottom: "20px"
   },
   authButton: {
     position: "absolute",

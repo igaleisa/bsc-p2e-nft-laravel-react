@@ -2,7 +2,7 @@ import * as ActionTypes from '../ActionTypes';
 
 const initState = {
     loading: false,
-    emailVerfication: false,
+    isEmailVerifyRequired: false,
     isAuthenticated: false,
     isAdmin: false,
     currentUser: null,
@@ -28,7 +28,7 @@ const AuthReducer = (state = initState, action) => {
             return {
                 ...state,   
                 loading: false,
-                emailVerfication: false,            
+                isEmailVerifyRequired: false,            
                 isAuthenticated: false,
                 isAdmin: false,
                 currentUser: null,
@@ -41,7 +41,7 @@ const AuthReducer = (state = initState, action) => {
         case ActionTypes.SIGNUP_SUCCESS:
             return {
                 ...state,
-                emailVerfication: false,
+                isEmailVerifyRequired: true,
                 isAuthenticated: false,
                 currentUser: action.payload.user.email,
                 loading: false,
@@ -55,12 +55,14 @@ const AuthReducer = (state = initState, action) => {
                 currentUser: null,
                 isAuthenticated: false,
                 isAdmin: false,
+                isEmailVerifyRequired: false,
             };
         case ActionTypes.LOGIN_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                isAuthenticated: true,
+                isEmailVerifyRequired: action.payload.user.emailVerificationRequired,
+                isAuthenticated: action.payload.user.emailVerificationRequired ? false : true,
                 isAdmin: action.payload.user.role === "admin",
                 currentUser: action.payload.user.email,
                 token: action.payload.token,
@@ -74,6 +76,7 @@ const AuthReducer = (state = initState, action) => {
                 currentUser: null,
                 isAuthenticated: false,
                 isAdmin: false,
+                isEmailVerifyRequired: false,
             }; 
         case ActionTypes.LOGOUT_SUCCESS:
             return {
@@ -82,6 +85,7 @@ const AuthReducer = (state = initState, action) => {
                 isAuthenticated: false,
                 isAdmin: false,
                 currentUser: null,
+                isEmailVerifyRequired: false,
                 token: null,
                 error: "",
             };
@@ -91,6 +95,7 @@ const AuthReducer = (state = initState, action) => {
                 loading: false,
                 isAuthenticated: false,
                 isAdmin: false,
+                isEmailVerifyRequired: false,
                 error: action.payload.error,
                 currentUser: null,
             }; 
@@ -100,6 +105,7 @@ const AuthReducer = (state = initState, action) => {
                 loading: false,
                 isAuthenticated: false,
                 isAdmin: false,
+                isEmailVerifyRequired: false,
                 error: action.payload,
                 currentUser: null,
                 token: null,

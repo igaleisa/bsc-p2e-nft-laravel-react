@@ -41,7 +41,18 @@ import sendReferralsBanner from "@/assets/img/banners/send_referrals.jpg";
 import homePageStyle from "@/assets/jss/material-dashboard-pro-react/views/homePageStyle.js";
 const useStyles = makeStyles(homePageStyle);
 
-import { RegisterAction, LoginAction, ResetLoadingAction, ResetErrorAction, LogoutAction, } from '@/redux/actions/AuthActions';
+import { 
+  RegisterAction, 
+  LoginAction, 
+  ResetLoadingAction, 
+  ResetErrorAction, 
+  LogoutAction,
+} from '@/redux/actions/AuthActions';
+
+import { 
+  ResendVerificationEmail,
+  GetUserAccountProfileService,
+} from '@/services/UserServices';
 
 export default function HomePage() {
   const PageStatus = {
@@ -55,7 +66,7 @@ export default function HomePage() {
   const history = useHistory();
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { loading, isAuthenticated, isAdmin, emailVerfication, currentUser, error, } = useSelector(
+  const { loading, isAuthenticated, isAdmin, isEmailVerifyRequired, currentUser, error, } = useSelector(
     (state) => state.userAuth
   );
 
@@ -251,6 +262,10 @@ export default function HomePage() {
     return expired;
   }
 
+  const handleResendVerifyEmail = () => {
+    ResendVerificationEmail();
+  }
+
   useEffect(() => {
     dispatch(ResetErrorAction());
     dispatch(ResetLoadingAction());
@@ -271,10 +286,18 @@ export default function HomePage() {
       } else {
         setPageStatus(PageStatus.NONE);
       }
+    } else if(isEmailVerifyRequired) {
+      GetUserAccountProfileService().then(res => {
+        if(res.hasOwnProperty('success') && res.success === true) {
+          if(res.user.emailVerificationRequired) {
+            setPageStatus(PageStatus.VERIFICATION);
+          }
+        }
+      })
     } else {
       setPageStatus(PageStatus.NONE);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, isEmailVerifyRequired]);
 
   useEffect(() => {
     if(isAdmin && isAuthenticated) {
@@ -687,7 +710,7 @@ export default function HomePage() {
                     </p>
                   </div>   
                   <div className={classes.verifyButton}>
-                    <Button color="auth" size="lgAuth" className={classes.marginRight}>
+                    <Button color="auth" size="lgAuth" className={classes.marginRight} onClick={handleResendVerifyEmail}>
                       Resend Verificatioin Email
                     </Button>
                   </div>               

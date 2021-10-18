@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TokenController;
 use App\Http\Controllers\TestMailController;
+use App\Http\Controllers\VerificationController;
 
-use App\Mail\FunnyEmail;
+// use App\Mail\FunnyEmail;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,9 @@ use App\Mail\FunnyEmail;
 
 Route::get('/metadata/{id}', [TokenController::class, 'getMetadata'])->name('metadata');
 
-Route::get('/funny', [TestMailController::class, 'sendTestMail'])->name('testmail');
+// Route::get('/funny', [TestMailController::class, 'sendTestMail'])->name('testmail');
+
+Route::get('email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify'); // Make sure to keep this as your route name
 
 Route::view('/{any}', 'index')->where('any', '.*');
 

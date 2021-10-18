@@ -38,7 +38,7 @@ class User extends Authenticatable implements JWTSubject
         'status',
         'referrer_id',
         'pivot',
-        // 'email_verified_at',
+        'email_verified_at',
         'tfa_code',
         'tfa_code_created_at',
         'created_at',
@@ -96,13 +96,19 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(User::class, 'referrer_id', 'id');
     }
 
-    protected $appends = ['referral_link'];
+    protected $appends = ['referral_link', 'emailVerificationRequired'];
 
     public function getReferralLinkAttribute()
     {
         // return $this->referral_link = route('register', ['ref' => $this->referral_code]);
         return $this->referral_link = $this->referral_code;
-    }    
+    }  
+    
+    public function getEmailVerificationRequiredAttribute()
+    {
+        // return $this->referral_link = route('register', ['ref' => $this->referral_code]);
+        return $this->emailVerificationRequired = $this->email_verified_at ? false : true;
+    }  
 
     public function wallets() {
         return $this->belongsToMany(Wallet::class, 'user_wallets', 'user_id', 'wallet_id');

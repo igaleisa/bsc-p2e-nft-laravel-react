@@ -403,3 +403,16 @@ export const RegisterCratePayment = (data) => {
         return error;;
     })
 }
+
+export const ResendVerificationEmail = () => {
+    const http = new HttpService();
+    let getUrl = "user/email/resend";
+    const tokenId = "user-token";
+
+    return http.getData(getUrl, tokenId).then((data) => {
+        console.log(data);
+        return data;
+    }).catch((error) => {
+        return error;;
+    })
+}
