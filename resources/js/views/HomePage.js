@@ -296,6 +296,16 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
+    if(isAuthenticated) {
+      setPageStatus(PageStatus.AUTHORIZED);
+    } else if(isEmailVerifyRequired) {
+      setPageStatus(PageStatus.VERIFICATION);
+    } else {
+      setPageStatus(PageStatus.NONE);
+    }
+  }, [isAuthenticated, isEmailVerifyRequired]);
+
+  useEffect(() => {
     if(isAdmin && isAuthenticated) {
       history.push('/admin');
     }
