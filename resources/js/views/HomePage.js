@@ -298,8 +298,6 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    console.log('Checking updated status!');
-
     if(isAuthenticated) {
       setPageStatus(PageStatus.AUTHORIZED);
     } else if(isEmailVerifyRequired) {

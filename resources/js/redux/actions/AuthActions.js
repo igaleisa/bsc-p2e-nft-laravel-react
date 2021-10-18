@@ -20,7 +20,6 @@ export const RegisterAction = (credentials, history) => {
 
         RegisterUserService(credentials).then((res) => {
             if(res.hasOwnProperty('success') && res.success === true) {
-                localStorage.setItem('user-token', res.token);
                 dispatch({type: ActionTypes.SIGNUP_SUCCESS, payload: res});
                 history.push('/');
             } else {
