@@ -293,7 +293,7 @@ export default function HomePage() {
     } else {
       setPageStatus(PageStatus.NONE);
     }
-  }, [isAuthenticated, isEmailVerifyRequired]);
+  }, []);
 
   useEffect(() => {
     if(isAdmin && isAuthenticated) {
