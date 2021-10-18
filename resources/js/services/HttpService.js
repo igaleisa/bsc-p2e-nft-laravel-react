@@ -1,7 +1,7 @@
 export default class HttpService
 {
-    url = "http://portal.umbrellaproject.localhost/api";
-    // url = "https://portal.umbrellaproject.cc/api";
+    // url = "http://portal.umbrellaproject.localhost/api";
+    url = "https://portal.umbrellaproject.cc/api";
 
     postData = async(item, added_url, tokenId="") => {
         const token = await localStorage.getItem(tokenId);
