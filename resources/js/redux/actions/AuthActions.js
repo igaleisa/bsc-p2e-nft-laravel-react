@@ -13,7 +13,7 @@ export const ResetErrorAction = () => {
     };
 };
 
-export const RegisterAction = (credentials) => {
+export const RegisterAction = (credentials, history) => {
     return (dispatch) => {
         dispatch({type: ActionTypes.RESTART_AUTH_RESPONSE});
         dispatch({type: ActionTypes.LOADING});
