@@ -96,11 +96,24 @@ class AuthController extends Controller
 
         $user->sendEmailVerificationNotification();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'User successfully registered',
-            'user' => $user
-        ], 201);
+        $credentials = request(['email', 'password']);
+
+        if(!$token = auth()->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        if(auth()->user()->status == 'banned') {
+            auth()->logout();
+            return response()->json(['error' => 'The account was banned'], 401);
+        }
+
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => 'User successfully registered',
+        //     'user' => $user
+        // ], 201);
+
+        return $this->createNewToken($token);
     }
 
     /**
