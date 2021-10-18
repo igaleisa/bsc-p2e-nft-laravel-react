@@ -94,7 +94,7 @@ class AuthController extends Controller
                     ]
                 ));
 
-        // $user->sendEmailVerificationNotification();
+        $user->sendEmailVerificationNotification();
 
         return response()->json([
             'success' => true,
