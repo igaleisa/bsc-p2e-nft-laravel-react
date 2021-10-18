@@ -276,24 +276,20 @@ export default function HomePage() {
   }, [error]);
 
   useEffect(() => {
-    if(isAuthenticated) {
-      if(localStorage.getItem("user-token")) {
-        if(isTokenExpired(localStorage.getItem("user-token"))) {
-          setPageStatus(PageStatus.NONE);
-        } else {
-          setPageStatus(PageStatus.AUTHORIZED);
-        }
-      } else {
+    if(localStorage.getItem("user-token")) {
+      if(isTokenExpired(localStorage.getItem("user-token"))) {
         setPageStatus(PageStatus.NONE);
-      }
-    } else if(isEmailVerifyRequired) {
-      GetUserAccountProfileService().then(res => {
-        if(res.hasOwnProperty('success') && res.success === true) {
-          if(res.user.emailVerificationRequired) {
-            setPageStatus(PageStatus.VERIFICATION);
+      } else {
+        GetUserAccountProfileService().then(res => {
+          if(res.hasOwnProperty('success') && res.success === true) {
+            if(res.user.emailVerificationRequired) {
+              setPageStatus(PageStatus.VERIFICATION);
+            } else {
+              setPageStatus(PageStatus.AUTHORIZED);
+            }
           }
-        }
-      })
+        })
+      }
     } else {
       setPageStatus(PageStatus.NONE);
     }

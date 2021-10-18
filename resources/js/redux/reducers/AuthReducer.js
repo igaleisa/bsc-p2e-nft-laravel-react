@@ -62,7 +62,7 @@ const AuthReducer = (state = initState, action) => {
                 ...state,
                 loading: false,
                 isEmailVerifyRequired: action.payload.user.emailVerificationRequired,
-                isAuthenticated: action.payload.user.emailVerificationRequired ? false : true,
+                isAuthenticated: action.payload.user.emailVerificationRequired === true ? false : true,
                 isAdmin: action.payload.user.role === "admin",
                 currentUser: action.payload.user.email,
                 token: action.payload.token,
