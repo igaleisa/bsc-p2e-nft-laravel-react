@@ -67,7 +67,7 @@ export default function HomePage() {
   const history = useHistory();
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { loading, isAuthenticated, isAdmin, isEmailVerifyRequired, currentUser, error, } = useSelector(
+  const { loading, isAuthenticated, isAdmin, isEmailVerifyRequired, currentUserEmail, error, } = useSelector(
     (state) => state.userAuth
   );
 
@@ -299,7 +299,7 @@ export default function HomePage() {
 
   useEffect(() => {
     console.log('Checking updated status!');
-    
+
     if(isAuthenticated) {
       setPageStatus(PageStatus.AUTHORIZED);
     } else if(isEmailVerifyRequired) {
@@ -715,7 +715,7 @@ export default function HomePage() {
                 <div className={classes.loginBlock}>
                   <div className={classes.welcomTitle}>Verify your email to proceed</div>
                   <div className={classes.welcomTextContent}>
-                    <p>We just sent an email to the address: {currentUser}<br/>
+                    <p>We just sent an email to the address: {currentUserEmail}<br/>
                     Please check your email and click on the link provided to verify your address.
                     </p>
                   </div>   
