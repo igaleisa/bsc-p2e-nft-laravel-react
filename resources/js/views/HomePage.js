@@ -277,8 +277,9 @@ export default function HomePage() {
   }, [error]);
 
   useEffect(() => {
-    if(localStorage.getItem("user-token")) {
-      if(isTokenExpired(localStorage.getItem("user-token"))) {
+    const userToken = localStorage.getItem("user-token");
+    if(userToken !== undefined && userToken !== null) {
+      if(isTokenExpired(userToken)) {
         setPageStatus(PageStatus.NONE);
       } else {
         GetUserAccountProfileService().then(res => {
