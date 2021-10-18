@@ -24,7 +24,7 @@ const pagesStyle = theme => ({
     backgroundPosition: "center center",
     height: "100%",
     [theme.breakpoints.down("sm")]: {
-      minHeight: "700px!important"
+      // minHeight: "700px!important"
     },
     "& footer": {
       position: "absolute",

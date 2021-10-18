@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MintController;
 use App\Http\Controllers\TokenController;
+use App\Http\Controllers\TestMailController;
+
+use App\Mail\FunnyEmail;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,4 +19,7 @@ use App\Http\Controllers\TokenController;
 
 Route::get('/metadata/{id}', [TokenController::class, 'getMetadata'])->name('metadata');
 
+Route::get('/funny', [TestMailController::class, 'sendTestMail'])->name('testmail');
+
 Route::view('/{any}', 'index')->where('any', '.*');
+

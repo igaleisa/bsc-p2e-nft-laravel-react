@@ -383,14 +383,14 @@ class Sidebar extends React.Component {
     var brand = (
       <div className={logoClasses}>
         <a
-          href="http://umbrella.localhost/admin/"
+          href={process.env.MIX_APP_URL + 'admin'}
           target="_blank"
           className={logoMini}
         >
           <img src={logo} alt="logo" className={classes.img} />
         </a>
         <a
-          href="http://umbrella.localhost/admin/"
+          href={process.env.MIX_APP_URL + 'admin'}
           target="_blank"
           className={logoNormal}
         >

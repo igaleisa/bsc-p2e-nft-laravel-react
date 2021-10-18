@@ -1,6 +1,7 @@
 $light-green-color: #5FFE82;
 $dark-gray-color: #848484;
 $dark-red-color: #BB0400;
+$screen-sm: 768px !default;
 
 .backdrop {
     z-Index: 99999 !important;
@@ -29,6 +30,10 @@ $dark-red-color: #BB0400;
         background-size: cover;
         flex-wrap: nowrap !important;
         flex-direction: row;
+        @media (max-width: $screen-sm) {
+            flex-direction: column;
+            margin-top: 50px !important;
+        }
         justify-content: center;
         align-items: stretch;
 
@@ -46,6 +51,9 @@ $dark-red-color: #BB0400;
             background-clip: border-box;
             border: 1px solid rgba(0,0,0,.125);
             border-radius: .25rem;
+            @media (max-width: $screen-sm) {
+                transform: scaleX(1.2);
+            }
 
             &:hover {
                 cursor: pointer;
@@ -69,6 +77,11 @@ $dark-red-color: #BB0400;
                 text-align: center;
                 opacity: 0.9;
                 filter: blur(1.5px);
+                @media (max-width: $screen-sm) {
+                    -webkit-filter: blur(0);
+                    -moz-filter: blur(0);
+                    -ms-filter: blur(0);
+                }
 
                 &:hover {
                     opacity: 1;
@@ -115,12 +128,15 @@ $dark-red-color: #BB0400;
         }
 
         .survivor-1 {
+            @media (max-width: $screen-sm) {
+                background-image: url(/images/crates/survivor-1.jpg);
+            } 
             .card-title {
                 letter-spacing: 0.2rem;
                 font-size: 3.5vw;
                 font-weight: 900;
                 font-family: Resident;
-                color: #e6232a;                
+                color: #e6232a;                            
             }
             &:hover {
                 background-image: url(/images/crates/survivor-1.jpg);
@@ -128,6 +144,9 @@ $dark-red-color: #BB0400;
         }
 
         .survivor-2 {
+            @media (max-width: $screen-sm) {
+                background-image: url(/images/crates/survivor-2.jpg);
+            } 
             .card-title {
                 letter-spacing: 0.2rem;
                 font-size: 3.5vw;
@@ -141,6 +160,9 @@ $dark-red-color: #BB0400;
         }
 
         .scientist-1 {
+            @media (max-width: $screen-sm) {
+                background-image: url(/images/crates/scientist-1.jpg);
+            } 
             .card-title {
                 font-size: 2.5vw;
                 font-family: Microgramma;
@@ -153,6 +175,9 @@ $dark-red-color: #BB0400;
         }
 
         .scientist-2 {
+            @media (max-width: $screen-sm) {
+                background-image: url(/images/crates/scientist-2.jpg);
+            } 
             .card-title {
                 font-size: 2.5vw;
                 font-family: Microgramma;
@@ -270,6 +295,10 @@ $dark-red-color: #BB0400;
         font-weight: bold;
         border-radius: 0 !important;
         opacity: 0.75;
+        @media (max-width: $screen-sm) {
+            font-size: 12px !important;
+            padding: 6px 12px !important
+        }
     }
 
     .block-header {
@@ -278,6 +307,10 @@ $dark-red-color: #BB0400;
         align-items: flex-end;
         min-height: 160px;
         padding: 20px 60px 10px 60px;
+        @media (max-width: $screen-sm) {
+            padding: 30px 10px 10px 10px;
+            min-height: unset;
+        }
 
         .header-left {
             display: flex;
@@ -290,6 +323,9 @@ $dark-red-color: #BB0400;
                 align-items: baseline;
                 text-transform: uppercase;
                 margin-bottom: 12px;
+                @media (max-width: $screen-sm) {
+                    margin-bottom: -8px !important;
+                }
 
                 .top-category {
                     font-family: Resident;
@@ -317,6 +353,11 @@ $dark-red-color: #BB0400;
             justify-content: center;
             align-items: baseline;
             margin-bottom: 10px;
+
+            @media (max-width: $screen-sm) {
+                flex-direction: column;
+                align-items: center;
+            }
 
             .crate-type {
                 font-family: Resident;

@@ -46,7 +46,8 @@ import sendReferralsBanner from "@/assets/img/banners/send_referrals.jpg";
 import homePageStyle from "@/assets/jss/material-dashboard-pro-react/views/homePageStyle.js";
 const useStyles = makeStyles(homePageStyle);
 
-import { RegisterAction, LoginAction, ResetLoadingAction, ResetErrorAction, } from '@/redux/actions/AuthActions';
+import { RegisterAction, LoginAction, ResetLoadingAction, ResetErrorAction, LogoutAction, } from '@/redux/actions/AuthActions';
+import { WalletDisconnectAction, } from '@/redux/actions/WalletActions';
 
 export default function HomePage() {
   const PageStatus = {
@@ -75,6 +76,8 @@ export default function HomePage() {
   useEffect(() => {
     if(isAuthenticated) {
       setPageStatus(PageStatus.AUTHORIZED);
+    } else {
+      setPageStatus(PageStatus.NONE);
     }
   }, [isAuthenticated]);
 
@@ -83,6 +86,37 @@ export default function HomePage() {
       history.push('/admin');
     }
   }, [isAdmin]);
+
+  const isTokenExpired = (token) => {
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
+  
+    const { exp } = JSON.parse(jsonPayload);
+    const expired = Date.now() >= exp * 1000
+    return expired;
+  }
+
+  useEffect(() => {
+    if(localStorage.getItem("user-token")) {
+      if(isTokenExpired(localStorage.getItem("user-token"))) {
+        console.log('Token Expired!');
+        localStorage.removeItem('user-token');
+        dispatch(LogoutAction(history));
+        dispatch(WalletDisconnectAction());
+      }
+    } else {
+      dispatch(LogoutAction(history));
+      dispatch(WalletDisconnectAction());
+    }
+  }, [])
 
   const [pageStatus, setPageStatus] = useState(PageStatus.NONE);
 
@@ -754,27 +788,52 @@ export default function HomePage() {
                     <GridItem xs={12} sm={12} md={1}></GridItem>
                     <GridItem xs={4} sm={4} md={2}>
                       <div className={classes.socialIcon}>
-                        <i className="fab fa-discord"></i>
+                        <a
+                          href={process.env.MIX_SOCIAL_DISCORD}
+                          target="_blank"
+                        >
+                          <i className="fab fa-discord"></i>
+                        </a>                        
                       </div>
                     </GridItem>
                     <GridItem xs={4} sm={4} md={2}>
                       <div className={classes.socialIcon}>
-                        <i className="fab fa-twitter" />
+                        <a
+                          href={process.env.MIX_SOCIAL_TWITTER}
+                          target="_blank"
+                        >
+                          <i className="fab fa-twitter" />
+                        </a>  
                       </div>
                     </GridItem>
                     <GridItem xs={4} sm={4} md={2}>
                       <div className={classes.socialIcon}>
-                        <i className="fab fa-telegram-plane"></i>
+                        <a
+                          href={process.env.MIX_SOCIAL_TELEGRAM}
+                          target="_blank"
+                        >
+                          <i className="fab fa-telegram-plane"></i>
+                        </a>                        
                       </div>
                     </GridItem>
                     <GridItem xs={6} sm={6} md={2}>
                       <div className={classes.socialIcon}>
-                        <i className="fab fa-instagram"></i>
+                        <a
+                          href={process.env.MIX_SOCIAL_INSTAGRAM}
+                          target="_blank"
+                        >
+                          <i className="fab fa-instagram"></i>
+                        </a>                        
                       </div>
                     </GridItem>
                     <GridItem xs={6} sm={6} md={2}>
                       <div className={classes.socialIcon}>
-                        <i className="fab fa-reddit-alien"></i>
+                        <a
+                          href={process.env.MIX_SOCIAL_REDDIT}
+                          target="_blank"
+                        >
+                          <i className="fab fa-reddit-alien"></i>
+                        </a>                        
                       </div>
                     </GridItem>
                     <GridItem xs={12} sm={12} md={1}></GridItem>

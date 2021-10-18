@@ -29,6 +29,9 @@ import ConnectWallet from "@/components/Connect/ConnectWallet";
 import styles from "@/assets/jss/material-dashboard-pro-react/components/userNavbarStyle.js";
 const useStyles = makeStyles(styles);
 
+import { LogoutAction } from '@/redux/actions/AuthActions';
+import { WalletDisconnectAction, } from '@/redux/actions/WalletActions';
+
 export default function UserNavbar(props) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -153,8 +156,12 @@ export default function UserNavbar(props) {
       if(isTokenExpired(localStorage.getItem("user-token"))) {
         console.log('Token Expired!');
         localStorage.removeItem('user-token');
-        history.push('/');
+        dispatch(LogoutAction(history));
+        dispatch(WalletDisconnectAction());
       }
+    } else {
+      dispatch(LogoutAction(history));
+      dispatch(WalletDisconnectAction());
     }
   }, [])
   
