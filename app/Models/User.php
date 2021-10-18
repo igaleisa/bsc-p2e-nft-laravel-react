@@ -38,7 +38,7 @@ class User extends Authenticatable implements JWTSubject
         'status',
         'referrer_id',
         'pivot',
-        'email_verified_at',
+        // 'email_verified_at',
         'tfa_code',
         'tfa_code_created_at',
         'created_at',

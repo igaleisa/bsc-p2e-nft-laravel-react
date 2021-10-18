@@ -11,12 +11,12 @@
         <script defer src="/js/vendor.js"></script>
         <script defer src="/js/app.js"></script>
 
-        <!-- <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> -->
-        <!-- <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" /> -->
+        <!-- <link rel="manifest" href="/manifest.json" /> -->
+        <link rel="shortcut icon" href="/favicon.ico" />
         <link
         rel="apple-touch-icon"
         sizes="76x76"
-        href="%PUBLIC_URL%/apple-icon.png"
+        href="/apple-icon.png"
         />
         <link
         rel="stylesheet"

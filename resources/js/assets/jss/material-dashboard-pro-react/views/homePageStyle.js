@@ -43,6 +43,20 @@ const homePageStyle = theme => ({
     textAlign: "right",
     fontWeight: "bold"
   },
+  welcomTextContent: {
+    margin: "30px 0px",
+    fontFamily: 'Microgramma',
+    color: grayColor[19],
+    fontSize: "18px",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "16px",
+    },
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "10px",
+    },
+    textAlign: "center",
+    fontWeight: "normal"
+  },
   authCardTitle: {
     fontFamily: 'Microgramma',
     color: whiteColor,
@@ -277,6 +291,9 @@ const homePageStyle = theme => ({
     width: "30px",
     color: "inherit",
     marginRight: "12px",
+  },
+  verifyButton: {
+    textAlign: "center"
   },
   authButton: {
     position: "absolute",

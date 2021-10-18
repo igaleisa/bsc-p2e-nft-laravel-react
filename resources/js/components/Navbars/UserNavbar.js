@@ -152,18 +152,19 @@ export default function UserNavbar(props) {
   }
 
   useEffect(() => {
-    if(localStorage.getItem("user-token")) {
-      if(isTokenExpired(localStorage.getItem("user-token"))) {
-        console.log('Token Expired!');
-        localStorage.removeItem('user-token');
+    if(isAuthenticated) {
+      if(localStorage.getItem("user-token")) {
+        if(isTokenExpired(localStorage.getItem("user-token"))) {
+          localStorage.removeItem('user-token');
+          dispatch(LogoutAction(history));
+          dispatch(WalletDisconnectAction());
+        }
+      } else {
         dispatch(LogoutAction(history));
         dispatch(WalletDisconnectAction());
       }
-    } else {
-      dispatch(LogoutAction(history));
-      dispatch(WalletDisconnectAction());
     }
-  }, [])
+  }, [isAuthenticated])
   
   return (
     <AppBar position="static" className={classes.appBar + appBarClasses}>

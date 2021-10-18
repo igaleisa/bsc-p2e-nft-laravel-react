@@ -17,6 +17,7 @@ use App\Http\Controllers\BadgeTypeController;
 use App\Http\Controllers\ZoneTypeController;
 use App\Http\Controllers\PresetController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,9 @@ Route::apiResource('categories', CategoryController::class)->only(['index']);
 Route::apiResource('tokentypes', TokenTypeController::class)->only(['index']);
 Route::apiResource('badgetypes', BadgeTypeController::class)->only(['index']);
 Route::apiResource('zonetypes', ZoneTypeController::class)->only(['index']);
+
+Route::get('email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify'); // Make sure to keep this as your route name
+Route::get('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
 Route::group([
     'middleware' => ['jwt.verify', 'role:user'],

@@ -2,6 +2,7 @@ import * as ActionTypes from '../ActionTypes';
 
 const initState = {
     loading: false,
+    emailVerfication: false,
     isAuthenticated: false,
     isAdmin: false,
     currentUser: null,
@@ -26,7 +27,8 @@ const AuthReducer = (state = initState, action) => {
         case ActionTypes.RESTART_AUTH_RESPONSE:
             return {
                 ...state,   
-                loading: false,             
+                loading: false,
+                emailVerfication: false,            
                 isAuthenticated: false,
                 isAdmin: false,
                 currentUser: null,
@@ -39,6 +41,9 @@ const AuthReducer = (state = initState, action) => {
         case ActionTypes.SIGNUP_SUCCESS:
             return {
                 ...state,
+                emailVerfication: false,
+                isAuthenticated: false,
+                currentUser: action.payload.user.email,
                 loading: false,
                 error: "",  
             };
@@ -46,6 +51,10 @@ const AuthReducer = (state = initState, action) => {
             return {
                 ...state,
                 loading: false,
+                error: action.payload,
+                currentUser: null,
+                isAuthenticated: false,
+                isAdmin: false,
             };
         case ActionTypes.LOGIN_SUCCESS:
             return {

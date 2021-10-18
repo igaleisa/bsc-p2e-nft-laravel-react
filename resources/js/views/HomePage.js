@@ -6,13 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from "@material-ui/core/styles";
 
 // @material-ui/icons
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import Business from "@material-ui/icons/Business";
-import AccountBalance from "@material-ui/icons/AccountBalance";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Dashboard from "@material-ui/icons/Dashboard";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Close from "@material-ui/icons/Close";
 import Check from "@material-ui/icons/Check";
@@ -47,76 +42,22 @@ import homePageStyle from "@/assets/jss/material-dashboard-pro-react/views/homeP
 const useStyles = makeStyles(homePageStyle);
 
 import { RegisterAction, LoginAction, ResetLoadingAction, ResetErrorAction, LogoutAction, } from '@/redux/actions/AuthActions';
-import { WalletDisconnectAction, } from '@/redux/actions/WalletActions';
 
 export default function HomePage() {
   const PageStatus = {
     NONE: 0,
     LOGIN: 1,
     REGISTER: 2,
-    AUTHORIZED: 3,
+    VERIFICATION: 3,
+    AUTHORIZED: 4,
   };
 
   const history = useHistory();
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { loading, isAuthenticated, isAdmin, currentUser, token, error, } = useSelector(
+  const { loading, isAuthenticated, isAdmin, emailVerfication, currentUser, error, } = useSelector(
     (state) => state.userAuth
   );
-
-  useEffect(() => {
-    dispatch(ResetErrorAction());
-    dispatch(ResetLoadingAction());
-  }, []);
-
-  useEffect(() => {
-    dispatch(ResetLoadingAction());
-  }, [error]);
-
-  useEffect(() => {
-    if(isAuthenticated) {
-      setPageStatus(PageStatus.AUTHORIZED);
-    } else {
-      setPageStatus(PageStatus.NONE);
-    }
-  }, [isAuthenticated]);
-
-  useEffect(() => {
-    if(isAdmin && isAuthenticated) {
-      history.push('/admin');
-    }
-  }, [isAdmin]);
-
-  const isTokenExpired = (token) => {
-    const base64Url = token.split(".")[1];
-    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-    const jsonPayload = decodeURIComponent(
-      atob(base64)
-        .split("")
-        .map(function (c) {
-          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-        })
-        .join("")
-    );
-  
-    const { exp } = JSON.parse(jsonPayload);
-    const expired = Date.now() >= exp * 1000
-    return expired;
-  }
-
-  useEffect(() => {
-    if(localStorage.getItem("user-token")) {
-      if(isTokenExpired(localStorage.getItem("user-token"))) {
-        console.log('Token Expired!');
-        localStorage.removeItem('user-token');
-        dispatch(LogoutAction(history));
-        dispatch(WalletDisconnectAction());
-      }
-    } else {
-      dispatch(LogoutAction(history));
-      dispatch(WalletDisconnectAction());
-    }
-  }, [])
 
   const [pageStatus, setPageStatus] = useState(PageStatus.NONE);
 
@@ -129,6 +70,9 @@ export default function HomePage() {
   const [userPasswordState, setUserPasswordState] = React.useState("");
   const [userConfirmPassword, setUserConfirmPassword] = React.useState("");
   const [userConfirmPasswordState, setUserConfirmPasswordState] = React.useState("");
+
+  // referral code
+  const [userReferralCode, setUserReferralCode] = React.useState("");
 
   // validation functions
   const verifyLength = (value, length) => {
@@ -218,19 +162,19 @@ export default function HomePage() {
 
   const validateRegisterForm = () => {
     let result = true;
-    if (userNameState === "") {
+    if (userNameState !== "success") {
       setUserNameState("error");
       result = false;
     }   
-    if (userEmailState === "") {
+    if (userEmailState !== "success") {
       setUserEmailState("error");
       result = false;
     }   
-    if (userPasswordState === "") {
+    if (userPasswordState !== "success") {
       setUserPasswordState("error");
       result = false;
     }   
-    if (userConfirmPasswordState === "") {
+    if (userConfirmPasswordState !== "success") {
       setUserConfirmPasswordState("error");
       result = false;
     }    
@@ -263,6 +207,15 @@ export default function HomePage() {
     if(!validateRegisterForm()) {
       return;
     }
+
+    dispatch(RegisterAction({
+        username: userName,
+        email: userEmail,
+        password: userPassword,
+        password_confirmation: userConfirmPassword,
+        referrer: userReferralCode
+      }, history
+    ));
   };  
 
   const handleLoginSubmit = () => {
@@ -280,6 +233,64 @@ export default function HomePage() {
   const goToBioCrates = () => {
     history.push('/crates');
   };
+
+  const isTokenExpired = (token) => {
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
+  
+    const { exp } = JSON.parse(jsonPayload);
+    const expired = Date.now() >= exp * 1000
+    return expired;
+  }
+
+  useEffect(() => {
+    dispatch(ResetErrorAction());
+    dispatch(ResetLoadingAction());
+  }, []);
+
+  useEffect(() => {
+    dispatch(ResetLoadingAction());
+  }, [error]);
+
+  useEffect(() => {
+    if(isAuthenticated) {
+      if(localStorage.getItem("user-token")) {
+        if(isTokenExpired(localStorage.getItem("user-token"))) {
+          setPageStatus(PageStatus.NONE);
+        } else {
+          setPageStatus(PageStatus.AUTHORIZED);
+        }
+      } else {
+        setPageStatus(PageStatus.NONE);
+      }
+    } else {
+      setPageStatus(PageStatus.NONE);
+    }
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    if(isAdmin && isAuthenticated) {
+      history.push('/admin');
+    }
+  }, [isAdmin]);
+
+  useEffect(() => {
+    const search = window.location.search;
+    const params = new URLSearchParams(search);
+    const referral_code = params.get('referral');
+    if(referral_code !== '' && referral_code !== null) {
+      console.log(referral_code);
+      setUserReferralCode(referral_code);
+    }
+  }, [])
 
   return (
     <div className={classes.container}> 
@@ -312,7 +323,7 @@ export default function HomePage() {
           )}
         </GridItem>
       </GridContainer>
-        { pageStatus === PageStatus.NONE ? (
+      { pageStatus === PageStatus.NONE ? (
       <GridContainer justifyContent="center">
         <GridItem xs={12} sm={12} md={6}>
           <Card main>
@@ -499,7 +510,10 @@ export default function HomePage() {
                     <Button color="auth" size="lgAuth" className={classes.formButton} onClick={handleRegisterSubmit}>
                       REGISTER
                     </Button>
-                  </div>
+                  </div> 
+                  <div className={classes.errorMsg}>
+                    { error !== '' ? error : ''}
+                  </div>                 
                 </form>
               </div>
             </CardBody>
@@ -660,7 +674,29 @@ export default function HomePage() {
           </Card>
         </GridItem>
       </GridContainer>      
-      ) : pageStatus === PageStatus.AUTHORIZED ? (
+      ) : pageStatus === PageStatus.VERIFICATION ? (
+        <GridContainer justifyContent="center">
+          <GridItem xs={12} sm={12} md={12}>
+            <Card main>
+              <CardBody border>
+                <div className={classes.loginBlock}>
+                  <div className={classes.welcomTitle}>Verify your email to proceed</div>
+                  <div className={classes.welcomTextContent}>
+                    <p>We just sent an email to the address: {currentUser}<br/>
+                    Please check your email and click on the link provided to verify your address.
+                    </p>
+                  </div>   
+                  <div className={classes.verifyButton}>
+                    <Button color="auth" size="lgAuth" className={classes.marginRight}>
+                      Resend Verificatioin Email
+                    </Button>
+                  </div>               
+                </div>
+              </CardBody>
+            </Card>
+          </GridItem>
+        </GridContainer>      
+        ) : pageStatus === PageStatus.AUTHORIZED ? (
       <GridContainer justifyContent="center">
         <GridItem xs={12} sm={12} md={6}>
           <Card main>

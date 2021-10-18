@@ -6,7 +6,7 @@ import WalletReducer from "./WalletReducer";
 const RootReducer = combineReducers({
     userAuth: AuthReducer,
     userWallet: WalletReducer,
-    userDetails: ProfileReducer,
+    // userDetails: ProfileReducer,
 });
 
 export default RootReducer;

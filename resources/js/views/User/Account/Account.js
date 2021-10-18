@@ -112,11 +112,13 @@ export default function AccountPage() {
     };
 
     const handleReferralLinkCopy = () => {
-        if(userProfile)
+        if(userProfile) {
+            console.log(referral_link);
             navigator.clipboard.writeText(referral_link + userProfile.referral_link);
+        }
     }
 
-    const referral_link = process.env.MIX_APP_URL + 'referral/';
+    const referral_link = process.env.MIX_APP_URL + '?referral=';
     const handleReferral = () => {
         setAlert(
             <SweetAlert

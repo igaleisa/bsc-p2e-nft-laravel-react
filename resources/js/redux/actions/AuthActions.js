@@ -20,9 +20,17 @@ export const RegisterAction = (credentials) => {
 
         RegisterUserService(credentials).then((res) => {
             if(res.hasOwnProperty('success') && res.success === true) {
+                localStorage.setItem('user-token', res.token);
                 dispatch({type: ActionTypes.SIGNUP_SUCCESS, payload: res});
-            } else if(res.hasOwnProperty('success') && res.success === false) {
-                dispatch({type: ActionTypes.SIGNUP_ERROR, payload: res});
+                history.push('/');
+            } else {
+                let errMsg = res;
+                if(res.hasOwnProperty('username')) {
+                    errMsg = res.username[0];
+                } else if(res.hasOwnProperty('email')) {
+                    errMsg = res.email[0];
+                }
+                dispatch({type: ActionTypes.SIGNUP_ERROR, payload: errMsg});
             }
         }, error => {
             dispatch({type : ActionTypes.CODE_ERROR, payload: error})
@@ -37,7 +45,7 @@ export const LoginAction = (credentials, history) => {
 
         LoginUserService(credentials).then((res) => {
             if(res.hasOwnProperty('success') && res.success === true) {
-                localStorage.setItem('user-token', res.token)
+                localStorage.setItem('user-token', res.token);
                 dispatch({type: ActionTypes.LOGIN_SUCCESS, payload: res});
                 if(res.user.role === "admin") {
                     history.push('/admin');
@@ -72,6 +80,7 @@ const isTokenExpired = (token) => {
 
 export const LogoutAction = (history) => {
     return (dispatch) => {
+        console.log('LogoutAction');
         dispatch({type: ActionTypes.RESTART_AUTH_RESPONSE});
 
         if(localStorage.getItem("user-token")) {

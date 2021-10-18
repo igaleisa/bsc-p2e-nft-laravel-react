@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, generatePath } from "react-router-dom";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,6 +15,8 @@ import styles from "@/assets/jss/material-dashboard-pro-react/layouts/mainStyle.
 import backImage from "@/assets/img/crushpixel-1995899.png";
 
 const useStyles = makeStyles(styles);
+
+import { UserGuard } from "@/guard.js";
 
 export default function Pages(props) {
   const { ...rest } = props;
@@ -33,15 +35,27 @@ export default function Pages(props) {
       if (prop.collapse) {
         return getRoutes(prop.views);
       }
-      if (prop.layout === "/user") {         
-        return (
-          <Route
-            exact            
-            path={prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
+      if (prop.layout === "/user") {   
+        if (prop.path === "/")       {
+          return (
+            <Route
+              exact            
+              path={prop.path}
+              component={prop.component}
+              key={key}
+            />
+          );
+        } else {
+          return (
+            <UserGuard
+              exact
+              routeRedirect="/"
+              path={prop.path}
+              component={prop.component}
+              key={key}
+            />
+          );
+        }
       } else {
         return null;
       }
@@ -57,7 +71,7 @@ export default function Pages(props) {
         >
           <Switch>
             {getRoutes(routes)}
-            {/* <Redirect from="/" to="/" /> */}
+            {/* <Redirect from="/" to={generatePath("/", {m: props.match.params.m,})} /> */}
           </Switch>
           {/* <Footer white /> */}
         </div>

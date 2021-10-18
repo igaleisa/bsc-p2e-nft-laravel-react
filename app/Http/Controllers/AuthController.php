@@ -72,7 +72,7 @@ class AuthController extends Controller
             'username' => 'required|string|between:6,30|unique:users',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|confirmed|min:6',
-            'referrer' => 'string|between:6, 100',
+            // 'referrer' => 'string|between:6, 100',
         ]);
 
         if($validator->fails()){
@@ -82,8 +82,8 @@ class AuthController extends Controller
         $validated = $validator->validated();
 
         $referrer = null;
-        if(isset($validated['referrer']))
-            $referrer = User::where('referral_code', $validated['referrer'])->first();
+        if($request['referrer'] != '')
+            $referrer = User::where('referral_code', $request['referrer'])->first();
 
         $user = User::create(array_merge(
                     $validator->validated(),
@@ -93,6 +93,8 @@ class AuthController extends Controller
                         'referral_code' => Str::uuid(),
                     ]
                 ));
+
+        $user->sendEmailVerificationNotification();
 
         return response()->json([
             'message' => 'User successfully registered',

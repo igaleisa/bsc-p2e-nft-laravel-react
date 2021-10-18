@@ -32,6 +32,6 @@ export const UserGuard = ({
     return isAuthenticated === true ? (
         <Route exact path={path} component={component} {...rest} />
     ) : (
-        <Redirect to={{pathname:routeRedirect}} />
+        <Redirect to={{pathname:routeRedirect}} {...rest} />
     );
 };
