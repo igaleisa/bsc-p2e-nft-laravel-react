@@ -3,7 +3,7 @@
 @import "_colors";
 
 // Typography elements
-$mdb-font-family: "Roboto", "Helvetica", "Arial", sans-serif !default;
+$mdb-font-family: "Microgramma", "Roboto", "Helvetica", "Arial", sans-serif !default;
 $mdb-text-color-light: $white !default;
 $mdb-text-color-light-hex: $white !default; // for contrast function in inverse
 $mdb-text-color-primary: unquote("rgba(#{$rgb-black}, 0.87)") !default;
@@ -39,8 +39,8 @@ $border-radius-label: 12px !default;
 $border-radius-extreme: 30px !default;
 
 // Typography
-$font-family-sans-serif: "Roboto", "Helvetica", "Arial", sans-serif !default;
-$font-family-serif: "Roboto Slab", "Times New Roman", serif !default;
+$font-family-sans-serif: "Microgramma", "Roboto", "Helvetica", "Arial", sans-serif !default;
+$font-family-serif: "Microgramma", "Roboto Slab", "Times New Roman", serif !default;
 
 $headings-font-weight: 300 !default;
 
