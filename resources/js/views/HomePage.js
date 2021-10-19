@@ -267,6 +267,11 @@ export default function HomePage() {
     ResendVerificationEmail();
   }
 
+  const handleForgotLink = (e) => {
+    e.preventDefault(); 
+    history.push('/forgot');
+  }
+
   useEffect(() => {
     dispatch(ResetErrorAction());
     dispatch(ResetLoadingAction());
@@ -629,7 +634,20 @@ export default function HomePage() {
                           </InputAdornment>
                         ) : undefined
                     }}
-                  />      
+                  /> 
+                  <div
+                    className={
+                      classes.checkboxAndRadio +
+                      " " +
+                      classes.checkboxAndRadioHorizontal + 
+                      " " + 
+                      classes.ml30
+                    }
+                  >
+                    <NavLink to={"/forgot"} className={classes.navLink + ' ' + classes.forgotLink} onClick={handleForgotLink}>
+                      Forgot Password?
+                    </NavLink>
+                  </div>     
                   <div
                     className={
                       classes.checkboxAndRadio +

@@ -18,6 +18,7 @@ use App\Http\Controllers\ZoneTypeController;
 use App\Http\Controllers\PresetController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\ForgotPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,10 @@ Route::apiResource('tokentypes', TokenTypeController::class)->only(['index']);
 Route::apiResource('badgetypes', BadgeTypeController::class)->only(['index']);
 Route::apiResource('zonetypes', ZoneTypeController::class)->only(['index']);
 
+Route::post('/forgot', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.post'); 
+Route::post('/reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+
+
 Route::group([
     'middleware' => ['jwt.verify', 'role:user'],
     'prefix' => 'user',  
@@ -48,7 +53,6 @@ Route::group([
     ]);
     Route::post('/lootbox/buy', [CrateController::class, 'buy'])->name('lootbox.buy');
     Route::apiResource('inventory', InventoryController::class)->only(['index', 'show']);
-    // Route::post('/equipment/switch/{equipment}', [TokenController::class, 'switch'])->name('equipment.switch');
     Route::post('/wallet/nonce', [WalletController::class, 'getNonce'])->name('wallet.nonce');
     Route::post('/wallet/auth', [WalletController::class, 'getAuth'])->name('wallet.auth');
     Route::post('/wallet/connect', [WalletController::class, 'connect'])->name('wallet.connect');

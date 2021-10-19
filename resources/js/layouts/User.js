@@ -36,7 +36,7 @@ export default function Pages(props) {
         return getRoutes(prop.views);
       }
       if (prop.layout === "/user") {   
-        if (prop.path === "/")       {
+        if (prop.path === "/" || prop.path === "/forgot")       {
           return (
             <Route
               exact            

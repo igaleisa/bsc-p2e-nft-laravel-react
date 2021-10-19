@@ -35,3 +35,15 @@ export const LogOutUserService = () => {
         return error;;
     })
 }
+
+export const ForgotPasswordService = (credentials) => {
+    const http = new HttpService();
+    let resetUrl = "forgot";
+
+    return http.postData(credentials, resetUrl).then((data) => {
+        console.log(data);
+        return data;
+    }).catch((error) => {
+        return error;;
+    })
+}

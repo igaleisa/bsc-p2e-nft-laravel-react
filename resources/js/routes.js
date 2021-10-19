@@ -37,6 +37,7 @@ import ItemPage from "@/views/User/Inventory/ItemPage.js";
 import AccountPage from "@/views/User/Account/Account.js";
 import ProfilePage from "@/views/User/Account/Profile.js";
 import SecurityPage from "@/views/User/Account/Security.js";
+import ForgetPasswordPage from "@/views/Forget/ForgetForm.js";
 
 import CrateMainPage from "@/views/User/Crate/CrateMainPage.js";
 import CrateItemPage from "@/views/User/Crate/CrateItemPage.js";
@@ -122,6 +123,12 @@ var dashRoutes = [
     path: "/crates/:crateId",
     name: "Crate Item Page",
     component: CrateItemPage,
+    layout: "/user"
+  },
+  {
+    path: "/forgot",
+    name: "Forget Password Page",
+    component: ForgetPasswordPage,
     layout: "/user"
   },
   {

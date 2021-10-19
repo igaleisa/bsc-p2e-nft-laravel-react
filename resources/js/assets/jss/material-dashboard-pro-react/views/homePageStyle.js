@@ -57,6 +57,10 @@ const homePageStyle = theme => ({
     textAlign: "center",
     fontWeight: "normal"
   },
+  forgotMsgText: {
+    textAlign: "left !important",
+    lineHeight: "30px"
+  },
   authCardTitle: {
     fontFamily: 'Microgramma',
     color: whiteColor,
@@ -248,6 +252,12 @@ const homePageStyle = theme => ({
       }
     }
   },
+  forgotLink: {
+    justifyContent: "flex-end !important",
+    "&:hover, &:active": {
+      color: warmRedColor + " !important",
+    }
+  },
   registerBlock: {
     display: "flex",
     flexDirection: "column",
@@ -269,6 +279,10 @@ const homePageStyle = theme => ({
       fontSize: "24px",
       marginRight: "12px",
     },
+  },
+  forgotMsgBlock: {
+    alignItems: "flex-start",
+    padding: "30px 40px"
   },
   navLink: {
     color: whiteColor,
