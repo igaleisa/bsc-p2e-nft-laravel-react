@@ -1,12 +1,12 @@
 export default class HttpService
 {
-    api_url = "https://portal.umbrellaproject.cc/api";
+    api_url = "https://portal.umbrellaproject.cc/api/";
 
     postData = async(item, added_url, tokenId="") => {
         const token = await localStorage.getItem(tokenId);
         const requestOptions = this.postRequestOptions(token, item);
 
-        return fetch(this.api_url+"/"+added_url, requestOptions).then(
+        return fetch(this.api_url+added_url, requestOptions).then(
             response=>response.json()
         )
     }
@@ -15,7 +15,7 @@ export default class HttpService
         const token = await localStorage.getItem(tokenId);
         const requestOptions = this.patchRequestOptions(token, item);
 
-        return fetch(this.api_url+"/"+added_url, requestOptions).then(
+        return fetch(this.api_url+added_url, requestOptions).then(
             response=>response.json()
         )
     }
@@ -24,7 +24,7 @@ export default class HttpService
         const token = await localStorage.getItem(tokenId);
         const requestOptions = this.deleteRequestOptions(token);
 
-        return fetch(this.api_url+"/"+added_url, requestOptions).then(
+        return fetch(this.api_url+added_url, requestOptions).then(
             response=>response.json()
         )
     }
@@ -33,7 +33,7 @@ export default class HttpService
         const token = await localStorage.getItem(tokenId);
         const requestOptions = this.formRequestOptions(token, item);
 
-        return fetch(this.api_url+"/"+added_url, requestOptions).then(
+        return fetch(this.api_url+added_url, requestOptions).then(
             response=>response.json()
         )
     }
@@ -42,7 +42,7 @@ export default class HttpService
         const token = await localStorage.getItem(tokenId);
         const requestOptions = this.getRequestOptions(token);
 
-        return fetch(this.api_url+"/"+added_url, requestOptions).then(
+        return fetch(this.api_url+added_url, requestOptions).then(
             response=>response.json()
         )
     }
