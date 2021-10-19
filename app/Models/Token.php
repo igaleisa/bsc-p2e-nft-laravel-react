@@ -41,7 +41,6 @@ class Token extends Model
 
     protected $with = [
         'preset',
-        'users',
         'state',
     ];
 }
