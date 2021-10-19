@@ -73,7 +73,7 @@ export default function CrateMainPage() {
                 <GridItem xs={12} sm={12} md={3} className="crate-block survivor-1" onMouseEnter={() => handleMouseEnter(1)} onClick={() => goToCratePage(1)}>
                     <div className="block-body">
                         <div className="title-container">
-                            <h5 className="card-title">SOBREVIVIENTES</h5>
+                            <h5 className="card-title">SURVIVORS</h5>
                             <p className="card-text"><span>BASIC</span> CRATE</p>
                         </div>
                         <div className="rarity-container">
@@ -85,7 +85,7 @@ export default function CrateMainPage() {
                 <GridItem xs={12} sm={12} md={3} className="crate-block survivor-2" onMouseEnter={() => handleMouseEnter(2)} onClick={() => goToCratePage(2)}>
                     <div className="block-body">
                         <div className="title-container">
-                            <h5 className="card-title">SOBREVIVIENTES</h5>
+                            <h5 className="card-title">SURVIVORS</h5>
                             <p className="card-text"><span>TACTICAL</span> CRATE</p>
                         </div>
                         <div className="rarity-container">
