@@ -9,7 +9,6 @@ use App\Models\Payment;
 use App\Models\UserCrate;
 use App\Models\Token;
 use App\Models\CrateToken;
-use App\Models\Inventory;
 use App\Models\CrateRarity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;

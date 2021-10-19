@@ -210,27 +210,6 @@ class TokenController extends Controller
         ], 201);
     }
 
-    public function switch(Equipment $equipment) 
-    {
-        // Check the inventory item's owner
-        if($equipment->users->first()->id != auth()->user()->id) {
-            return response()->json([
-                'success' => false,
-                'message' => 'The equipment owner is not current user',
-            ], 400);
-        }
-
-        // Toggle equipped flag of the inventory item
-        $equipment->equipped = !$equipment->equipped;
-        $equipment->save();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'The equipment flag was updated',
-            'equipment' => $equipment,
-        ], 201);
-    }
-
     public function getList(Request $request)
     {
         $validator = Validator::make($request->all(), [

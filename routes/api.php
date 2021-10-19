@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CrateController;
 use App\Http\Controllers\TokenController;
-use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
@@ -51,7 +50,6 @@ Route::group([
         'index', 'show'
     ]);
     Route::post('/lootbox/buy', [CrateController::class, 'buy'])->name('lootbox.buy');
-    Route::apiResource('inventory', InventoryController::class)->only(['index', 'show']);
     Route::post('/wallet/nonce', [WalletController::class, 'getNonce'])->name('wallet.nonce');
     Route::post('/wallet/auth', [WalletController::class, 'getAuth'])->name('wallet.auth');
     Route::post('/wallet/connect', [WalletController::class, 'connect'])->name('wallet.connect');
@@ -71,7 +69,6 @@ Route::group([
     Route::apiResource('token', TokenController::class)->only(['index', 'update', 'delete']);
     Route::apiResource('users', UserController::class);    
     Route::apiResource('preset', PresetController::class);   
-    // Route::post('/token/register', [TokenController::class, 'registerList'])->name('token.register');
     Route::get('/token/{id}', [TokenController::class, 'getTokenInfo'])->name('token.info');
     Route::post('/token/assign', [TokenController::class, 'assignTokenList'])->name('token.assign');
     Route::post('/mint', [MintController::class, 'mint'])->name('mint');    
