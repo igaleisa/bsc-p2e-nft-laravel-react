@@ -40,9 +40,8 @@ Route::apiResource('tokentypes', TokenTypeController::class)->only(['index']);
 Route::apiResource('badgetypes', BadgeTypeController::class)->only(['index']);
 Route::apiResource('zonetypes', ZoneTypeController::class)->only(['index']);
 
-Route::post('/forgot', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.post'); 
-Route::post('/reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
-
+Route::post('/forgot', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password'); 
+Route::post('/reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password');
 
 Route::group([
     'middleware' => ['jwt.verify', 'role:user'],

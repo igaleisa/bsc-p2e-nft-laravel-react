@@ -47,3 +47,15 @@ export const ForgotPasswordService = (credentials) => {
         return error;;
     })
 }
+
+export const ResetPasswordService = (credentials) => {
+    const http = new HttpService();
+    let resetUrl = "reset-password";
+
+    return http.postData(credentials, resetUrl).then((data) => {
+        console.log(data);
+        return data;
+    }).catch((error) => {
+        return error;;
+    })
+}
