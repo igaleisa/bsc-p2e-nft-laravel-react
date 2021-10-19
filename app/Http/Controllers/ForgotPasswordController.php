@@ -48,7 +48,7 @@ class ForgotPasswordController extends Controller
             'url' => env('APP_URL', 'https://portal.umbrellaproject.cc') . '/reset?token=' . $token
         ];
 
-        // Mail::to($validated['email'])->send(new ForgotEmail($details));
+        Mail::to($validated['email'])->send(new ForgotEmail($details));
 
         return response()->json([
             'success' => true,
