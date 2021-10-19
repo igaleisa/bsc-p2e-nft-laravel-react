@@ -84,9 +84,9 @@ class User extends Authenticatable implements JWTSubject
         return $this->role == $role? true : false;
     }
 
-    public function tokens() {
-        return $this->belongsToMany(Token::class, 'inventories', 'user_id', 'equipment_id');
-    }
+    // public function tokens() {
+    //     return $this->belongsToMany(Token::class, 'inventories', 'user_id', 'equipment_id');
+    // }
 
     public function referral() {
         return $this->belongsTo(User::class, 'referrer_id', 'id');

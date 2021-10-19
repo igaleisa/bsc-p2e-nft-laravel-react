@@ -24,10 +24,10 @@ class Token extends Model
         'updated_at',
     ];
 
-    public function users() 
-    {
-        return $this->belongsToMany(User::class, 'inventories', 'token_id', 'user_id');
-    }
+    // public function users() 
+    // {
+    //     return $this->belongsToMany(User::class, 'inventories', 'token_id', 'user_id');
+    // }
 
     public function preset()
     {
