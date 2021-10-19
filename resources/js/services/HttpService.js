@@ -1,7 +1,7 @@
 export default class HttpService
 {
     // url = "http://portal.umbrellaproject.localhost/api";
-    url = "https://portal.umbrellaproject.cc/api";
+    // url = "https://portal.umbrellaproject.cc/api";
 
     url = process.env.MIX_UBML_API_ENDPOINT;
 
