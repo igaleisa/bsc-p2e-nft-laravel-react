@@ -14,13 +14,13 @@ const mix = require('laravel-mix');
 
 mix.webpackConfig(
     {
-        optimization :  {
-            splitChunks: {
-                chunks: "all",
-                minSize: 200000,
-                maxSize: 244000,
-            }
-        },
+        // optimization :  {
+        //     splitChunks: {
+        //         chunks: "all",
+        //         minSize: 200000,
+        //         maxSize: 244000,
+        //     }
+        // },
         module: {
             rules: [
                 
