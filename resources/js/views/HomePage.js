@@ -846,7 +846,7 @@ export default function HomePage() {
                 <div className={classes.userLoginBlock}>
                 </div>                
                 <div className={classes.authButton}>
-                  <Button color="auth" size="lgAuth" className={classes.marginRight} onClick={handleLoginAction}>
+                  <Button color="auth" size="lgAuth" className={classes.marginRight}>
                     COMING SOON
                   </Button>
                 </div>
