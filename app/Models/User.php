@@ -24,6 +24,9 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'referral_code',
         'referrer_id',
+        'tfa',
+        'tfa_code',
+        'tfa_code_created_at',
     ];
 
     /**

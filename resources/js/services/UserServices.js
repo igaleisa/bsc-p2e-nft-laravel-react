@@ -416,3 +416,16 @@ export const ResendVerificationEmail = () => {
         return error;;
     })
 }
+
+export const SwitchTfaSetting = () => {
+    const http = new HttpService();
+    let postUrl = "user/account/tfa";
+    const tokenId = "user-token";
+
+    return http.postData({}, postUrl, tokenId).then((data) => {
+        console.log(data);
+        return data;
+    }).catch((error) => {
+        return error;;
+    })
+}

@@ -114,6 +114,11 @@ const umblInputStyle = theme => ({
     [theme.breakpoints.down("xs")]: {
       minWidth: "240px",
     },
+  },
+  verifyInput: {
+    width: "40px",
+    textAlign: "center",
+    textTransform: "uppercase"
   }
 });
 

@@ -1,5 +1,10 @@
 import * as ActionTypes from '../ActionTypes';
-import {RegisterUserService, LoginUserService, LogOutUserService} from '../../services/AuthServices';
+import {
+    RegisterUserService, 
+    LoginUserService, 
+    LogOutUserService,
+    LoginTFAUserService,
+} from '../../services/AuthServices';
 
 export const ResetLoadingAction = () => {
     return (dispatch) => {
@@ -52,15 +57,42 @@ export const LoginAction = (credentials, history) => {
 
         LoginUserService(credentials).then((res) => {
             if(res.hasOwnProperty('success') && res.success === true) {
+                if(res.tfa) {
+                    dispatch({type: ActionTypes.LOGIN_TFA_START, payload: res});
+                    history.push('/');
+                } else {
+                    localStorage.setItem('user-token', res.token);
+                    dispatch({type: ActionTypes.LOGIN_SUCCESS, payload: res});
+                    if(res.user.role === "admin") {
+                        history.push('/admin');
+                    } else {
+                        history.push('/');
+                    }
+                }
+            } else {
+                dispatch({type: ActionTypes.LOGIN_ERROR, payload: res});
+            }
+        }, error => {
+            dispatch({type : ActionTypes.CODE_ERROR, payload: error})
+        })
+    }
+}
+
+export const LoginTFAAction = (credentials, history) => {
+    return (dispatch) => {
+        dispatch({type: ActionTypes.LOADING});
+
+        LoginTFAUserService(credentials).then((res) => {
+            if(res.hasOwnProperty('success') && res.success === true) {
                 localStorage.setItem('user-token', res.token);
-                dispatch({type: ActionTypes.LOGIN_SUCCESS, payload: res});
+                dispatch({type: ActionTypes.LOGIN_TFA_SUCCESS, payload: res});
                 if(res.user.role === "admin") {
                     history.push('/admin');
                 } else {
                     history.push('/');
                 }
             } else {
-                dispatch({type: ActionTypes.LOGIN_ERROR, payload: res});
+                dispatch({type: ActionTypes.LOGIN_TFA_ERROR, payload: res});
             }
         }, error => {
             dispatch({type : ActionTypes.CODE_ERROR, payload: error})

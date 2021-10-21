@@ -31,6 +31,7 @@ use App\Http\Controllers\ForgotPasswordController;
 */
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/tfa', [AuthController::class, 'loginTFA'])->name('login.tfa');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::apiResource('rarities', RarityController::class)->only(['index']);
@@ -59,6 +60,7 @@ Route::group([
     Route::get('/crates/{crate}', [CrateController::class, 'show'])->name('crate.info');
     Route::post('/payment/crate', [PaymentController::class, 'registerCrate'])->name('payment.crate');
     Route::get('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
+    Route::post('/account/tfa', [AuthController::class, 'update2FA'])->name('account.tfa');
 });
 
 Route::group([

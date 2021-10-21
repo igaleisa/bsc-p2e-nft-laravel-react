@@ -2,6 +2,7 @@ import * as ActionTypes from '../ActionTypes';
 
 const initState = {
     loading: false,
+    is2FA: false,
     isEmailVerifyRequired: false,
     isAuthenticated: false,
     isAdmin: false,
@@ -26,6 +27,7 @@ const AuthReducer = (state = initState, action) => {
             return {
                 ...state,   
                 loading: false,
+                is2FA: false,
                 isEmailVerifyRequired: false,            
                 isAuthenticated: false,
                 isAdmin: false,
@@ -40,6 +42,7 @@ const AuthReducer = (state = initState, action) => {
         case ActionTypes.SIGNUP_SUCCESS:
             return {
                 ...state,
+                is2FA: false,
                 isEmailVerifyRequired: true,
                 isAuthenticated: false,
                 currentUserEmail: action.payload.user.email,
@@ -56,6 +59,7 @@ const AuthReducer = (state = initState, action) => {
                 currentUserName: null,
                 isAuthenticated: false,
                 isAdmin: false,
+                is2FA: false,
                 isEmailVerifyRequired: false,
             };
         case ActionTypes.PROFILE_SUCCESS:
@@ -73,6 +77,32 @@ const AuthReducer = (state = initState, action) => {
             return {
                 ...state,
                 loading: false,
+                is2FA: false,
+                isEmailVerifyRequired: action.payload.user.emailVerificationRequired,
+                isAuthenticated: action.payload.user.emailVerificationRequired === true ? false : true,
+                isAdmin: action.payload.user.role === "admin",
+                currentUserEmail: action.payload.user.email,
+                currentUserName: action.payload.user.username,
+                error: "",
+            };
+        case ActionTypes.LOGIN_TFA_START:
+            return {
+                ...state,
+                loading: false,
+                is2FA: action.payload.tfa
+            };
+        case ActionTypes.LOGIN_TFA_ERROR:
+            return {
+                ...state,
+                loading: false,
+                is2FA: true,
+                error: action.payload.error
+            };
+        case ActionTypes.LOGIN_TFA_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                is2FA: false,
                 isEmailVerifyRequired: action.payload.user.emailVerificationRequired,
                 isAuthenticated: action.payload.user.emailVerificationRequired === true ? false : true,
                 isAdmin: action.payload.user.role === "admin",
@@ -89,12 +119,14 @@ const AuthReducer = (state = initState, action) => {
                 currentUserName: null,
                 isAuthenticated: false,
                 isAdmin: false,
+                is2FA: true,
                 isEmailVerifyRequired: false,
             }; 
         case ActionTypes.LOGOUT_SUCCESS:
             return {
                 ...state,
                 loading: false,
+                is2FA: false,
                 isAuthenticated: false,
                 isAdmin: false,
                 currentUserEmail: null,

@@ -30,6 +30,7 @@ export default function UmblInput(props) {
     success,
     helperText,
     auth,
+    verify,
   } = props;
 
   const labelClasses = classNames({
@@ -47,6 +48,7 @@ export default function UmblInput(props) {
   const inputClasses = classNames({
     [classes.input]: true,
     [classes.authInput]: auth,
+    [classes.verifyInput]: verify,
     [classes.whiteInput]: white,
   });
   var formControlClasses;
@@ -108,6 +110,7 @@ UmblInput.propTypes = {
   error: PropTypes.bool,
   success: PropTypes.bool,
   auth: PropTypes.bool,
+  verify: PropTypes.bool,
   white: PropTypes.bool,
   helperText: PropTypes.node
 };

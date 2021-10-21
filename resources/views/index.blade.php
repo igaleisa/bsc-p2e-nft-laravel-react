@@ -4,12 +4,18 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Umbrella</title>
+        <title>{{ env('APP_NAME') }}</title>
 
         <!-- Include Frontend Application (webpack mix) -->
-        <script defer src="/js/manifest.js"></script>
+        <script defer src="/js/manifest.js"></script>       
         <script defer src="/js/vendor.js"></script>
         <script defer src="/js/app.js"></script>
+        <!-- <script src="{{ mix('js/app.js') }}"></script> -->
+
+        
+        <!-- <script src="{{ mix('js/manifest.js') }}"></script>
+        <script src="{{ mix('js/vendor.js') }}"></script>
+        <script src="{{ mix('js/app.js') }}"></script> -->
 
         <!-- <link rel="manifest" href="/manifest.json" /> -->
         <link rel="shortcut icon" href="/favicon.ico" />
@@ -52,5 +58,6 @@
     </head>
     <body class="antialiased">
         <div id="root"></div>
+        <!-- <script src="{{ mix('js/app.js') }}"></script> -->
     </body>
 </html>

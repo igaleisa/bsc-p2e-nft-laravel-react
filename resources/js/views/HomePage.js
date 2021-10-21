@@ -48,6 +48,7 @@ import {
   ResetErrorAction, 
   LogoutAction,
   UpdateProfileAction,
+  LoginTFAAction,
 } from '@/redux/actions/AuthActions';
 
 import { 
@@ -62,12 +63,13 @@ export default function HomePage() {
     REGISTER: 2,
     VERIFICATION: 3,
     AUTHORIZED: 4,
+    TFA: 5
   };
 
   const history = useHistory();
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { loading, isAuthenticated, isAdmin, isEmailVerifyRequired, currentUserEmail, error, } = useSelector(
+  const { loading, is2FA, isAuthenticated, isAdmin, isEmailVerifyRequired, currentUserEmail, error, } = useSelector(
     (state) => state.userAuth
   );
 
@@ -242,6 +244,34 @@ export default function HomePage() {
     ));
   };
 
+  const validateVerifyForm = () => {
+
+  }
+
+  const handleVerifySubmit = () => {
+    let tfa_flag = true;
+    let tfa_code = '';
+
+    for(var i=0; i<4; i++) {
+      var keyId = 'user_2fa_' + (i+1);
+
+      if(document.getElementById(keyId).value !== '') {
+        tfa_code += document.getElementById(keyId).value;
+      } else {
+        tfa_flag = false;
+        break;
+      }
+    }
+
+    if(tfa_flag) {
+      console.log(tfa_code);
+      dispatch(LoginTFAAction({
+          code: tfa_code,
+        }, history
+      ));
+    }    
+  }
+
   const goToBioCrates = () => {
     history.push('/crates');
   };
@@ -272,6 +302,19 @@ export default function HomePage() {
     history.push('/forgot');
   }
 
+  const handleVerifyCode = (id, event) => {
+    if(event.target.value.length === 1) {
+      if(id !== 4) {
+        // move focus
+        const form = event.target.form;
+        const index = Array.prototype.indexOf.call(form, event.target);
+        form.elements[index + 1].focus();
+        form.elements[index + 1].select();
+        event.preventDefault();
+      }
+    }
+  }
+
   useEffect(() => {
     dispatch(ResetErrorAction());
     dispatch(ResetLoadingAction());
@@ -282,24 +325,30 @@ export default function HomePage() {
   }, [error]);
 
   useEffect(() => {
-    const userToken = localStorage.getItem("user-token");
-    if(userToken !== undefined && userToken !== null) {
-      if(isTokenExpired(userToken)) {
-        setPageStatus(PageStatus.NONE);
-      } else {
-        GetUserAccountProfileService().then(res => {
-          if(res.hasOwnProperty('success') && res.success === true) {
-            dispatch(UpdateProfileAction(res));
-            if(res.user.emailVerificationRequired) {
-              setPageStatus(PageStatus.VERIFICATION);
-            } else {
-              setPageStatus(PageStatus.AUTHORIZED);
+    if(!is2FA && (isAuthenticated || isEmailVerifyRequired)) {
+      const userToken = localStorage.getItem("user-token");
+      if(userToken !== undefined && userToken !== null) {
+        if(isTokenExpired(userToken)) {
+          setPageStatus(PageStatus.NONE);
+        } else {
+          GetUserAccountProfileService().then(res => {
+            if(res.hasOwnProperty('success') && res.success === true) {
+              dispatch(UpdateProfileAction(res));
+              if(res.user.emailVerificationRequired) {
+                setPageStatus(PageStatus.VERIFICATION);
+              } else {
+                setPageStatus(PageStatus.AUTHORIZED);
+              }
             }
-          }
-        })
+          })
+        }
+      } else {
+        setPageStatus(PageStatus.NONE);
       }
     } else {
-      setPageStatus(PageStatus.NONE);
+      if(is2FA) {
+        setPageStatus(PageStatus.TFA);
+      }
     }
   }, []);
 
@@ -308,10 +357,12 @@ export default function HomePage() {
       setPageStatus(PageStatus.AUTHORIZED);
     } else if(isEmailVerifyRequired) {
       setPageStatus(PageStatus.VERIFICATION);
+    } else if(is2FA) {
+      setPageStatus(PageStatus.TFA);
     } else {
       setPageStatus(PageStatus.NONE);
     }
-  }, [isAuthenticated, isEmailVerifyRequired]);
+  }, [isAuthenticated, isEmailVerifyRequired, is2FA]);
 
   useEffect(() => {
     if(isAdmin && isAuthenticated) {
@@ -724,7 +775,86 @@ export default function HomePage() {
           </Card>
         </GridItem>
       </GridContainer>      
-      ) : pageStatus === PageStatus.VERIFICATION ? (
+      ) : pageStatus === PageStatus.TFA ? (
+        <GridContainer justifyContent="center">
+          <GridItem xs={12} sm={12} md={12}>
+            <Card main>
+              <CardBody border>
+                <div className={classes.loginBlock}>
+                  <List className={classes.list}>
+                    <ListItem className={classes.listItem}>
+                      <NavLink to={"/"} className={classes.navLink + ' ' + classes.backLink} onClick={handleBackAction}>
+                        <i className="fas fa-arrow-circle-left"></i>
+                        Go Back
+                      </NavLink>
+                    </ListItem>
+                  </List>
+                  <form>
+                    <div className={classes.formTitle}>2FA Code Verification</div>
+                    <div className={classes.verifyTfa}>
+                      <UmblInput
+                        verify
+                        id="user_2fa_1"
+                        inputProps={{
+                          type: "string",
+                          maxLength: "1",
+                          onChange: event => {
+                            handleVerifyCode(1, event);
+                          },
+                        }}
+                        style={{ marginRight: "20px" }}
+                      /> 
+                      <UmblInput
+                        verify
+                        id="user_2fa_2"
+                        inputProps={{
+                          type: "string",
+                          maxLength: "1",
+                          onChange: event => {
+                            handleVerifyCode(2, event);
+                          },
+                        }}
+                        style={{ marginRight: "20px" }}
+                      /> 
+                      <UmblInput
+                        verify
+                        id="user_2fa_3"
+                        inputProps={{
+                          type: "string",
+                          maxLength: "1",
+                          onChange: event => {
+                            handleVerifyCode(3, event);
+                          },
+                        }}
+                        style={{ marginRight: "20px" }}
+                      /> 
+                      <UmblInput
+                        verify
+                        id="user_2fa_4"
+                        inputProps={{
+                          type: "string",
+                          maxLength: "1",
+                          onChange: event => {
+                            handleVerifyCode(4, event);
+                          },
+                        }}
+                      /> 
+                    </div>
+                    <div style={{ textAlign: "center" }}>
+                      <Button color="auth" size="lgAuth" className={classes.formButton} onClick={handleVerifySubmit}>
+                        VERIFY
+                      </Button>
+                    </div>
+                    <div className={classes.errorMsg}>
+                      { error !== '' ? error : ''}
+                    </div>
+                  </form>
+                </div>
+              </CardBody>
+            </Card>
+          </GridItem>
+        </GridContainer>      
+        ) : pageStatus === PageStatus.VERIFICATION ? (
         <GridContainer justifyContent="center">
           <GridItem xs={12} sm={12} md={12}>
             <Card main>

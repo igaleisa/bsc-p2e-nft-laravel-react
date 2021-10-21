@@ -370,6 +370,10 @@ const homePageStyle = theme => ({
     marginBottom: "30px",
     textAlign: "center",
     color: dangerColor[0],
+  },
+  verifyTfa: {
+    display: "flex",
+    justifyContent: "space-between"
   }
 });
 

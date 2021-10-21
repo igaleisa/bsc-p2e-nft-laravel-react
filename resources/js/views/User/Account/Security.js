@@ -4,6 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // @material-ui/core components
 import Hidden from "@material-ui/core/Hidden";
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+// SweetAlert
+import SweetAlert from "react-bootstrap-sweetalert";
 
 // core components
 import GridContainer from "@/components/Grid/GridContainer.js";
@@ -22,12 +27,20 @@ const useStyles = makeStyles(styles);
 
 // actions
 import { LogoutAction } from '@/redux/actions/AuthActions';
+import { 
+    SwitchTfaSetting, 
+    GetUserAccountProfileService, 
+} from '@/services/UserServices';
 
 export default function AccountPage() {
     const history = useHistory();
     const classes = useStyles();
     const dispatch = useDispatch();
     const { isAuthenticated, isAdmin, } = useSelector((state) => state.userAuth);
+
+    const [loading, setLoading] = React.useState(false);
+    const [alert, setAlert] = React.useState(null);
+    const [tfa, setTfa] = React.useState(false);
 
     useEffect(() => {
         if(isAdmin && isAuthenticated) {
@@ -37,8 +50,69 @@ export default function AccountPage() {
             dispatch(LogoutAction(history));
         }
     }, [isAdmin, isAuthenticated]);  
+
+    useEffect(() => {
+        GetUserAccountProfileService().then(res => {
+            if(res.hasOwnProperty('success') && res.success === true) {
+              if(res.user.tfa === 0) setTfa(false);
+              else setTfa(true);
+            }
+        })        
+    }, []);  
+
+    const updateTfaFlag = () => {
+        SwitchTfaSetting().then(res => {
+            if(res.hasOwnProperty('success') && res.success === true) {
+                if(res.tfa) setTfa(true);
+                else setTfa(false);
+
+                showMessageBox('Success', '2FA setting was successfully updated!');
+            }
+        })
+    }
+
+    const hideAlert = (refresh=false) => {
+        setAlert(null);
+        if(refresh) window.location.reload();
+    };
+
+    const showMessageBox = (title, message) => {
+        setAlert(
+          <SweetAlert
+            closeOnClickOutside={false}
+            style={{ display: "block", marginTop: "-100px" }}
+            title={title}
+            onConfirm={() => hideAlert()}
+            onCancel={() => hideAlert()}
+            confirmBtnCssClass={classes.button + " " + classes.info}
+            customClass="blackMsg"
+          >
+            {message}
+          </SweetAlert>
+        );
+    };
     
     const handleRequestTfa = () => {
+        console.log('handleRequestTfa');
+
+        setAlert(
+            <SweetAlert
+              warning
+              closeOnClickOutside={false}
+              style={{ display: "block", marginTop: "-100px" }}
+              title="Are you sure?"
+              onConfirm={() => updateTfaFlag()}
+              onCancel={() => hideAlert()}
+              confirmBtnCssClass={classes.button + " " + classes.success}
+              cancelBtnCssClass={classes.button + " " + classes.danger}
+              confirmBtnText="Yes"
+              cancelBtnText="Cancel"
+              customClass="blackMsg"
+              showCancel
+            >
+              { tfa ? 'Do you want to disable 2FA code for login?' : 'Do you want to enable 2FA code for login?' }
+            </SweetAlert>
+          );
 
     }
 
@@ -81,10 +155,16 @@ export default function AccountPage() {
                     <div className="account-block tfa-block">
                         <div className="whiteTitleText">Request 2FA Code to Email Address</div>
                         <div className="graySmallText">Request 2FA Code to Email Address</div>
-                        <Button color="auth" size="lgAuth" style={{marginTop: "30px"}} onClick={handleRequestTfa}>Request 2FA Code to Email Address</Button>
+                        <Button color="auth" size="lgAuth" style={{marginTop: "30px"}} onClick={handleRequestTfa}>
+                            { tfa ? 'Disable 2FA Code to Email Address' : 'Request 2FA Code to Email Address' }
+                        </Button>
                     </div>
                 </GridItem>
             </GridContainer>
+            <Backdrop className={classes.backdrop} open={loading}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
+            {alert}
         </div>
     );
 };

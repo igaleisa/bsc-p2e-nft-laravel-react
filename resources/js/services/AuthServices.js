@@ -24,6 +24,18 @@ export const LoginUserService = (credentials) => {
     })
 }
 
+export const LoginTFAUserService = (credentials) => {
+    const http = new HttpService();
+    let loginTfaUrl = "tfa";
+
+    return http.postData(credentials, loginTfaUrl).then((data) => {
+        console.log(data);
+        return data;
+    }).catch((error) => {
+        return error;;
+    })
+}
+
 export const LogOutUserService = () => {
     const http = new HttpService();
     let logoutUrl = "logout";
