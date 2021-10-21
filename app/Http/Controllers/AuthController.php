@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Number;
 use Carbon\Carbon; 
 use Validator;
+use Mail;
 
 use App\Mail\TfaEmail;
 
