@@ -54,7 +54,7 @@ class AuthController extends Controller
         if(auth()->user()->tfa) {
             // generate tfa code
             $user = User::where('id', auth()->user()->id)->firstOrFail();
-            $code = random_init(1000, 9999);
+            $code = rand(1000, 9999);
 
             $user->update([
                 'tfa_code' => $code,
