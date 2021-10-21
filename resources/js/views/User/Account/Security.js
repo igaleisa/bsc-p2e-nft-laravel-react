@@ -61,14 +61,19 @@ export default function AccountPage() {
     }, []);  
 
     const updateTfaFlag = () => {
+        setLoading(true);
         SwitchTfaSetting().then(res => {
+            setLoading(false);
+
             if(res.hasOwnProperty('success') && res.success === true) {
                 if(res.tfa) setTfa(true);
                 else setTfa(false);
 
                 showMessageBox('Success', '2FA setting was successfully updated!');
             }
-        })
+        }, error => {
+            setLoading(false);
+        }) 
     }
 
     const hideAlert = (refresh=false) => {
