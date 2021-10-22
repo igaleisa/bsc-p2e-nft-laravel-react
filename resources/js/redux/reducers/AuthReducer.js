@@ -95,7 +95,6 @@ const AuthReducer = (state = initState, action) => {
             return {
                 ...state,
                 loading: false,
-                is2FA: true,
                 error: action.payload.error
             };
         case ActionTypes.LOGIN_TFA_SUCCESS:
@@ -119,7 +118,7 @@ const AuthReducer = (state = initState, action) => {
                 currentUserName: null,
                 isAuthenticated: false,
                 isAdmin: false,
-                is2FA: true,
+                is2FA: false,
                 isEmailVerifyRequired: false,
             }; 
         case ActionTypes.LOGOUT_SUCCESS:
