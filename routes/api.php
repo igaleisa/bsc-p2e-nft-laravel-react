@@ -43,6 +43,7 @@ Route::apiResource('zonetypes', ZoneTypeController::class)->only(['index']);
 Route::post('/forgot', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password'); 
 Route::post('/reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password');
 
+
 Route::group([
     'middleware' => ['jwt.verify', 'role:user'],
     'prefix' => 'user',  
@@ -61,6 +62,7 @@ Route::group([
     Route::post('/payment/crate', [PaymentController::class, 'registerCrate'])->name('payment.crate');
     Route::get('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
     Route::post('/account/tfa', [AuthController::class, 'update2FA'])->name('account.tfa');
+    Route::post('/crates/buy', [TokenController::class, 'getCratePreset'])->name('crates.buy');    
 });
 
 Route::group([

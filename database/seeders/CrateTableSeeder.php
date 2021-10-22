@@ -30,7 +30,7 @@ class CrateTableSeeder extends Seeder
                 'faction_id' => $Surviors->id,
                 'level' => 2,
                 'name' => 'Tactical Biocrate',
-                'price' => 89.99,
+                'price' => 99.99,
             ],
             [
                 'faction_id' => $Scientists->id,
@@ -42,7 +42,7 @@ class CrateTableSeeder extends Seeder
                 'faction_id' => $Scientists->id,
                 'level' => 2,
                 'name' => 'Omega Type',
-                'price' => 89.99,
+                'price' => 99.99,
             ],
         ];
 

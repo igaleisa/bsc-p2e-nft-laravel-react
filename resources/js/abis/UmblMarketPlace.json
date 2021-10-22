@@ -449,6 +449,11 @@
 				"internalType": "uint256",
 				"name": "_id",
 				"type": "uint256"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_presetIds",
+				"type": "uint256[]"
 			}
 		],
 		"name": "buyCrate",
@@ -497,6 +502,19 @@
 	},
 	{
 		"inputs": [],
+		"name": "paymentContract",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "renounceOwnership",
 		"outputs": [],
 		"stateMutability": "nonpayable",
@@ -511,6 +529,19 @@
 			}
 		],
 		"name": "setMarketPlaceFlag",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_newPaymentContract",
+				"type": "address"
+			}
+		],
+		"name": "setPaymentContract",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"

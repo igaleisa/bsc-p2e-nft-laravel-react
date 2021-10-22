@@ -18,7 +18,12 @@ import tokenThumbnail from "@/assets/img/test/weapon-2.png";
 // actions
 import { LogoutAction, } from '@/redux/actions/AuthActions';
 
-import { GetCrateInfoService, AddBatchTokenList, RegisterCratePayment, } from '@/services/UserServices';
+import { 
+    GetCrateInfoService, 
+    AddBatchTokenList, 
+    RegisterCratePayment, 
+    GetCratePresetService,
+} from '@/services/UserServices';
 
 // contract
 import { useUmblCoreContract, useUmblMarketPlaceContract, useBusdContract } from "@/hooks";
@@ -92,7 +97,112 @@ export default function CrateItemPage() {
             {message}
           </SweetAlert>
         );
-    };   
+    }; 
+    
+    const buyCrate = async (acquiredPresetIds) => {
+        // run marketplace contract function for buying crate
+        const transaction = await umblMarketContract.methods
+            .buyCrate(parseInt(crateId), acquiredPresetIds)
+            .send({ from: account }, (error, transactionHash) => {
+                if(transactionHash === undefined) {
+                    setLoading(false);
+                    return;
+                } else {
+                    console.log(transactionHash);
+                }
+            });
+
+        console.log(transaction);
+
+        // check transaction event
+        const returnValues = transaction.events.UmblPresetMinted.returnValues;
+        if(returnValues.to[0].toLowerCase() !== account.toLowerCase()) {
+            setLoading(false);
+            errMsg = "Smart Contract Error! Transaction history is not correct.";
+            showErrorMsg(errMsg);
+            return;
+        }
+
+        const numbericalPrice = window.web3.utils.fromWei(transaction.events.UmblPaidForCrate.returnValues.price, 'ether');
+
+        let userPaymentData = {
+            crateId: crateId,
+            price: numbericalPrice,
+            unit: 'BUSD',
+            wallet: account.toLowerCase()
+        };
+
+        RegisterCratePayment(userPaymentData).then(res => {
+            if(res.hasOwnProperty('success') && res.success === true) {
+                
+            } else {
+                setLoading(false);
+                showErrorMsg(res);
+                if(res.error === 'token') {
+                    dispatch(LogoutAction(history));
+                }
+            }
+        }).catch(error => {
+            console.log(error);
+            showErrorMsg(error);
+            setLoading(false);
+        });
+
+        let registerData = {
+            owner: ownerAddress,
+            to: returnValues.to,
+            presetIds: returnValues.presetIds,
+            tokenIds: returnValues.tokenIds,
+            amounts: returnValues.amount,
+        };
+
+        AddBatchTokenList(registerData).then((res) => {
+            if(res.hasOwnProperty('success') && res.success === true) {
+                
+            } else {
+                setLoading(false);
+                showErrorMsg(res);
+                if(res.error === 'token') {
+                    dispatch(LogoutAction(history));
+                }
+            }
+        }).catch(error => {
+            console.log(error);
+            showErrorMsg(error);
+            setLoading(false);
+        });
+
+        if(returnValues.to[0].toLowerCase() !== account.toLowerCase()) {
+            setLoading(false);
+            errMsg = "Smart Contract Error! Transaction history is not correct.";
+            showErrorMsg(errMsg);
+            return;
+        }
+
+        let approvedTokens = [];
+
+        for(let i=0; i<returnValues.tokenIds.length; i++) {
+            const tokenId = returnValues.tokenIds[i];
+
+            const tokenURI = await umblCoreContract.methods
+                .uri(parseInt(tokenId))
+                .call({ from: account });
+
+            let response = await fetch(tokenURI);
+            let responseJson = await response.json();
+
+            approvedTokens.push({
+                id: tokenId,
+                name: responseJson.name,
+                image: responseJson.image
+            });
+        }
+
+        setLoading(false);
+
+        setPurchasedTokens(approvedTokens);
+        setPageStatus(1);        
+    }
     
     const handleBuyWithBusd = async () => {
         let errMsg;
@@ -122,7 +232,7 @@ export default function CrateItemPage() {
                         setLoading(false);
                         return;
                     } else {
-                        console.log(transactionHash);
+                        // console.log(transactionHash);
                     }
                 });
 
@@ -142,108 +252,25 @@ export default function CrateItemPage() {
                 .nextTokenId()
                 .call({ from: account });
 
-            // run marketplace contract function for buying crate
-            const transaction = await umblMarketContract.methods
-                .buyCrate(parseInt(crateId))
-                .send({ from: account }, (error, transactionHash) => {
-                    if(transactionHash === undefined) {
-                        setLoading(false);
-                        return;
-                    } else {
-                        console.log(transactionHash);
-                    }
-                });
-
-            console.log(transaction);
-
-            // check transaction event
-            const returnValues = transaction.events.UmblPresetMinted.returnValues;
-            if(returnValues.to[0].toLowerCase() !== account.toLowerCase()) {
-                setLoading(false);
-                errMsg = "Smart Contract Error! Transaction history is not correct.";
-                showErrorMsg(errMsg);
-                return;
-            }
-
-            const numbericalPrice = window.web3.utils.fromWei(crateInfo.price, 'ether');
-
-            let userPaymentData = {
-                crateId: crateId,
-                price: numbericalPrice,
-                unit: 'BUSD',
-                wallet: account.toLowerCase()
-            };
-
-            RegisterCratePayment(userPaymentData).then(res => {
+            GetCratePresetService({id: crateId}).then((res, acquiredPresetIds) => {
                 if(res.hasOwnProperty('success') && res.success === true) {
-                    
+                    buyCrate(res.presetIds);
                 } else {
                     setLoading(false);
                     showErrorMsg(res);
                     if(res.error === 'token') {
                         dispatch(LogoutAction(history));
                     }
+                    return;
                 }
             }).catch(error => {
                 console.log(error);
                 showErrorMsg(error);
                 setLoading(false);
             });
-
-            let registerData = {
-                owner: ownerAddress,
-                to: returnValues.to,
-                presetIds: returnValues.presetIds,
-                tokenIds: returnValues.tokenIds,
-                amounts: returnValues.amount,
-            };
-
-            AddBatchTokenList(registerData).then((res) => {
-                if(res.hasOwnProperty('success') && res.success === true) {
-                    
-                } else {
-                    setLoading(false);
-                    showErrorMsg(res);
-                    if(res.error === 'token') {
-                        dispatch(LogoutAction(history));
-                    }
-                }
-            }).catch(error => {
-                console.log(error);
-                showErrorMsg(error);
-                setLoading(false);
-            });
-
-            if(returnValues.to[0].toLowerCase() !== account.toLowerCase()) {
-                setLoading(false);
-                errMsg = "Smart Contract Error! Transaction history is not correct.";
-                showErrorMsg(errMsg);
-                return;
-            }
-
-            let approvedTokens = [];
-
-            for(let i=0; i<returnValues.tokenIds.length; i++) {
-                const tokenId = returnValues.tokenIds[i];
-
-                const tokenURI = await umblCoreContract.methods
-                    .uri(parseInt(tokenId))
-                    .call({ from: account });
-
-                let response = await fetch(tokenURI);
-                let responseJson = await response.json();
-
-                approvedTokens.push({
-                    id: tokenId,
-                    name: responseJson.name,
-                    image: responseJson.image
-                });
-            }
-
-            setPurchasedTokens(approvedTokens);
-            setPageStatus(1);
 
             setLoading(false);
+            return;            
         }
     };
 
@@ -312,7 +339,9 @@ export default function CrateItemPage() {
                     />) : null : null }
                 </div>
                 <div className="block-footer">
-                    <Button color="auth" size="lgAuth" className="crate-btn" onClick={handleBuyWithBusd}>BUY WITH BUSD</Button>
+                    <Button color="auth" size="lgAuth" className="crate-btn" onClick={handleBuyWithBusd}>
+                        { crateInfo ? crateInfo.price ? 'BUY WITH BUSD (' + crateInfo.price + ')' : 'BUY WITH BUSD' : 'BUY WITH BUSD' }                        
+                    </Button>
                 </div>
                 { pageStatus === 1 && purchasedTokens.length ? (
                 <div className="block-popup">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Token;
 use App\Models\Preset;
+use App\Models\Crate;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -101,7 +102,7 @@ class TokenController extends Controller
             $index = 0;
             foreach($validated['presetIds'] as $presetId) {
                 $amount = $validated['amounts'][$index++];
-                $preset = Preset::where('preset_id', $presetId)->firstOrFail();
+                $preset = Preset::where('preset_id', $presetId)->first();
     
                 if($preset) {
                     $tokenData = [];                
@@ -242,21 +243,20 @@ class TokenController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        $tokens = Token::where('token_id', $id)->get();
+        $token = Token::where('token_id', $id)->first();
 
-        if(count($tokens) !== 1) {
+        if(!$token) {
             return response()->json(['error' => 'TokenId is invalid'], 400);
         }
-  
-        $token = $tokens->first();
-        $preset = Preset::where('preset_id', $token->preset_id)->firstOrFail();
+
+        $preset = Preset::where('preset_id', $token->preset_id)->first();
 
         if(!$preset) {
             return response()->json(['error' => 'TokenId is invalid'], 400);
         }
 
         return response()->json([
-            'tokenId' => $token->tokenId,
+            'tokenId' => $token->token_id,
             'name' => $preset->name,
             'description' => $preset->description,
             'external_url' => config('admin.web_url'),
@@ -329,5 +329,61 @@ class TokenController extends Controller
             'success' => true,
             'message' => 'Token list successfully has been assigned',
         ], 200);
+    }
+
+    public function getCratePreset(Request $request) 
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|integer|gt:0',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $validated = $validator->validated();
+
+        $crate = Crate::where('crate_id', $validated['id'])->first();
+
+        if(!$crate) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid Crate Id'
+            ], 401);
+        }
+
+        $crate_quantity = $crate->quantity;
+        $crate_faction = $crate->faction_id;
+        $crate_price = $crate->price;
+        $crate_isDeleted = $crate->is_deleted;
+        $crate_rarities = $crate->rarities->pluck('id');
+
+        if($crate_isDeleted) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Deleted Crate Id'
+            ], 401);
+        }
+
+        $preset = Preset::where('tokentype_id', 2)->where('is_deleted', false)->where('faction_id', $crate_faction)->whereIn('rarity_id', $crate_rarities)->get()->pluck('id')->toArray();
+
+        if(count($preset) < $crate_quantity) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Insufficient matching preset quantity'
+            ], 401);
+        }
+
+        $presetKeys = array_rand($preset, $crate_quantity);
+        $presetIds = array();
+
+        foreach($presetKeys as $presetKey) {
+            $presetIds[] = $preset[$presetKey];
+        }
+        
+        return response()->json([
+            'success' => true,
+            'presetIds' => $presetIds
+        ], 201);
     }
 }

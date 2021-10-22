@@ -61,6 +61,8 @@ export default function AccountPage() {
     }, []);  
 
     const updateTfaFlag = () => {
+        hideAlert();
+        
         setLoading(true);
         SwitchTfaSetting().then(res => {
             setLoading(false);
@@ -98,8 +100,6 @@ export default function AccountPage() {
     };
     
     const handleRequestTfa = () => {
-        console.log('handleRequestTfa');
-
         setAlert(
             <SweetAlert
               warning
