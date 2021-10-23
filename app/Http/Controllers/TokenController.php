@@ -106,7 +106,7 @@ class TokenController extends Controller
     
                 if($preset) {
                     $tokenData = [];                
-                    $tokenData['preset_id'] = $preset->id;
+                    $tokenData['preset_id'] = $preset->preset_id;
                     $tokenData['owner'] = strtolower($address);
                     $tokenData['state_id'] = strtolower($address) == strtolower($validated['owner']) ? 1 : 2;
                     
@@ -356,7 +356,7 @@ class TokenController extends Controller
         $crate_faction = $crate->faction_id;
         $crate_price = $crate->price;
         $crate_isDeleted = $crate->is_deleted;
-        $crate_rarities = $crate->rarities->pluck('id');
+        $crate_rarities = $crate->rarities->pluck('id')->toArray();
 
         if($crate_isDeleted) {
             return response()->json([

@@ -252,7 +252,7 @@ export default function CrateItemPage() {
                 .nextTokenId()
                 .call({ from: account });
 
-            GetCratePresetService({id: crateId}).then((res, acquiredPresetIds) => {
+            GetCratePresetService({id: crateId}).then((res) => {
                 if(res.hasOwnProperty('success') && res.success === true) {
                     buyCrate(res.presetIds);
                 } else {
