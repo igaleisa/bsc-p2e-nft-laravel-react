@@ -106,7 +106,7 @@ class TokenController extends Controller
     
                 if($preset) {
                     $tokenData = [];                
-                    $tokenData['preset_id'] = $preset->preset_id;
+                    $tokenData['preset_id'] = $preset->id;
                     $tokenData['owner'] = strtolower($address);
                     $tokenData['state_id'] = strtolower($address) == strtolower($validated['owner']) ? 1 : 2;
                     
@@ -249,7 +249,7 @@ class TokenController extends Controller
             return response()->json(['error' => 'TokenId is invalid'], 400);
         }
 
-        $preset = Preset::where('preset_id', $token->preset_id)->first();
+        $preset = Preset::where('id', $token->preset_id)->first();
 
         if(!$preset) {
             return response()->json(['error' => 'TokenId is invalid'], 400);
