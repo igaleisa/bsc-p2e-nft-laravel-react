@@ -334,8 +334,7 @@ export default function PresetPage() {
   const handleApply = async () => {
     if(validateForm()) {
       if (!umblCoreContract || !status) {
-        errMsg = "Non-Ethereum browser detected. You should consider trying MetaMask!";
-        showErrorMsg(errMsg);
+        showErrorMsg("Non-Ethereum browser detected. You should consider trying MetaMask!");
         return;
       }   
 

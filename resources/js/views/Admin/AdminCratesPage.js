@@ -240,8 +240,7 @@ export default function CratesPage() {
     setLoading(true);
 
     if (!umblCoreContract || !status) {
-      errMsg = "Non-Ethereum browser detected. You should consider trying MetaMask!";
-      showErrorMsg(errMsg);
+      showErrorMsg("Non-Ethereum browser detected. You should consider trying MetaMask!");
       return;
     }
 
@@ -324,7 +323,7 @@ export default function CratesPage() {
 
   const applyCrateInfo = async () => {
     var validation = true;
-    var errMsg = [];
+    let errMsg = [];
 
     validateCrateForm();
 
@@ -364,8 +363,7 @@ export default function CratesPage() {
     }
 
     if (!umblCoreContract || !status) {
-      errMsg = "Non-Ethereum browser detected. You should consider trying MetaMask!";
-      showErrorMsg(errMsg);
+      showErrorMsg("Non-Ethereum browser detected. You should consider trying MetaMask!");
       return;
     }
 
@@ -524,9 +522,8 @@ export default function CratesPage() {
       }  
 
       if (!status) {
-        const errMsg = "Please connect with owner account";
         setAccountError(true);
-        showErrorMsg(errMsg);
+        showErrorMsg("Please connect with owner account");
         return;
       }
 
@@ -535,9 +532,8 @@ export default function CratesPage() {
         .call({ from: account });
 
       if(ownerAccount.toLowerCase() !== account.toLowerCase()) {
-        const errMsg = "Please connect with owner account";
         setAccountError(true);
-        showErrorMsg(errMsg);
+        showErrorMsg("Please connect with owner account");
       } else {
         setAccountError(false);
       }
