@@ -21,6 +21,8 @@ import virusIcon from "@/assets/img/icons/virusIcon.svg";
 import paracitesIcon from "@/assets/img/icons/paracitesIcon.svg";
 import variantsIcon from "@/assets/img/icons/variantsIcon.svg";
 
+import sampleThumbnail from "@/assets/img/sample-thumbnail.jpg";
+
 // styles
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "@/assets/jss/material-dashboard-pro-react/views/commonPageStyle.js";
@@ -54,7 +56,7 @@ export default function ItemPage() {
     const [tokenName, setTokenName] = React.useState('');
     const [tokenDescription, setTokenDescription] = React.useState('');
     const [tokenModel, setTokenModel] = React.useState('');
-    const [tokenThumbnail, setTokenThumbnail] = React.useState('');
+    const [tokenThumbnail, setTokenThumbnail] = React.useState(null);
     const [tokenRarity, setTokenRarity] = React.useState('');
     const [tokenRarityId, setTokenRarityId] = React.useState(null);
     const [tokenCategory, setTokenCategory] = React.useState('');
@@ -224,23 +226,27 @@ export default function ItemPage() {
                             <div className="lightBlueLink" onClick={handleBack} style={{marginBottom: "30px"}}>
                                 back
                             </div>
-                            <div className="whiteTitleText">
-                                {tokenName}
-                            </div> 
-                            <div className="bottomAttributes">
-                                <div className="categorySmallText">
-                                    {tokenCategory}
-                                </div> 
-                                <div className="raritySmallText" style={{color: getRarityColor(tokenRarityId)}}>
-                                    ({tokenRarity})
+                            { tokenName !== '' ? (
+                                <div>
+                                    <div className="whiteTitleText">
+                                        { tokenName === '' ? '          ' : tokenName }
+                                    </div> 
+                                    <div className="bottomAttributes">
+                                        <div className="categorySmallText">
+                                            {tokenCategory === '' ? '          ' : tokenCategory }
+                                        </div> 
+                                        <div className="raritySmallText" style={{color: getRarityColor(tokenRarityId)}}>
+                                            ({tokenRarity})
+                                        </div>
+                                    </div>
+                                    <div className="itemDescText">
+                                        {tokenDescription}
+                                    </div>  
+                                    <div className="itemImage">
+                                        <img src={tokenThumbnail === null ? sampleThumbnail : tokenThumbnail} />
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="itemDescText">
-                                {tokenDescription}
-                            </div>  
-                            <div className="itemImage">
-                                <img src={tokenThumbnail} />
-                            </div>                                                      
+                            ) : null }                                                 
                         </CardBody>
                     </Card>
                 </GridItem>
