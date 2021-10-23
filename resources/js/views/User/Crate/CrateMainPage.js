@@ -97,7 +97,7 @@ export default function CrateMainPage() {
                     <div className="block-body">
                         <div className="title-container">
                             <h5 className="card-title">SCIENTIST</h5>
-                            <p className="card-text"><span>ALPHA</span> CRATE</p>
+                            <p className="card-text"><span>ALPHA</span> TYPE</p>
                         </div>
                         <div className="rarity-container">
                             <label className="card-text common">COMMON</label>
@@ -109,7 +109,7 @@ export default function CrateMainPage() {
                     <div className="block-body">
                         <div className="title-container">
                             <h5 className="card-title">SCIENTIST</h5>
-                            <p className="card-text"><span>OMEGA</span> CRATE</p>
+                            <p className="card-text"><span>OMEGA</span> TYPE</p>
                         </div>
                         <div className="rarity-container">
                             <label className="card-text unique">UNIQUE</label>

@@ -305,7 +305,7 @@ export default function CrateItemPage() {
                     <div className="header-left">
                         <div className="top-type">
                             <div className="top-category">Category:</div>
-                            <div className="top-typeval">Survivor</div>
+                            <div className="top-typeval">{ crateInfo ? crateInfo.faction.name ? crateInfo.faction.name : '' : '' }</div>
                         </div>
                         <div className="bottom-type">
                             <p>Each crate contains <span className="red-text">Four</span> objects</p>
@@ -313,13 +313,35 @@ export default function CrateItemPage() {
                     </div>
                     <div className="header-center">
                         <div className="crate-type">
-                            <div className="crate-level">Basic</div>
-                            <div className="white-title">Crate</div>
+                            { crateInfo ? crateInfo.name ? crateInfo.name.includes(' ') ? (
+                                <div style={{display: "flex"}}>
+                                    <div className="crate-level">{ crateInfo.name.split(' ')[0] } </div>
+                                    <div className="white-title">{ crateInfo.name.split(' ')[1] } </div>
+                                </div>
+                            ) : 
+                            (
+                                <div className="crate-level">
+                                    {crateInfo.name}
+                                </div>
+                            ) : null : null }
                         </div>
                         <div className="crate-rarities">
-                            <div className="crate-rarity">Common</div>
-                            <div className="crate-rarity-divider">/</div>
-                            <div className="crate-rarity">Uncommon</div>
+                            { crateInfo ? crateInfo.rarities ? crateInfo.rarities.length ? (
+                                <div style={{ display: "flex" }}>
+                                    { crateInfo.rarities.map((prop, key) => { return (
+                                        <div style={{display: "flex"}}>
+                                            <div className="crate-rarity" key={key}>{ prop.name } </div>
+                                            { key === crateInfo.rarities.length - 1 ? null : (
+                                                <div className="crate-rarity-divider">/</div>
+                                            )}
+                                        </div>
+                                    ) }) }
+                                    
+                                    {/* // <div className="crate-rarity-divider">/</div>
+                                    // <div className="crate-rarity">Uncommon</div> */}
+                                </div>
+
+                            ) : null : null : null}
                         </div>
                     </div>
                     <div className="header-right">
