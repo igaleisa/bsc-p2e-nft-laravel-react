@@ -2,6 +2,7 @@ $light-green-color: #5FFE82;
 $dark-gray-color: #848484;
 $dark-red-color: #BB0400;
 $screen-sm: 768px !default;
+$screen-xs: 480px !default;
 
 .backdrop {
     z-Index: 99999 !important;
@@ -362,6 +363,15 @@ $screen-sm: 768px !default;
             }
 
             .crate-type {
+                @media (min-width: $screen-sm) {
+                    margin-bottom: 10px;
+                }
+                @media (max-width: $screen-sm) {
+                    margin-bottom: 10px;
+                }
+                @media (max-width: $screen-xs) {
+                    margin-bottom: 0px;
+                }
                 font-family: Resident;
                 font-size: 6vw;
                 text-transform: uppercase;
@@ -379,7 +389,7 @@ $screen-sm: 768px !default;
                 }
             }
 
-            .crate-rarities {
+            .crate-rarities {                
                 font-family: Resident;
                 font-size: 3vw;
                 text-transform: uppercase;
