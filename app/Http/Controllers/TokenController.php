@@ -365,7 +365,7 @@ class TokenController extends Controller
             ], 401);
         }
 
-        $preset = Preset::where('tokentype_id', 2)->where('is_deleted', false)->where('faction_id', $crate_faction)->whereIn('rarity_id', $crate_rarities)->get()->pluck('id')->toArray();
+        $preset = Preset::where('tokentype_id', 2)->where('is_deleted', false)->where('faction_id', $crate_faction)->whereIn('rarity_id', $crate_rarities)->get()->pluck('preset_id')->toArray();
 
         if(count($preset) < $crate_quantity) {
             return response()->json([
