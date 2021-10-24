@@ -2,6 +2,8 @@ import React, { useState, useEffect, } from "react";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 
+import React360Viewer from "@/components/360/React360Viewer.js";
+
 // @material-ui/core components
 
 // core components
@@ -31,7 +33,12 @@ const useStyles = makeStyles(styles);
 
 // actions
 import { LogoutAction } from '@/redux/actions/AuthActions';
-import { GetCategoryNameService, GetRaritiesService, GetObjectCategoriesService, } from '@/services/UserServices';
+import { 
+    GetCategoryNameService, 
+    GetRaritiesService, 
+    GetObjectCategoriesService,
+    GetTokenInformationService,
+} from '@/services/UserServices';
 
 // contract
 import { useUmblCoreContract, useMarketPlaceContract } from "@/hooks";
@@ -56,6 +63,7 @@ export default function ItemPage() {
     const [tokenName, setTokenName] = React.useState('');
     const [tokenDescription, setTokenDescription] = React.useState('');
     const [tokenModel, setTokenModel] = React.useState('');
+    const [tokenV360, setTokenV360] = React.useState(null);
     const [tokenThumbnail, setTokenThumbnail] = React.useState(null);
     const [tokenRarity, setTokenRarity] = React.useState('');
     const [tokenRarityId, setTokenRarityId] = React.useState(null);
@@ -157,6 +165,13 @@ export default function ItemPage() {
             });
 
             setTokenHealth(tokenData.health);
+
+            GetTokenInformationService(tokenId)
+            .then(res => {
+                if(res.hasOwnProperty('success') && res.success === true) {
+                    setTokenV360(res.object.preset.v360);
+                }
+            });
         }
     }, [status, account])
 
@@ -243,7 +258,18 @@ export default function ItemPage() {
                                         {tokenDescription}
                                     </div>  
                                     <div className="itemImage">
-                                        <img src={tokenThumbnail === null ? sampleThumbnail : tokenThumbnail} />
+                                        { tokenV360 !== null && tokenV360 !== '' ?
+                                            (<React360Viewer
+                                                amount={72}
+                                                imagePath={process.env.MIX_UMBL_CLOUDIMAGE_URI + 'objects/' + tokenV360 + '/xxxx?func=crop&width=540&height=540'}
+                                                fileName="{index}.png"
+                                                spinReverse
+                                                autoplay
+                                                loop
+                                                buttonClass="dark"
+                                            />) :
+                                            (<img src={tokenThumbnail === null ? sampleThumbnail : tokenThumbnail} />)
+                                        }
                                     </div>
                                 </div>
                             ) : null }                                                 

@@ -67,7 +67,7 @@ export const AssignTokenService = (postData) => {
 
 export const GetTokenInformationService = (id) => {
     const http = new HttpService();
-    let getUrl = "admin/token/" + id;
+    let getUrl = "share/token/" + id;
     const tokenId = "user-token";
 
     return http.getData(getUrl, tokenId).then((data) => {

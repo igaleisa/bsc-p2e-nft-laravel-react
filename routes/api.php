@@ -73,7 +73,6 @@ Route::group([
     Route::apiResource('token', TokenController::class)->only(['index', 'update', 'delete']);
     Route::apiResource('users', UserController::class);    
     Route::apiResource('preset', PresetController::class);   
-    Route::get('/token/{id}', [TokenController::class, 'getTokenInfo'])->name('token.info');
     Route::post('/token/assign', [TokenController::class, 'assignTokenList'])->name('token.assign');
     Route::post('/mint', [MintController::class, 'mint'])->name('mint');    
     Route::get('/usercount', [UserController::class, 'count'])->name('user.count');
@@ -86,6 +85,7 @@ Route::group([
     'middleware' => ['jwt.verify', 'role:admin,user'],
     'prefix' => 'share',    
 ], function() {
+    Route::get('/token/{id}', [TokenController::class, 'getTokenInfo'])->name('token.info');
     Route::post('/token/register', [TokenController::class, 'registerList'])->name('token.register');
 });
 

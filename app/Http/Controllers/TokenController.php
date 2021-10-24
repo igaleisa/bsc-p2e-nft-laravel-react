@@ -137,7 +137,7 @@ class TokenController extends Controller
     {
         return response()->json([
             'success' => true,
-            'object' => $token
+            'object' => 'sdfsdfsdfsdfsdf'
         ], 200);
     }
 
