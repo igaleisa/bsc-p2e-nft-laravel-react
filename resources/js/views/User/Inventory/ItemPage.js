@@ -142,7 +142,7 @@ export default function ItemPage() {
                 history.push('/inventory');
             });
 
-            setTokenRarityId(tokenData.rarity);
+            setTokenRarityId(parseInt(tokenData.rarity));
             GetRaritiesService()
             .then(res => {
                 const rarity = res.rarities.find(element => element.id === parseInt(tokenData.rarity));
@@ -196,8 +196,8 @@ export default function ItemPage() {
 
     const getRarityColor = (rarity) => {
         if(rarity === 1) return '#cfd8dc';
-        else if(rarity === 2) return '#e65100';
-        else if(rarity === 3) return '#aeea00';
+        else if(rarity === 2) return '#00ff00';
+        else if(rarity === 3) return '#0000ff';
         else if(rarity === 4) return '#004d40';
         else if(rarity === 5) return '#2962ff';
         else if(rarity === 6) return '#aa00ff';
