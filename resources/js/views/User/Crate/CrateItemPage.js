@@ -305,7 +305,11 @@ export default function CrateItemPage() {
                     <div className="header-left">
                         <div className="top-type">
                             <div className="top-category">Category:</div>
-                            <div className="top-typeval">{ crateInfo ? crateInfo.faction.name ? crateInfo.faction.name : '' : '' }</div>
+                            <div className="top-typeval">
+                                <span className={ crateInfo ? crateInfo.faction.name === 'Survivors' ? 'survivors-faction' : 'scientists-faction' : '' }>
+                                    { crateInfo ? crateInfo.faction.name ? crateInfo.faction.name : '' : '' }
+                                </span>
+                            </div>
                         </div>
                         <div className="bottom-type">
                             <p>Each crate contains <span className="red-text">Four</span> objects</p>

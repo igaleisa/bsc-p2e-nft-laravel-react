@@ -340,6 +340,16 @@ $screen-xs: 480px !default;
                     font-family: Resident;
                     font-size: 5vw;
                     color: $dark-red-color;
+                    .survivors-faction {
+                        font-family: Resident;
+                        color: $dark-red-color;
+                        font-size: 5vw;
+                    }
+                    .scientists-faction {
+                        font-family: Microgramma;
+                        color: #1cf8df;
+                        font-size: 3vw;
+                    }
                 }
             }
 
