@@ -148,15 +148,15 @@ const homePageStyle = theme => ({
   },
   welcomeBanner: {
     textTransform: "uppercase",
-    minHeight: "280px",
+    minHeight: "256px",
     [theme.breakpoints.down("md")]: {
       minHeight: "220px",
     },
     [theme.breakpoints.down("sm")]: {
-      minHeight: "160px",
+      minHeight: "170px",
     },
     [theme.breakpoints.down("xs")]: {
-      minHeight: "90px",
+      minHeight: "80px",
     },
     display: "flex",
     flexDirection: "column",
@@ -225,10 +225,31 @@ const homePageStyle = theme => ({
   },
   authBlock: {
     width: "100%",
-    minHeight: "200px",
+    minHeight: "260px",
+    [theme.breakpoints.down("md")]: {
+      minHeight: "210px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      minHeight: "350px",
+    },
+    [theme.breakpoints.down("xs")]: {
+      minHeight: "145px",
+    },
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-start",
+  },
+  cityPlotsBlock: {
+    minHeight: "210px !important",
+    [theme.breakpoints.down("md")]: {
+      minHeight: "210px !important",
+    },
+    [theme.breakpoints.down("sm")]: {
+      minHeight: "280px !important",
+    },
+    [theme.breakpoints.down("xs")]: {
+      minHeight: "135px !important",
+    }
   },
   followIconBlock: {
     position: "absolute",
