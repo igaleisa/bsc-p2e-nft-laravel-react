@@ -31,7 +31,7 @@ import signupBanner from "@/assets/img/banners/user-signup.jpg";
 import signinBanner from "@/assets/img/banners/user-signin.jpg";
 import followUsBanner from "@/assets/img/banners/follow-us-banner.png";
 import mainPortalBanner from "@/assets/img/banners/umbl_project_portal.jpg";
-import factionBanner from "@/assets/img/banners/choose_your_faction.jpeg";
+import factionBanner from "@/assets/img/banners/choose_your_faction.jpg";
 import incubatorBanner from "@/assets/img/banners/menu_incubator.jpeg";
 import chapterOneBanner from "@/assets/img/banners/chapter_one_banner.jpg";
 import buyBioCratesBanner from "@/assets/img/banners/buy_biocrates.jpeg";
