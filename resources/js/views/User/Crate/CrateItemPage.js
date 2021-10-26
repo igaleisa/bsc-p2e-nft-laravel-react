@@ -2,6 +2,9 @@ import React, { useState, useEffect, } from "react";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 
+// import ReactPlayer from 'react-player'
+import ReactPlayer from 'react-player/lazy'
+
 import Button from "@/components/CustomButtons/Button.js";
 import React360Viewer from "@/components/360/React360Viewer.js";
 import Backdrop from '@material-ui/core/Backdrop';
@@ -333,7 +336,7 @@ export default function CrateItemPage() {
                             { crateInfo ? crateInfo.rarities ? crateInfo.rarities.length ? (
                                 <div style={{ display: "flex" }}>
                                     { crateInfo.rarities.map((prop, key) => { return (
-                                        <div style={{display: "flex"}}>
+                                        <div style={{display: "flex"}} key={key}>
                                             <div className="crate-rarity" key={key}>{ prop.name } </div>
                                             { key === crateInfo.rarities.length - 1 ? null : (
                                                 <div className="crate-rarity-divider">/</div>
@@ -352,17 +355,25 @@ export default function CrateItemPage() {
                         <Button color="auth" size="lgAuth" className="crate-btn" onClick={handleGoBack}>GO BACK</Button>
                     </div>
                 </div>
-                <div className="block-main">
+                <div className="block-main" style={{ display: "flex", justifyContent: "center", backgroundColor: "black"}} >
                     { crateInfo ? crateInfo.v360 ? (
-                    <React360Viewer
-                        amount={72}
-                        imagePath={process.env.MIX_UMBL_CLOUDIMAGE_URI + 'crates/' + crateInfo.v360 + '/xxxx?func=crop&width=960&height=540'}
-                        fileName="{index}.png"
-                        spinReverse
-                        autoplay
-                        loop
-                        buttonClass="dark"
-                    />) : null : null }
+                    // <React360Viewer
+                    //     amount={72}
+                    //     imagePath={process.env.MIX_UMBL_CLOUDIMAGE_URI + 'crates/' + crateInfo.v360 + '/xxxx?func=crop&width=960&height=540'}
+                    //     fileName="{index}.png"
+                    //     spinReverse
+                    //     autoplay
+                    //     loop
+                    //     buttonClass="dark"
+                    // />
+                    <ReactPlayer 
+                        // url='/videos/test-video.mp4' 
+                        url={process.env.MIX_UMBL_STORAGE_URI + 'crates/' + crateInfo.v360 + '.mp4'}
+                        playing={true} 
+                        loop={true} 
+                        width='100%'
+                        height='100%'/>
+                    ) : null : null }
                 </div>
                 <div className="block-footer">
                     <Button color="auth" size="lgAuth" className="crate-btn" onClick={handleBuyWithBusd}>

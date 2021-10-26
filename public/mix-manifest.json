@@ -1,6 +1,19 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/manifest.js": "/js/manifest.js",
+    "/js/reactPlayerYouTube.js": "/js/reactPlayerYouTube.js",
+    "/js/reactPlayerSoundCloud.js": "/js/reactPlayerSoundCloud.js",
+    "/js/reactPlayerVimeo.js": "/js/reactPlayerVimeo.js",
+    "/js/reactPlayerFacebook.js": "/js/reactPlayerFacebook.js",
+    "/js/reactPlayerStreamable.js": "/js/reactPlayerStreamable.js",
+    "/js/reactPlayerWistia.js": "/js/reactPlayerWistia.js",
+    "/js/reactPlayerTwitch.js": "/js/reactPlayerTwitch.js",
+    "/js/reactPlayerDailyMotion.js": "/js/reactPlayerDailyMotion.js",
+    "/js/reactPlayerMixcloud.js": "/js/reactPlayerMixcloud.js",
+    "/js/reactPlayerVidyard.js": "/js/reactPlayerVidyard.js",
+    "/js/reactPlayerKaltura.js": "/js/reactPlayerKaltura.js",
+    "/js/reactPlayerFilePlayer.js": "/js/reactPlayerFilePlayer.js",
+    "/js/reactPlayerPreview.js": "/js/reactPlayerPreview.js",
     "/css/app.css": "/css/app.css",
     "/js/vendor.js": "/js/vendor.js"
 }
