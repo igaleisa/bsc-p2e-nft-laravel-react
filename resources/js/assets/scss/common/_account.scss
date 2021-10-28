@@ -229,6 +229,8 @@ $border-color: rgba(86,157,188,.5);
 
             .badge-item-action {
                 padding: 10px;
+                display: flex;
+                flex-direction: column;
             }
         }
     }

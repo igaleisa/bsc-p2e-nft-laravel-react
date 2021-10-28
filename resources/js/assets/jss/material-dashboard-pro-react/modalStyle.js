@@ -8,16 +8,20 @@ const modalStyle = theme => ({
   },
   modal: {
     [theme.breakpoints.up("sm")]: {
-      maxWidth: "500px",
-      minWidth: "400px",
+      maxWidth: "800px",
+      minWidth: "600px",
       margin: "auto"
     },
     borderRadius: "6px",
-    marginTop: "100px !important",
+    marginTop: "200px !important",
     overflow: "visible",
     maxHeight: "unset",
     position: "relative",
     height: "fit-content"
+  },
+  blackModal: {
+    backgroundColor: "black",
+    boxShadow: "rgb(0 0 0 / 8%) 0px 1px 1px inset, #a5caea 0px 0px 8px"
   },
   modalHeader: {
     borderBottom: "none",
@@ -30,6 +34,9 @@ const modalStyle = theme => ({
   modalTitle: {
     margin: "0",
     lineHeight: "1.42857143"
+  },
+  modalWhiteTitle: {
+    color: "white"
   },
   modalCloseButton: {
     color: grayColor[0],
@@ -50,6 +57,9 @@ const modalStyle = theme => ({
   modalClose: {
     width: "16px",
     height: "16px"
+  },
+  modalCloseWhite: {
+    color: "white"
   },
   modalBody: {
     paddingTop: "24px",

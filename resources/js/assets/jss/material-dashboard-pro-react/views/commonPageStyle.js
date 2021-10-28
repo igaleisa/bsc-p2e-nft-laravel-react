@@ -14,9 +14,12 @@ import {
 } from "@/assets/jss/material-dashboard-pro-react.js";
 
 import sweetAlertStyle from "@/assets/jss/material-dashboard-pro-react/views/sweetAlertStyle.js";
+import notificationStyle from "@/assets/jss/material-dashboard-pro-react/views/notificationsStyle.js";
+import modalStyle from "@/assets/jss/material-dashboard-pro-react/modalStyle.js";
 
 const commonPageStyle = theme => ({
   ...sweetAlertStyle,
+  ...notificationStyle,
   container: {
     ...container,
     zIndex: "4",
@@ -97,6 +100,7 @@ const commonPageStyle = theme => ({
     fontSize: "12px",
     textTransform: "uppercase",
   },  
+  ...modalStyle(theme)
 });
 
 export default commonPageStyle;
