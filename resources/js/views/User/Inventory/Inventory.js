@@ -16,7 +16,8 @@ import armorIcon from "@/assets/img/icons/armorIcon.svg";
 import weaponIcon from "@/assets/img/icons/weaponIcon.svg";
 import accesoriesIcon from "@/assets/img/icons/accesoriesIcon.svg";
 import virusIcon from "@/assets/img/icons/virusIcon.svg";
-import paracitesIcon from "@/assets/img/icons/paracitesIcon.svg";
+// import paracitesIcon from "@/assets/img/icons/paracitesIcon.svg";
+import paracitesIcon from "@/assets/img/icons/parasites_and_fungus.png";
 import variantsIcon from "@/assets/img/icons/variantsIcon.svg";
 
 

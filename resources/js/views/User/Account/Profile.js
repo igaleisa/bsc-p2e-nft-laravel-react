@@ -256,7 +256,7 @@ export default function Profile() {
                     open={viewBadge}
                     TransitionComponent={Transition}
                     keepMounted
-                    onClose={() => setViewBadge(false)}
+                    // onClose={() => setViewBadge(false)}
                     aria-labelledby="classic-modal-slide-title"
                     aria-describedby="classic-modal-slide-description"
                 >
