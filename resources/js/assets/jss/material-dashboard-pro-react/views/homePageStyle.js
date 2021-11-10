@@ -162,6 +162,22 @@ const homePageStyle = theme => ({
     flexDirection: "column",
     justifyContent: "flex-end",
   },
+  presaleBanner: {
+    textTransform: "uppercase",
+    minHeight: "300px",
+    [theme.breakpoints.down("md")]: {
+      minHeight: "300px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      minHeight: "200px",
+    },
+    [theme.breakpoints.down("xs")]: {
+      minHeight: "90px",
+    },
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+  },
   followBanner: {
     textTransform: "uppercase",
     minHeight: "450px",

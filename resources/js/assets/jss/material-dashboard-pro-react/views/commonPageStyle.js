@@ -27,6 +27,10 @@ const commonPageStyle = theme => ({
       paddingBottom: "100px"
     }
   },
+  backdrop: {
+    zIndex: 99999,
+    color: '#fff',
+  },
   mt10: {
     marginTop: "10px !important",
   },

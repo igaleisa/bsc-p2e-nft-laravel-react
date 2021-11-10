@@ -104,7 +104,6 @@ export default function AccountPage() {
     }
 
     const handleGift = () => {
-
     }
 
     const hideAlert = () => {

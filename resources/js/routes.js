@@ -39,6 +39,7 @@ import ProfilePage from "@/views/User/Account/Profile.js";
 import SecurityPage from "@/views/User/Account/Security.js";
 import ForgetPasswordPage from "@/views/Forget/ForgetPasswordPage.js";
 import ResetPasswordPage from "@/views/Forget/ResetPasswordPage.js";
+import PresalePage from "@/views/User/Presale/Presale.js";
 
 import CrateMainPage from "@/views/User/Crate/CrateMainPage.js";
 import CrateItemPage from "@/views/User/Crate/CrateItemPage.js";
@@ -112,6 +113,12 @@ var dashRoutes = [
     path: "/account/security",
     name: "Account Security Page",
     component: SecurityPage,
+    layout: "/user"
+  },
+  {
+    path: "/presale",
+    name: "UMBL Presale Page",
+    component: PresalePage,
     layout: "/user"
   },
   {
