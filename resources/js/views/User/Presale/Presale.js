@@ -86,15 +86,21 @@ export default function PresalePage() {
             .isPresaleStarted()
             .call();
 
+        console.log('isPresaleStartedVal => ' + isPresaleStartedVal);
+
         setIsPresaleStarted(isPresaleStartedVal);
         
         const isPresaleEndedVal = await umblPresaleContract.methods
             .isPresaleEnded()
             .call();
 
+        console.log('isPresaleEndedVal => ' + isPresaleEndedVal);
+
         if(isPresaleStartedVal || isPresaleEndedVal) {
+            console.log('pageStatus => 1');
             setPresaleStatus(1);
         } else {
+            console.log('pageStatus => 0');
             setPresaleStatus(0);
         }
 
