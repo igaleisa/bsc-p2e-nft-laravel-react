@@ -92,8 +92,11 @@ export default function PresalePage() {
             .isPresaleEnded()
             .call();
 
-        if(isPresaleStartedVal || isPresaleEndedVal)
-            setPresaleStatus('started');
+        if(isPresaleStartedVal || isPresaleEndedVal) {
+            setPresaleStatus(1);
+        } else {
+            setPresaleStatus(0);
+        }
 
         if(isPresaleStartedVal) {
             const presaleEndTime = await umblPresaleContract.methods
@@ -340,7 +343,7 @@ export default function PresalePage() {
 
     return(
         <div className={classes.container}> 
-            { presaleStatus === null ? (                           
+            { presaleStatus === 0 ? (                           
                 <GridContainer justifyContent="center">
                     <GridItem xs={12} sm={12} md={12}>
                         <Card main>
@@ -355,7 +358,7 @@ export default function PresalePage() {
                         </Card>
                     </GridItem>
                 </GridContainer>                
-            ) : presaleStatus == 'started' ? (                
+            ) : presaleStatus === 1 ? (                
                 <GridContainer justifyContent="center">
                     <GridItem xs={12} sm={12} md={1}></GridItem>
                     <GridItem xs={12} sm={12} md={10}>
