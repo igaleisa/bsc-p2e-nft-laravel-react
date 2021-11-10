@@ -20,6 +20,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import House from "@material-ui/icons/House";
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import ShopIcon from '@material-ui/icons/Shop';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import mainIcon from "@/assets/img/umbl_icon.png";
 
 // core components
@@ -100,6 +101,21 @@ export default function UserNavbar(props) {
             <ShopIcon className={classes.listItemIcon} />
             <ListItemText
               primary={"Marketplace"}
+              disableTypography={true}
+              className={classes.listItemText}
+            />
+          </NavLink>
+        </ListItem>    
+        <ListItem className={classes.listItem}>
+          <NavLink
+            to={"/presale"}
+            className={cx(classes.navLink, {
+              [classes.navLinkActive]: activeRoute("/presale")
+            })}
+          >
+            <AttachMoneyIcon className={classes.listItemIcon} />
+            <ListItemText
+              primary={"Presale"}
               disableTypography={true}
               className={classes.listItemText}
             />

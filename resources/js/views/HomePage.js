@@ -27,6 +27,7 @@ import CardBody from "@/components/Card/CardBody.js";
 import UmblInput from "@/components/CustomInput/UmblInput.js";
 
 import principalBanner from "@/assets/img/banners/banner-principal.jpg";
+import presaleBanner from "@/assets/img/banners/umbl_presale.jpg";
 import signupBanner from "@/assets/img/banners/user-signup.jpg";
 import signinBanner from "@/assets/img/banners/user-signin.jpg";
 import followUsBanner from "@/assets/img/banners/follow-us-banner.png";
@@ -380,6 +381,11 @@ export default function HomePage() {
     }
   }, [])
 
+  const moveToPresalePage = () => {
+    console.log('moveToPresalePage');
+    history.push('/presale');
+  }
+
   return (
     <div className={classes.container}> 
       <GridContainer justifyContent="center">
@@ -411,6 +417,22 @@ export default function HomePage() {
           )}
         </GridItem>
       </GridContainer>
+      { isAuthenticated ? (
+      <GridContainer justifyContent="center">
+        <GridItem xs={12} sm={12} md={12}>
+            <Card main onClick={moveToPresalePage}>
+                <CardBody border>
+                    <div className={classes.presaleBanner}>
+                    </div>              
+                    <div
+                        className={classes.fullBackImage}
+                        style={{ backgroundImage: "url(" + presaleBanner + ")", backgroundColor: "transparent", backgroundSize: "cover", backgroundPosition: "center" }}
+                    />
+                </CardBody>
+            </Card>
+        </GridItem>
+      </GridContainer>      
+      ) : null}
       { pageStatus === PageStatus.NONE ? (
       <GridContainer justifyContent="center">
         <GridItem xs={12} sm={12} md={6}>
