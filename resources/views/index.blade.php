@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ env('APP_NAME') }}</title>
+        <title>UMBRELLAPROJECT</title>
 
         <!-- Include Frontend Application (webpack mix) -->
         <script defer src="/js/manifest.js"></script>       
