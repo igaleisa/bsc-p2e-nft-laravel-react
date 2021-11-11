@@ -31,6 +31,36 @@ const commonPageStyle = theme => ({
     zIndex: 99999,
     color: '#fff',
   },
+  fullBackImage: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    display: "-webkit-flex",
+    display: "flex",
+    height: "100%",
+    width: "100%",
+    zIndex: "-1",
+    overflow: "auto",
+    transition: "all .35s!important",
+    backgroundPosition: "0 50%",
+    backgroundRepeat: "no-repeat"
+  },
+  presaleBanner: {
+    textTransform: "uppercase",
+    minHeight: "300px",
+    [theme.breakpoints.down("md")]: {
+      minHeight: "300px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      minHeight: "200px",
+    },
+    [theme.breakpoints.down("xs")]: {
+      minHeight: "90px",
+    },
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+  },
   mt10: {
     marginTop: "10px !important",
   },
