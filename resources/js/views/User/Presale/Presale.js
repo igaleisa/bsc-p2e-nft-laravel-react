@@ -97,11 +97,13 @@ export default function PresalePage() {
         console.log('isPresaleEndedVal => ' + isPresaleEndedVal);
 
         if(isPresaleStartedVal || isPresaleEndedVal) {
-            console.log('pageStatus => 1');
+            console.log('presaleStatus => 1');
             setPresaleStatus(1);
         } else {
-            console.log('pageStatus => 0');
+            console.log('presaleStatus => 0');
             setPresaleStatus(0);
+            setLoading(false);
+            return;
         }
 
         if(isPresaleStartedVal) {
@@ -127,8 +129,6 @@ export default function PresalePage() {
             .call();
 
         setPresaleProgress(Math.floor((100.0 * tokensRaised) / fundingGoal));
-
-        console.log((100.0 * tokensRaised) / fundingGoal);
 
         const tokenPrice = await umblPresaleContract.methods
             .tokenPrice()
