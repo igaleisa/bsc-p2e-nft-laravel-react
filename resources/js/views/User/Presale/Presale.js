@@ -15,6 +15,7 @@ import SweetAlert from "react-bootstrap-sweetalert";
 import Button from "@/components/CustomButtons/Button.js";
 
 import principalBanner from "@/assets/img/banners/umbl_presale.jpg";
+import warningBanner from "@/assets/img/banners/umbrella-private-pause-banner.jpg";
 import presaleHeaderIcon from "@/assets/img/umbl_icon.png";
 import notebookIcon from "@/assets/img/icons/notebook.png";
 import copyIcon from "@/assets/img/icons/copy.png";
@@ -364,7 +365,22 @@ export default function PresalePage() {
                         </Card>
                     </GridItem>
                 </GridContainer>                
-            ) : presaleStatus === 1 ? (                
+            ) : presaleStatus === 1 ? (     
+                <GridContainer justifyContent="center">
+                    <GridItem xs={12} sm={12} md={12}>
+                        <Card main>
+                            <CardBody border>
+                                <div className={classes.presaleWarningBanner}>
+                                </div>              
+                                <div
+                                    className={classes.fullBackImage}
+                                    style={{ backgroundImage: "url(" + warningBanner + ")", backgroundColor: "transparent", backgroundSize: "cover", backgroundPosition: "center" }}
+                                />
+                            </CardBody>
+                        </Card>
+                    </GridItem>
+                </GridContainer>       
+            ) : presaleStatus === 2 ? (                
                 <GridContainer justifyContent="center">
                     <GridItem xs={12} sm={12} md={1}></GridItem>
                     <GridItem xs={12} sm={12} md={10}>

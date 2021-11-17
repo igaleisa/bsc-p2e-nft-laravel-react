@@ -61,6 +61,22 @@ const commonPageStyle = theme => ({
     flexDirection: "column",
     justifyContent: "flex-end",
   },
+  presaleWarningBanner: {
+    textTransform: "uppercase",
+    minHeight: "480px",
+    [theme.breakpoints.down("md")]: {
+      minHeight: "400px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      minHeight: "300px",
+    },
+    [theme.breakpoints.down("xs")]: {
+      minHeight: "130px",
+    },
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+  },
   mt10: {
     marginTop: "10px !important",
   },
