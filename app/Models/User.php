@@ -111,7 +111,7 @@ class User extends Authenticatable implements JWTSubject
     {
         // return $this->referral_link = route('register', ['ref' => $this->referral_code]);
         return $this->emailVerificationRequired = $this->email_verified_at ? false : true;
-    }  
+    }
 
     public function wallets() {
         return $this->belongsToMany(Wallet::class, 'user_wallets', 'user_id', 'wallet_id');

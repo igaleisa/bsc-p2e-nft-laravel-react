@@ -18,6 +18,7 @@ use App\Http\Controllers\PresetController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\PresaleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,7 @@ Route::group([
     Route::get('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
     Route::post('/account/tfa', [AuthController::class, 'update2FA'])->name('account.tfa');
     Route::post('/crates/buy', [TokenController::class, 'getCratePreset'])->name('crates.buy');    
+    Route::post('/presale/referrer', [PresaleController::class, 'getReferrer'])->name('presale.referrer');    
 });
 
 Route::group([

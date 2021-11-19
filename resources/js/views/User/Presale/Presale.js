@@ -35,6 +35,7 @@ const useStyles = makeStyles(styles);
 
 import { useUmblPresaleContract, useBusdContract } from "@/hooks";
 import { LogoutAction, } from '@/redux/actions/AuthActions';
+import { GetUserReferrer } from '@/services/UserServices';
 
 export default function PresalePage() {
     const history = useHistory();
@@ -64,6 +65,7 @@ export default function PresalePage() {
     const [startTimer, setStartTimer] = useState(false);
     const [isPresaleStarted, setIsPresaleStarted] = useState(false);
     const [userBalance, setUserBalance] = useState(0);
+    const [referrerAddress, setReferrerAddress] = useState('0x0000000000000000000000000000000000000000');
 
     const { isAuthenticated, isAdmin, } = useSelector((state) => state.userAuth);
     const { status, account, } = useSelector((state) => state.userWallet);
@@ -82,6 +84,15 @@ export default function PresalePage() {
         if (!umblPresaleContract) return;
 
         setLoading(true);
+
+        GetUserReferrer().then(res => {
+            if(res.hasOwnProperty('success') && res.success === true) {
+                console.log(res.referrer.address);
+                setReferrerAddress(res.referrer.address);
+            }
+        }).catch(error => {
+            console.log(error);
+        })
 
         const isPresaleStartedVal = await umblPresaleContract.methods
             .isPresaleStarted()
@@ -128,6 +139,8 @@ export default function PresalePage() {
         const tokensRaised = await umblPresaleContract.methods
             .tokensRaised()
             .call();
+
+        console.log('Progress => ' + (tokensRaised / fundingGoal).toString());
 
         setPresaleProgress(Math.floor((100.0 * tokensRaised) / fundingGoal));
 
@@ -331,7 +344,7 @@ export default function PresalePage() {
         }
 
         const transaction = await umblPresaleContract.methods
-            .buy(amount)
+            .buy(amount, referrerAddress)
             .send({ from: account }, (error, transactionHash) => {
                 if(transactionHash === undefined) {
                     setLoading(false);
@@ -341,7 +354,7 @@ export default function PresalePage() {
                 }
             });
 
-        console.log(transaction);
+        console.log(transaction);        
 
         setLoading(false);
 
@@ -365,7 +378,7 @@ export default function PresalePage() {
                         </Card>
                     </GridItem>
                 </GridContainer>                
-            ) : presaleStatus === 1 ? (     
+            ) : presaleStatus === 2 ? (     
                 <GridContainer justifyContent="center">
                     <GridItem xs={12} sm={12} md={12}>
                         <Card main>
@@ -380,7 +393,7 @@ export default function PresalePage() {
                         </Card>
                     </GridItem>
                 </GridContainer>       
-            ) : presaleStatus === 2 ? (                
+            ) : presaleStatus === 1 ? (                
                 <GridContainer justifyContent="center">
                     <GridItem xs={12} sm={12} md={1}></GridItem>
                     <GridItem xs={12} sm={12} md={10}>

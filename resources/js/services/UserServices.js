@@ -442,3 +442,16 @@ export const GetCratePresetService = (data) => {
         return error;;
     })
 }
+
+export const GetUserReferrer = (data) => {
+    const http = new HttpService();
+    let postUrl = "user/presale/referrer";
+    const tokenId = "user-token";
+
+    return http.postData(data, postUrl, tokenId).then((data) => {
+        console.log(data);
+        return data;
+    }).catch((error) => {
+        return error;;
+    })
+}
