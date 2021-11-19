@@ -363,7 +363,7 @@ export default function PresalePage() {
 
     return(
         <div className={classes.container}> 
-            { presaleStatus === 0 ? (                           
+            { presaleStatus === 2 ? (                           
                 <GridContainer justifyContent="center">
                     <GridItem xs={12} sm={12} md={12}>
                         <Card main>
@@ -378,7 +378,7 @@ export default function PresalePage() {
                         </Card>
                     </GridItem>
                 </GridContainer>                
-            ) : presaleStatus === 2 ? (     
+            ) : presaleStatus === 0 ? (     
                 <GridContainer justifyContent="center">
                     <GridItem xs={12} sm={12} md={12}>
                         <Card main>
