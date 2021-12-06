@@ -961,11 +961,11 @@ export default function HomePage() {
               <div className={classes.welcomeBanner}>
                 <div className={classes.userLoginBlock}>
                 </div>                
-                <div className={classes.authButton}>
+                {/* <div className={classes.authButton}>
                   <Button color="auth" size="lgAuth" className={classes.marginRight} onClick={goToBioCrates}>
                     BUY BIOCRATES
                   </Button>
-                </div>
+                </div> */}
               </div>              
               <div
                 className={classes.fullBackImage}

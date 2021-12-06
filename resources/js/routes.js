@@ -121,18 +121,18 @@ var dashRoutes = [
     component: PresalePage,
     layout: "/user"
   },
-  {
-    path: "/crates",
-    name: "Crate Main Page",
-    component: CrateMainPage,
-    layout: "/user"
-  },
-  {
-    path: "/crates/:crateId",
-    name: "Crate Item Page",
-    component: CrateItemPage,
-    layout: "/user"
-  },
+  // {
+  //   path: "/crates",
+  //   name: "Crate Main Page",
+  //   component: CrateMainPage,
+  //   layout: "/user"
+  // },
+  // {
+  //   path: "/crates/:crateId",
+  //   name: "Crate Item Page",
+  //   component: CrateItemPage,
+  //   layout: "/user"
+  // },
   {
     path: "/forgot",
     name: "Forget Password Page",
