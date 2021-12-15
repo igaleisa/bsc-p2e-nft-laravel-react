@@ -106,7 +106,7 @@ export default function UserNavbar(props) {
             />
           </NavLink>
         </ListItem>    
-        <ListItem className={classes.listItem}>
+        {/* <ListItem className={classes.listItem}>
           <NavLink
             to={"/presale"}
             className={cx(classes.navLink, {
@@ -120,7 +120,7 @@ export default function UserNavbar(props) {
               className={classes.listItemText}
             />
           </NavLink>
-        </ListItem>        
+        </ListItem>         */}
       </List>
       <List className={classes.list + ' ' + classes.rightSubNav}>
         <ListItem className={classes.listItem}>

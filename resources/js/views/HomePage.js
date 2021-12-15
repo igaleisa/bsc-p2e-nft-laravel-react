@@ -417,7 +417,7 @@ export default function HomePage() {
           )}
         </GridItem>
       </GridContainer>
-      { isAuthenticated ? (
+      {/* { isAuthenticated ? (
       <GridContainer justifyContent="center">
         <GridItem xs={12} sm={12} md={12}>
             <Card main onClick={moveToPresalePage}>
@@ -432,7 +432,7 @@ export default function HomePage() {
             </Card>
         </GridItem>
       </GridContainer>      
-      ) : null}
+      ) : null} */}
       { pageStatus === PageStatus.NONE ? (
       <GridContainer justifyContent="center">
         <GridItem xs={12} sm={12} md={6}>

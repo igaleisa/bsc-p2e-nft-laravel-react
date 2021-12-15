@@ -115,12 +115,12 @@ var dashRoutes = [
     component: SecurityPage,
     layout: "/user"
   },
-  {
-    path: "/presale",
-    name: "UMBL Presale Page",
-    component: PresalePage,
-    layout: "/user"
-  },
+  // {
+  //   path: "/presale",
+  //   name: "UMBL Presale Page",
+  //   component: PresalePage,
+  //   layout: "/user"
+  // },
   // {
   //   path: "/crates",
   //   name: "Crate Main Page",
