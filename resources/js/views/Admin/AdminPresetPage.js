@@ -72,12 +72,15 @@ export default function PresetPage() {
   const [tokenPresetId, setTokenPresetId] = React.useState(null);
   const [presetData, setPresetData] = React.useState([]);
   
+  const [tokenSpecials, setTokenSpecials] = React.useState([
+    {'name': 'FALSE', 'value':false}, {'name': 'TRUE', 'value':true}]);
   const [tokenTypes, setTokenTypes] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
   const [rarities, setRarities] = React.useState([]);
   const [badgeTypes, setBadgeTypes] = React.useState([]);
   const [zoneTypes, setZoneTypes] = React.useState([]);
 
+  const [special, setSpecial] = React.useState(false);
   const [tokenType, setTokenType] = React.useState('');
   const [level, setLevel] = React.useState(0);
   const [faction, setFaction] = React.useState('');
@@ -181,6 +184,7 @@ export default function PresetPage() {
           return [
             prop.preset_id,
             prop.name,
+            prop.special ? 'True' : 'False',
             prop.tokentype.name,
             prop.faction ? prop.faction.name : 'None',
             prop.category ? prop.category.name : 'None',
@@ -211,6 +215,9 @@ export default function PresetPage() {
           setTokenPresetId(presetDataValue.preset_id);
           setTokenType(presetDataValue.tokentype.id);
           setLevel(presetDataValue.level);
+
+          if(presetDataValue.special === 1) setSpecial(true);
+          else setSpecial(false);
 
           if(presetDataValue.faction) setFaction(presetDataValue.faction.id);
           else setFaction(0);
@@ -298,6 +305,10 @@ export default function PresetPage() {
     setTokenType(event.target.value);
   }
 
+  const handleSpecialSelect = event => {
+    setSpecial(event.target.value);
+  }
+
   const handleFactionSelect = event => {
     setFaction(event.target.value);
   }
@@ -375,6 +386,7 @@ export default function PresetPage() {
         // make formdata
         let formData = new FormData();
         formData.append('preset_id', parseInt(returnValues.id));
+        formData.append('special', special ? 1 : 0);
         formData.append('tokenType', tokenType);
         formData.append('level', level);
         formData.append('faction', faction);
@@ -425,6 +437,7 @@ export default function PresetPage() {
 
         // make formdata
         let formData = new URLSearchParams();
+        formData.append('special', special ? 1 : 0);
         formData.append('tokenType', tokenType);
         formData.append('level', level);
         formData.append('faction', faction);
@@ -644,6 +657,7 @@ export default function PresetPage() {
                     tableHead={[
                       "#",
                       "Name",
+                      "Special",
                       "Type",
                       "Faction",
                       "Category",
@@ -666,6 +680,53 @@ export default function PresetPage() {
             </div>) : 
             (
             <form className={classes.infoForm}>     
+              <GridContainer>
+                <GridItem xs={12} sm={3} lg={3}>
+                  <FormLabel className={classes.labelHorizontal}>Special</FormLabel>
+                </GridItem>
+                <GridItem xs={12} sm={9} lg={6}>
+                  <FormControl fullWidth className={classes.selectFormControl}>
+                    <Select
+                      MenuProps={{
+                        className: classes.selectMenu
+                      }}
+                      classes={{
+                        select: classes.select
+                      }}
+                      value={special}
+                      onChange={handleSpecialSelect}
+                      inputProps={{
+                        name: "tokenSpecial",
+                        id: "token_special_select"
+                      }}
+                    >
+                      <MenuItem
+                        disabled
+                        classes={{
+                          root: classes.selectMenuItem
+                        }}
+                      >
+                        Choose Special
+                      </MenuItem>
+                      { tokenSpecials.map((data, key) => {
+                        return (
+                          <MenuItem
+                            classes={{
+                              root: classes.selectMenuItem,
+                              selected: classes.selectMenuItemSelected
+                            }}
+                            value={data.value}
+                            key={key}
+                          >
+                            {data.name}
+                          </MenuItem>
+                        )
+                      })}
+                    </Select>
+                  </FormControl>
+                </GridItem>
+                <GridItem xs={12} sm={12} lg={3}></GridItem>
+              </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={3} lg={3}>
                   <FormLabel className={classes.labelHorizontal}>Type</FormLabel>

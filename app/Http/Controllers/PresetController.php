@@ -59,6 +59,7 @@ class PresetController extends Controller
 
         $preset = Preset::create([
             'preset_id' => $validated['preset_id'],
+            'special' => $request['special'],
             'tokentype_id' => $validated['tokenType'],
             'level' => $validated['level'],
             'faction_id' => $validated['faction'] ? $validated['faction'] : null,
@@ -135,6 +136,7 @@ class PresetController extends Controller
             Storage::disk('s3')->put('thumbnails/' . $imageName, file_get_contents($request->thumbnail), 'public');
 
             $preset->update([
+                'special' => $request['special'],
                 'tokentype_id' => $validated['tokenType'],
                 'level' => $validated['level'],
                 'faction_id' => $validated['faction'] ? $validated['faction'] : null,
@@ -151,6 +153,7 @@ class PresetController extends Controller
             ]);
         } else {
             $preset->update([
+                'special' => $request['special'],
                 'tokentype_id' => $validated['tokenType'],
                 'level' => $validated['level'],
                 'faction_id' => $validated['faction'] ? $validated['faction'] : null,
