@@ -68,6 +68,7 @@ export default function CategoryPage() {
         else if(category === 'virus') setCategoryId(4);
         else if(category === 'paracites') setCategoryId(5);
         else if(category === 'variants') setCategoryId(6);
+        else if(category === 'lands') setCategoryId(7);
         else history.push('/inventory');    
         
         if(!status) {
@@ -106,6 +107,7 @@ export default function CategoryPage() {
                 else if(category === 'virus') {categoryIndex = 4;}
                 else if(category === 'paracites') {categoryIndex = 5;}
                 else if(category === 'variants') {categoryIndex = 6;}
+                else if(category === 'lands') {categoryIndex = 7;}
 
                 const selectedTokenList = res.tokenList.filter((data) => {
                     if(data.preset.category)

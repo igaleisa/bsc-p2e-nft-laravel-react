@@ -19,6 +19,7 @@ import virusIcon from "@/assets/img/icons/virusIcon.svg";
 // import paracitesIcon from "@/assets/img/icons/paracitesIcon.svg";
 import paracitesIcon from "@/assets/img/icons/parasites_and_fungus.png";
 import variantsIcon from "@/assets/img/icons/variantsIcon.svg";
+import cityplotIcon from "@/assets/img/icons/cityplotIcon.svg";
 
 
 // styles
@@ -44,6 +45,7 @@ export default function InventoryPage() {
         else if(categoryId === 4) subCategory = 'virus';
         else if(categoryId === 5) subCategory = 'paracites';
         else if(categoryId === 6) subCategory = 'variants';
+        else if(categoryId === 7) subCategory = 'lands';
         history.push('/inventory/' + subCategory);
     };
 
@@ -199,6 +201,28 @@ export default function InventoryPage() {
                                     </div>
                                 </div>
                                 <div className={classes.blockArrow} onClick={() => goToCategory(6)}>
+                                    <i className="fas fa-arrow-circle-right"></i>
+                                </div>                                
+                            </div>
+                        </CardBody>
+                    </Card>
+                </GridItem>
+                <GridItem xs={12} sm={12} md={12}>
+                    <Card inventory>
+                        <CardBody nopadding>
+                            <div className="inventoryBlock">
+                                <div className={classes.blockIcon}>
+                                    <img src={cityplotIcon} className={classes.imageIcon} alt="Virus Variants" />
+                                </div>
+                                <div className={classes.blockContent}>
+                                    <div className="content-title">
+                                        My Land Plots
+                                    </div>
+                                    <div className="content-small-text">
+                                        View Owned Land Plots
+                                    </div>
+                                </div>
+                                <div className={classes.blockArrow} onClick={() => goToCategory(7)}>
                                     <i className="fas fa-arrow-circle-right"></i>
                                 </div>                                
                             </div>

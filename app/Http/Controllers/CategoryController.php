@@ -33,16 +33,24 @@ class CategoryController extends Controller
         }
 
         $validated = $validator->validated();
-        $category = Category::where('id', $validated['categoryId'])->first();
 
-        if(!$category) {
-            return response()->json(['error' => 'Category Id is not registered'], 400);
-        }
+        if($validated['categoryId'] == 7) {
+            return response()->json([
+                'success' => true,
+                'category' => 'My Land Plots'
+            ], 200);
+        } else {
+            $category = Category::where('id', $validated['categoryId'])->first();
 
-        return response()->json([
-            'success' => true,
-            'category' => $category->name
-        ], 200);
+            if(!$category) {
+                return response()->json(['error' => 'Category Id is not registered'], 400);           
+            } else {
+                return response()->json([
+                    'success' => true,
+                    'category' => $category->name
+                ], 200);
+            }
+        }        
     }
 
     /**
