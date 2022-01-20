@@ -31,7 +31,7 @@ class PresetController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'preset_id' => 'required|integer|unique:presets|gte:1',
+            'preset_id' => 'required|integer|gte:1',
             'tokenType' => 'required|integer|gte:0',
             'level' => 'required|integer|between:0,100',
             'faction' => 'required|integer|gte:0',
@@ -42,8 +42,7 @@ class PresetController extends Controller
             'price' => 'required|numeric|gt:0',
             'name' => 'required|string|between:2,255',
             'description' => 'required|string|between:2,255',
-            'thumbnail' => 'required|string|between:2,255',
-            // 'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:20480', 
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:20480', 
             'attributes' => 'required|string',
         ]);
 
@@ -51,10 +50,10 @@ class PresetController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        // $imageName = time().'.'.$request->thumbnail->extension();  
+        $imageName = time().'.'.$request->thumbnail->extension();  
 
         // Upload thumbnail image to S3 Bucket
-        // Storage::disk('s3')->put('thumbnails/' . $imageName, file_get_contents($request->thumbnail), 'public');
+        Storage::disk('s3')->put('thumbnails/' . $imageName, file_get_contents($request->thumbnail), 'public');
 
         $validated = $validator->validated();
 
@@ -71,8 +70,7 @@ class PresetController extends Controller
             'price' => $validated['price'],
             'name' => $validated['name'],
             'description' => $validated['description'],
-            // 'thumbnail' => $imageName,
-            'thumbnail' => $validated['thumbnail'],
+            'thumbnail' => $imageName,
             'attributes' => json_encode(json_decode($validated['attributes'])),
             'v360' => $request['v360'] ? $request['v360'] : null,
         ]);
@@ -110,7 +108,6 @@ class PresetController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id' => 'required|integer|gt:0',
-            'preset_id' => 'required|integer|unique:presets|gte:1',
             'tokenType' => 'required|integer|gte:0',
             'level' => 'required|integer|between:0,100',
             'faction' => 'required|integer|gte:0',
@@ -121,7 +118,6 @@ class PresetController extends Controller
             'price' => 'required|numeric|gt:0',
             'name' => 'required|string|between:2,255',
             'description' => 'required|string|between:2,255',
-            'thumbnail' => 'required|string|between:2,255',
             // 'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:20480', 
             'attributes' => 'required|string',
         ]);
@@ -134,23 +130,44 @@ class PresetController extends Controller
 
         $preset = Preset::where('id', $validated['id'])->firstOrFail();
 
-        $preset->update([
-            'preset_id' => $validated['preset_id'],
-            'special' => $request['special'],
-            'tokentype_id' => $validated['tokenType'],
-            'level' => $validated['level'],
-            'faction_id' => $validated['faction'] ? $validated['faction'] : null,
-            'category_id' => $validated['category'] ? $validated['category'] : null,
-            'rarity_id' => $validated['rarity'] ? $validated['rarity'] : null,
-            'badgetype_id' => $validated['badgeType'] ? $validated['badgeType'] : null,
-            'zonetype_id' => $validated['zoneType'] ? $validated['zoneType'] : null,
-            'price' => $validated['price'],
-            'name' => $validated['name'],
-            'description' => $validated['description'],
-            'thumbnail' => $validated['thumbnail'],
-            'attributes' => json_encode(json_decode($validated['attributes'])),
-            'v360' => $request['v360'] ? $request['v360'] : null,
-        ]);
+        if($request->hasfile('thumbnail')) {
+            Storage::disk('s3')->delete('thumbnails/' . $preset->thumbnail);
+            $imageName = time().'.'.$request->thumbnail->extension();  
+            Storage::disk('s3')->put('thumbnails/' . $imageName, file_get_contents($request->thumbnail), 'public');
+
+            $preset->update([
+                'special' => $request['special'],
+                'tokentype_id' => $validated['tokenType'],
+                'level' => $validated['level'],
+                'faction_id' => $validated['faction'] ? $validated['faction'] : null,
+                'category_id' => $validated['category'] ? $validated['category'] : null,
+                'rarity_id' => $validated['rarity'] ? $validated['rarity'] : null,
+                'badgetype_id' => $validated['badgeType'] ? $validated['badgeType'] : null,
+                'zonetype_id' => $validated['zoneType'] ? $validated['zoneType'] : null,
+                'price' => $validated['price'],
+                'name' => $validated['name'],
+                'description' => $validated['description'],
+                'thumbnail' => $imageName,
+                'attributes' => json_encode(json_decode($validated['attributes'])),
+                'v360' => $request['v360'] ? $request['v360'] : null,
+            ]);
+        } else {
+            $preset->update([
+                'special' => $request['special'],
+                'tokentype_id' => $validated['tokenType'],
+                'level' => $validated['level'],
+                'faction_id' => $validated['faction'] ? $validated['faction'] : null,
+                'category_id' => $validated['category'] ? $validated['category'] : null,
+                'rarity_id' => $validated['rarity'] ? $validated['rarity'] : null,
+                'badgetype_id' => $validated['badgeType'] ? $validated['badgeType'] : null,
+                'zonetype_id' => $validated['zoneType'] ? $validated['zoneType'] : null,
+                'price' => $validated['price'],
+                'name' => $validated['name'],
+                'description' => $validated['description'],
+                'attributes' => json_encode(json_decode($validated['attributes'])),
+                'v360' => $request['v360'] ? $request['v360'] : null,
+            ]);
+        }
 
         return response()->json([
             'success' => true,
@@ -172,10 +189,10 @@ class PresetController extends Controller
         //     Storage::disk('s3')->delete('thumbnails/' . $preset->thumbnail);
         // }
 
-        $preset->delete();
-        // $preset->update([
-        //     'is_deleted' => true
-        // ]);
+        // $preset->delete();
+        $preset->update([
+            'is_deleted' => true
+        ]);
 
         return response()->json([
             'success' => true,
