@@ -890,7 +890,7 @@ export default function HomePage() {
                   </div>   
                   <div className={classes.verifyButton}>
                     <Button color="auth" size="lgAuth" className={classes.marginRight} onClick={handleResendVerifyEmail}>
-                      Resend Verificatioin Email
+                      Resend Verification Email
                     </Button>
                   </div>               
                 </div>
