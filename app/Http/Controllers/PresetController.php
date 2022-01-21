@@ -110,7 +110,7 @@ class PresetController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id' => 'required|integer|gt:0',
-            'preset_id' => 'required|integer|unique:presets|gte:1',
+            'preset_id' => 'required|integer|gte:1',
             'tokenType' => 'required|integer|gte:0',
             'level' => 'required|integer|between:0,100',
             'faction' => 'required|integer|gte:0',
