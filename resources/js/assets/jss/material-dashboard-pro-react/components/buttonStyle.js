@@ -691,7 +691,7 @@ const buttonStyle = {
     }
   },  
   auth: {
-    // fontFamily: 'Microgramma',
+    fontFamily: 'Microgramma',
     background: "linear-gradient(to right, #500909, #7D2E2E)",
     border: "2px solid #FF7777",
     borderRadius: "8px !important",
