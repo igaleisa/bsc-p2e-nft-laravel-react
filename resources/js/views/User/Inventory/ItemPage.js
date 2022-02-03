@@ -1,6 +1,7 @@
-import React, { useState, useEffect, } from "react";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import React, { useRef, useState, useEffect, } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import $ from "jquery";
 
 import React360Viewer from "@/components/360/React360Viewer.js";
 
@@ -14,14 +15,6 @@ import Card from "@/components/Card/Card.js";
 import CardBody from "@/components/Card/CardBody.js";
 
 import SweetAlert from "react-bootstrap-sweetalert";
-
-// Icons
-import armorIcon from "@/assets/img/icons/armorIcon.svg";
-import weaponIcon from "@/assets/img/icons/weaponIcon.svg";
-import accesoriesIcon from "@/assets/img/icons/accesoriesIcon.svg";
-import virusIcon from "@/assets/img/icons/virusIcon.svg";
-import paracitesIcon from "@/assets/img/icons/paracitesIcon.svg";
-import variantsIcon from "@/assets/img/icons/variantsIcon.svg";
 
 import sampleThumbnail from "@/assets/img/sample-thumbnail.jpg";
 
@@ -48,6 +41,7 @@ export default function ItemPage() {
     const { category, tokenId } = useParams();
     const classes = useStyles();
     const dispatch = useDispatch();
+    const targetRef = useRef();
 
     const umblCoreContract = useUmblCoreContract();
 
@@ -122,7 +116,7 @@ export default function ItemPage() {
                 history.push('/inventory');
             });
 
-            console.log(tokenContractData);
+            // console.log(tokenContractData);
 
             if(tokenContractData.owner.toLowerCase() !== account.toLowerCase()) {
                 setAccountError(true);
@@ -133,6 +127,10 @@ export default function ItemPage() {
             let tokenURI = await umblCoreContract.methods
             .uri(tokenId)
             .call({ from: account });
+
+            // console.log('Token URI => ' + tokenURI);
+            // let replacedTokenUri1 = tokenURI.replace(".cc", ".localhost");
+            // let replacedTokenUri2 = replacedTokenUri1.replace("https", "http");
 
             let response = await fetch(tokenURI);
             let responseJson = await response.json();
@@ -169,11 +167,26 @@ export default function ItemPage() {
             GetTokenInformationService(tokenId)
             .then(res => {
                 if(res.hasOwnProperty('success') && res.success === true) {
-                    setTokenV360(res.object.preset.v360);
+                    setTokenV360(res.object.preset.v360);                    
                 }
             });
         }
     }, [status, account])
+
+    useEffect(() => {
+        if(tokenV360 !== null && tokenV360 !== '') {
+            var width = 256;
+            if (targetRef.current) {
+                width = targetRef.current.offsetWidth;
+            }            
+
+            var fileUrl = process.env.MIX_UMBL_STORAGE_URI + 'objects/' + tokenV360;
+            var myviewer = new window.marmoset.WebViewer( width, width, fileUrl );
+            $("#mviewer_container").append(myviewer.domRoot);
+            myviewer.loadScene();
+        }
+
+    }, [tokenV360])
 
     const handleBack = () => {
         history.push('/inventory/' + category);
@@ -238,7 +251,7 @@ export default function ItemPage() {
                 <GridItem xs={12} sm={12} md={6}>
                     <Card transparent>
                         <CardBody>
-                            <div className="lightBlueLink" onClick={handleBack} style={{marginBottom: "30px"}}>
+                            <div ref={targetRef} className="lightBlueLink" onClick={handleBack} style={{marginBottom: "30px"}}>
                                 back
                             </div>
                             { tokenName !== '' ? (
@@ -259,15 +272,16 @@ export default function ItemPage() {
                                     </div>  
                                     <div className="itemImage">
                                         { tokenV360 !== null && tokenV360 !== '' ?
-                                            (<React360Viewer
-                                                amount={72}
-                                                imagePath={process.env.MIX_UMBL_CLOUDIMAGE_URI + 'objects/' + tokenV360 + '/xxxx?func=crop&width=540&height=540'}
-                                                fileName="{index}.png"
-                                                spinReverse
-                                                autoplay
-                                                loop
-                                                buttonClass="dark"
-                                            />) :
+                                            // (<React360Viewer
+                                            //     amount={72}
+                                            //     imagePath={process.env.MIX_UMBL_CLOUDIMAGE_URI + 'objects/' + tokenV360 + '/xxxx?func=crop&width=540&height=540'}
+                                            //     fileName="{index}.png"
+                                            //     spinReverse
+                                            //     autoplay
+                                            //     loop
+                                            //     buttonClass="dark"
+                                            // />) :
+                                            (<div id="mviewer_container"></div>) :
                                             (<img src={tokenThumbnail === null ? sampleThumbnail : tokenThumbnail} />)
                                         }
                                     </div>

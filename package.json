@@ -22,7 +22,7 @@
         "chartist": "0.10.1",
         "classnames": "2.2.6",
         "history": "4.10.1",
-        "jquery": "^3.6",
+        "jquery": "^3.6.0",
         "laravel-mix": "^6.0.6",
         "lodash.throttle": "^4.1.1",
         "match-sorter": "4.1.0",
