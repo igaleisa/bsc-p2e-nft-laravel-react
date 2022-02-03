@@ -181,7 +181,7 @@ export default function ItemPage() {
             }            
 
             var fileUrl = process.env.MIX_UMBL_STORAGE_URI + 'objects/' + tokenV360;
-            var myviewer = new window.marmoset.WebViewer( width, width, fileUrl );
+            var myviewer = new window.marmoset.WebViewer( width, width/2, fileUrl );
             $("#mviewer_container").append(myviewer.domRoot);
             myviewer.loadScene();
         }
@@ -248,7 +248,7 @@ export default function ItemPage() {
         <div className={classes.container}> 
             { !accountError ? (
             <GridContainer justifyContent="center">
-                <GridItem xs={12} sm={12} md={6}>
+                <GridItem xs={12} sm={12} md={12}>
                     <Card transparent>
                         <CardBody>
                             <div ref={targetRef} className="lightBlueLink" onClick={handleBack} style={{marginBottom: "30px"}}>
@@ -290,7 +290,7 @@ export default function ItemPage() {
                         </CardBody>
                     </Card>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={6}>
+                <GridItem xs={12} sm={12} md={12}>
                     <Card transparent>
                         <CardBody>
                             <div className="itemAttributeBlock">
