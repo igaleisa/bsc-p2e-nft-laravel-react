@@ -91,6 +91,7 @@ export default function CityPlotItemPage() {
 
             await GetPlotInfoService(plotId).then(res => {                
                 if(res.hasOwnProperty('success') && res.success === true) {
+                    res.plot.
                     setPlotInfo(res.plot);
                 } else {
                     if(res.hasOwnProperty('error') && res.error === 'token') {

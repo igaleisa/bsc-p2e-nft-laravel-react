@@ -46,13 +46,13 @@ export default function PlotMainPage() {
     };
 
     const goTocityplotPage = (id) => {
-        // history.push('/plots/' + id);
+        history.push('/plots/' + id);
     }
 
     return(
         <div className="plot-main-container">
             <GridContainer className="plot-grid-container" id="plot_main_block">
-                <GridItem xs={12} sm={12} md={3} className="plot-block plot-1" onMouseEnter={() => handleMouseEnter(1)} onClick={() => goTocityplotPage(1)}>
+                <GridItem xs={12} sm={12} md={3} className="plot-block plot-1" onMouseEnter={() => handleMouseEnter(1)} onClick={() => goTocityplotPage(10123)}>
                     <div className="block-body">
                         {/* <div className="title-container">
                             <h5 className="card-title">SURVIVORS</h5>
@@ -64,7 +64,7 @@ export default function PlotMainPage() {
                         </div> */}
                     </div>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={3} className="plot-block plot-2" onMouseEnter={() => handleMouseEnter(2)} onClick={() => goTocityplotPage(2)}>
+                <GridItem xs={12} sm={12} md={3} className="plot-block plot-2" onMouseEnter={() => handleMouseEnter(2)} onClick={() => goTocityplotPage(10124)}>
                     <div className="block-body">
                         {/* <div className="title-container">
                             <h5 className="card-title">SURVIVORS</h5>
@@ -75,7 +75,7 @@ export default function PlotMainPage() {
                         </div> */}
                     </div>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={3} className="plot-block plot-3" onMouseEnter={() => handleMouseEnter(3)} onClick={() => goTocityplotPage(3)}>
+                <GridItem xs={12} sm={12} md={3} className="plot-block plot-3" onMouseEnter={() => handleMouseEnter(3)} onClick={() => goTocityplotPage(10125)}>
                     <div className="block-body">
                         {/* <div className="title-container">
                             <h5 className="card-title">SCIENTIST</h5>
@@ -87,7 +87,7 @@ export default function PlotMainPage() {
                         </div> */}
                     </div>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={3} className="plot-block plot-4" onMouseEnter={() => handleMouseEnter(4)} onClick={() => goTocityplotPage(4)}>
+                <GridItem xs={12} sm={12} md={3} className="plot-block plot-4" onMouseEnter={() => handleMouseEnter(4)} onClick={() => goTocityplotPage(101236)}>
                     <div className="block-body">
                         {/* <div className="title-container">
                             <h5 className="card-title">SCIENTIST</h5>
