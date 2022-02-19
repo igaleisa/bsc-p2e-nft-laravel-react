@@ -45,7 +45,7 @@ export default function InventoryPage() {
         else if(categoryId === 4) subCategory = 'virus';
         else if(categoryId === 5) subCategory = 'paracites';
         else if(categoryId === 6) subCategory = 'variants';
-        else if(categoryId === 7) subCategory = 'lands';
+        else if(categoryId === 7) subCategory = 'plots';
         history.push('/inventory/' + subCategory);
     };
 

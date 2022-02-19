@@ -277,6 +277,10 @@ export default function HomePage() {
     history.push('/crates');
   };
 
+  const gotoCityPlots = () => {
+    history.push('/plots');
+  }
+
   const isTokenExpired = (token) => {
     const base64Url = token.split(".")[1];
     const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -961,11 +965,14 @@ export default function HomePage() {
               <div className={classes.welcomeBanner}>
                 <div className={classes.userLoginBlock}>
                 </div>                
-                {/* <div className={classes.authButton}>
-                  <Button color="auth" size="lgAuth" className={classes.marginRight} onClick={goToBioCrates}>
+                <div className={classes.authButton}>
+                  {/* <Button color="auth" size="lgAuth" className={classes.marginRight} onClick={goToBioCrates}>
                     BUY BIOCRATES
+                  </Button> */}
+                  <Button color="auth" size="lgAuth" className={classes.marginRight}>
+                    COMING SOON
                   </Button>
-                </div> */}
+                </div>
               </div>              
               <div
                 className={classes.fullBackImage}
@@ -979,8 +986,8 @@ export default function HomePage() {
             <CardBody border>
               <div className={classes.authBlock + ' ' + classes.cityPlotsBlock}>
                 <div className={classes.authButton}>
-                  <Button color="auth" size="lgAuth" className={classes.marginRight}>
-                    COMING SOON
+                  <Button color="auth" size="lgAuth" className={classes.marginRight} onClick={gotoCityPlots}>
+                    BUY CITYPLOTS
                   </Button>
                 </div>
               </div>              

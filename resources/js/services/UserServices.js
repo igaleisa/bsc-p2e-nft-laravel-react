@@ -260,6 +260,19 @@ export const GetCrateInfoService = (id) => {
     })
 }
 
+export const GetPlotInfoService = (id) => {
+    const http = new HttpService();
+    let getUrl = "user/plots/" + id;
+    const tokenId = "user-token";
+
+    return http.getData(getUrl, tokenId).then((data) => {
+        console.log(data);
+        return data;
+    }).catch((error) => {
+        return error;
+    })
+}
+
 export const GetTokenTypes = () => {
     const http = new HttpService();
     let getUrl = 'tokentypes';
@@ -394,6 +407,19 @@ export const AssignTokenListData = (data) => {
 export const RegisterCratePayment = (data) => {
     const http = new HttpService();
     let postUrl = "user/payment/crate";
+    const tokenId = "user-token";
+
+    return http.postData(data, postUrl, tokenId).then((data) => {
+        console.log(data);
+        return data;
+    }).catch((error) => {
+        return error;;
+    })
+}
+
+export const RegisterPresetPayment = (data) => {
+    const http = new HttpService();
+    let postUrl = "user/payment/preset";
     const tokenId = "user-token";
 
     return http.postData(data, postUrl, tokenId).then((data) => {

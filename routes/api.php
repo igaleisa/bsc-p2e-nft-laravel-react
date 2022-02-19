@@ -19,6 +19,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\PresaleController;
+use App\Http\Controllers\PlotController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +61,10 @@ Route::group([
     Route::post('/token/list', [TokenController::class, 'getList'])->name('token.list');
     Route::post('/account/profile', [AuthController::class, 'getUserInfo'])->name('account.profile');
     Route::get('/crates/{crate}', [CrateController::class, 'show'])->name('crate.info');
+    Route::get('/plots', [PlotController::class, 'index'])->name('plots.index');
+    Route::get('/plots/{id}', [PlotController::class, 'show'])->name('plots.show');
     Route::post('/payment/crate', [PaymentController::class, 'registerCrate'])->name('payment.crate');
+    Route::post('/payment/preset', [PaymentController::class, 'registerPresetPayment'])->name('payment.preset');
     Route::get('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
     Route::post('/account/tfa', [AuthController::class, 'update2FA'])->name('account.tfa');
     Route::post('/crates/buy', [TokenController::class, 'getCratePreset'])->name('crates.buy');    

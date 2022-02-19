@@ -41,8 +41,11 @@ import ForgetPasswordPage from "@/views/Forget/ForgetPasswordPage.js";
 import ResetPasswordPage from "@/views/Forget/ResetPasswordPage.js";
 import PresalePage from "@/views/User/Presale/Presale.js";
 
-import CrateMainPage from "@/views/User/Crate/CrateMainPage.js";
-import CrateItemPage from "@/views/User/Crate/CrateItemPage.js";
+// import CrateMainPage from "@/views/User/Crate/CrateMainPage.js";
+// import CrateItemPage from "@/views/User/Crate/CrateItemPage.js";
+
+import PlotMainPage from "@/views/User/Plots/PlotMainPage.js";
+import PlotItemPage from "@/views/User/Plots/PlotItemPage.js";
 
 import AdminDashboard from "@/views/Admin/AdminDashboard.js";
 import AdminUserListPage from "@/views/Admin/AdminUserList.js";
@@ -133,6 +136,18 @@ var dashRoutes = [
   //   component: CrateItemPage,
   //   layout: "/user"
   // },
+  {
+    path: "/plots",
+    name: "Plot Main Page",
+    component: PlotMainPage,
+    layout: "/user"    
+  },
+  {
+    path: "/plots/:plotId",
+    name: "Plot Item Page",
+    component: PlotItemPage,
+    layout: "/user"
+  },
   {
     path: "/forgot",
     name: "Forget Password Page",

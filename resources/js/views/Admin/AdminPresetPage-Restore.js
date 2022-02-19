@@ -1,7 +1,8 @@
 /*eslint-disable*/
 import React, { useEffect, } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom'; 
+import { useHistory } from 'react-router-dom';
+import { JsonTable } from 'react-json-to-html'; 
 
 import { useUmblCoreContract } from "@/hooks";
 
@@ -69,7 +70,7 @@ export default function PresetPage() {
 
   const [pageStatus, setPageStatus] = React.useState(0);
   const [presetId, setPresetId] = React.useState(null);
-  const [tokenPresetId, setTokenPresetId] = React.useState(null);
+  const [tokenPresetId, setTokenPresetId] = React.useState(0);
   const [presetData, setPresetData] = React.useState([]);
   
   const [tokenSpecials, setTokenSpecials] = React.useState([
@@ -92,10 +93,13 @@ export default function PresetPage() {
 
   const [tokenName, setTokenName] = React.useState("");
   const [tokenNameState, setTokenNameState] = React.useState("");
+
   const [tokenDescription, setTokenDescription] = React.useState("");
   const [tokenDescriptionState, setTokenDescriptionState] = React.useState("");
 
-  const [tokenThumbnail, setTokenThumbnail] = React.useState(null);
+  const [tokenThumbnail, setTokenThumbnail] = React.useState("");
+  const [tokenThumbnailState, setTokenThumbnailState] = React.useState("");
+
   const [tokenV360, setTokenV360] = React.useState('');
   const [tokenAttributes, setTokenAttributes] = React.useState([]);
 
@@ -209,6 +213,7 @@ export default function PresetPage() {
   useEffect(() => {
     if(pageStatus === 2 && presetId !== null) {
       GetPresetItem(presetId).then((res) => {
+        console.log('GetPresetItem start!');
         if(res.hasOwnProperty('success') && res.success === true) {
           let presetDataValue = res.preset;
 
@@ -225,14 +230,23 @@ export default function PresetPage() {
           if(presetDataValue.category) setCategory(presetDataValue.category.id);
           else setCategory(0);
 
+
           if(presetDataValue.rarity) setRarity(presetDataValue.rarity.id);
           else setRarity(0);
 
-          if(presetDataValue.badgetype) setBadgeType(presetDataValue.bagdetype.id);
+          console.log('GetPresetItem 1!');
+
+          if(presetDataValue.badgetype) setBadgeType(presetDataValue.badgetype.id);
           else setBadgeType(0);
+
+          console.log('GetPresetItem 2!');
 
           if(presetDataValue.zonetype) setZoneType(presetDataValue.zonetype.id);
           else setZoneType(0);
+
+          console.log('GetPresetItem 3!');
+
+
 
           setPrice(presetDataValue.price);
           setTokenName(presetDataValue.name);
@@ -240,6 +254,8 @@ export default function PresetPage() {
           setTokenThumbnail(presetDataValue.thumbnail);
           if(presetDataValue.v360) setTokenV360(presetDataValue.v360);
           setTokenAttributes(JSON.parse(presetDataValue.attributes));
+
+          console.log('GetPresetItem done!');
         } 
       }); 
     }
@@ -277,7 +293,24 @@ export default function PresetPage() {
         onCancel={() => hideAlert()}
         confirmBtnCssClass={classes.button + " " + classes.info}
       >
-        {message}
+        <div>{message}</div>
+      </SweetAlert>
+    );
+  }
+
+  const showErrorMsgJson = (message) => {
+    setAlert(
+      <SweetAlert
+        closeOnClickOutside={false}
+        html={true}
+        style={{ display: "block", marginTop: "-100px" }}
+        title="Error!"
+        onConfirm={() => hideAlert()}
+        onCancel={() => hideAlert()}
+        confirmBtnCssClass={classes.button + " " + classes.info}
+        customClass="sweetJsonMsg"
+      >
+          <JsonTable json={message} />
       </SweetAlert>
     );
   }
@@ -340,6 +373,9 @@ export default function PresetPage() {
     if (tokenDescriptionState === "") {
       setTokenDescriptionState("error");
     }
+    if (tokenThumbnailState === "") {
+      setTokenThumbnailState("error");
+    }
   }
 
   const handleApply = async () => {
@@ -349,7 +385,7 @@ export default function PresetPage() {
         return;
       }   
 
-      setLoading(true);
+      // setLoading(true);
 
       // attributes
       let attributes = [];
@@ -368,24 +404,25 @@ export default function PresetPage() {
       if(pageStatus == 1) {
         const tokenPrice = window.web3.utils.toWei(price.toString(), "Ether");
 
-        const transaction = await umblCoreContract.methods
-          .makePreset(0, parseInt(tokenType), parseInt(level), parseInt(faction), parseInt(category), parseInt(rarity), parseInt(badgeType), parseInt(zoneType), tokenPrice)
-          .send({ from: account }, (error, transactionHash) => {
-            if(transactionHash === undefined) {
-              setLoading(false);
-              return;
-            }
-          });
+        // disable for reuploading
+        // const transaction = await umblCoreContract.methods
+        //   .makePreset(0, parseInt(tokenType), parseInt(level), parseInt(faction), parseInt(category), parseInt(rarity), parseInt(badgeType), parseInt(zoneType), tokenPrice)
+        //   .send({ from: account }, (error, transactionHash) => {
+        //     if(transactionHash === undefined) {
+        //       setLoading(false);
+        //       return;
+        //     }
+        //   });
 
-        const returnValues = transaction.events.UmblPresetCreated.returnValues;
-        if(returnValues.owner.toLowerCase() !== account) {
-          setLoading(false);
-          return;
-        }
+        // const returnValues = transaction.events.UmblPresetCreated.returnValues;
+        // if(returnValues.owner.toLowerCase() !== account) {
+        //   setLoading(false);
+        //   return;
+        // }
 
         // make formdata
         let formData = new FormData();
-        formData.append('preset_id', parseInt(returnValues.id));
+        formData.append('preset_id', tokenPresetId);
         formData.append('special', special ? 1 : 0);
         formData.append('tokenType', tokenType);
         formData.append('level', level);
@@ -418,25 +455,28 @@ export default function PresetPage() {
           setLoading(false);
         });
       } else if(pageStatus == 2) {
-        const tokenPrice = window.web3.utils.toWei(price.toString(), "Ether");
 
-        const transaction = await umblCoreContract.methods
-          .makePreset(parseInt(tokenPresetId), parseInt(tokenType), parseInt(level), parseInt(faction), parseInt(category), parseInt(rarity), parseInt(badgeType), parseInt(zoneType), tokenPrice)
-          .send({ from: account }, (error, transactionHash) => {
-            if(transactionHash === undefined) {
-              setLoading(false);
-              return;
-            }
-          });
+        // disable to reuploading
+        // const tokenPrice = window.web3.utils.toWei(price.toString(), "Ether");
 
-        const returnValues = transaction.events.UmblPresetUpdated.returnValues;
-        if(returnValues.owner.toLowerCase() !== account || parseInt(returnValues.id) !== parseInt(tokenPresetId)) {
-          setLoading(false);
-          return;
-        }
+        // const transaction = await umblCoreContract.methods
+        //   .makePreset(parseInt(tokenPresetId), parseInt(tokenType), parseInt(level), parseInt(faction), parseInt(category), parseInt(rarity), parseInt(badgeType), parseInt(zoneType), tokenPrice)
+        //   .send({ from: account }, (error, transactionHash) => {
+        //     if(transactionHash === undefined) {
+        //       setLoading(false);
+        //       return;
+        //     }
+        //   });
+
+        // const returnValues = transaction.events.UmblPresetUpdated.returnValues;
+        // if(returnValues.owner.toLowerCase() !== account || parseInt(returnValues.id) !== parseInt(tokenPresetId)) {
+        //   setLoading(false);
+        //   return;
+        // }
 
         // make formdata
         let formData = new URLSearchParams();
+        formData.append('preset_id', tokenPresetId);
         formData.append('special', special ? 1 : 0);
         formData.append('tokenType', tokenType);
         formData.append('level', level);
@@ -452,14 +492,17 @@ export default function PresetPage() {
         formData.append('attributes', JSON.stringify(attributes));
         formData.append('v360', tokenV360);
         formData.append('id', presetId);
+
+        
         UpdatePresetItem(presetId, formData).then((res) => {
           if(res.hasOwnProperty('success') && res.success === true) {
             setLoading(false);              
             const msg = 'Preset was updated successfully!';
             showSuccessMsg('Success!', msg, true);
           } else {
-            setLoading(false);
-            showErrorMsg(res);
+            console.log('UpdatePresetItem failed!');
+            showErrorMsgJson(res);
+            // setLoading(false);
             if(res.error === 'token') {
               dispatch(LogoutAction(history));
             }
@@ -467,7 +510,7 @@ export default function PresetPage() {
         }).catch(error => {
           console.log(error);
           showErrorMsg(error);
-          setLoading(false);
+          // setLoading(false);
         });
       }
     }
@@ -546,12 +589,12 @@ export default function PresetPage() {
     hideAlert();
     setLoading(true);
 
-    if (!umblCoreContract || !status) {
-      setLoading(false);
-      errMsg = "Non-Ethereum browser detected. You should consider trying MetaMask!";
-      showErrorMsg(errMsg);
-      return;
-    }  
+    // if (!umblCoreContract || !status) {
+    //   setLoading(false);
+    //   errMsg = "Non-Ethereum browser detected. You should consider trying MetaMask!";
+    //   showErrorMsg(errMsg);
+    //   return;
+    // }  
 
     var delete_preset_id = null;
     await GetPresetItem(id).then((res) => {
@@ -568,20 +611,20 @@ export default function PresetPage() {
       return;
     }
 
-    const transaction = await umblCoreContract.methods
-      .deletePreset(parseInt(delete_preset_id))
-      .send({ from: account }, (error, transactionHash) => {
-        if(transactionHash === undefined) {
-          setLoading(false);
-          return;
-        }
-      });
+    // const transaction = await umblCoreContract.methods
+    //   .deletePreset(parseInt(delete_preset_id))
+    //   .send({ from: account }, (error, transactionHash) => {
+    //     if(transactionHash === undefined) {
+    //       setLoading(false);
+    //       return;
+    //     }
+    //   });
 
-    const returnValues = transaction.events.UmblPresetDeleted.returnValues;
-    if(returnValues.owner.toLowerCase() !== account || parseInt(returnValues.id) !== parseInt(delete_preset_id)) {
-      setLoading(false);
-      return;
-    }
+    // const returnValues = transaction.events.UmblPresetDeleted.returnValues;
+    // if(returnValues.owner.toLowerCase() !== account || parseInt(returnValues.id) !== parseInt(delete_preset_id)) {
+    //   setLoading(false);
+    //   return;
+    // }
 
     DeletePresetItem(id).then(res => {
       if(res.hasOwnProperty('success') && res.success === true) {
@@ -679,7 +722,32 @@ export default function PresetPage() {
               </GridContainer>
             </div>) : 
             (
-            <form className={classes.infoForm}>     
+            <form className={classes.infoForm}>
+              <GridContainer>
+                <GridItem xs={12} sm={3} lg={3}>
+                  <FormLabel className={classes.labelHorizontal}>
+                    Preset ID
+                  </FormLabel>
+                </GridItem>
+                <GridItem xs={12} sm={9} lg={6}>
+                  <FormControl fullWidth className={classes.customInputFormControl}>
+                    <CustomInput
+                      id="token_id"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      value={tokenPresetId}
+                      inputProps={{
+                        onChange: event => {
+                          setTokenPresetId(parseInt(event.target.value) || tokenPresetId);
+                        },
+                        type: "number",
+                      }}
+                    />
+                  </FormControl>
+                </GridItem>
+                <GridItem xs={12} sm={12} lg={3}></GridItem>
+              </GridContainer>      
               <GridContainer>
                 <GridItem xs={12} sm={3} lg={3}>
                   <FormLabel className={classes.labelHorizontal}>Special</FormLabel>
@@ -1201,20 +1269,33 @@ export default function PresetPage() {
                   </FormLabel>
                 </GridItem>
                 <GridItem xs={12} sm={9} lg={6} className={classes.imageUpload}>
-                  <ImageUpload
-                    onChange={handleTokenThumbnail}
-                    addButtonProps={{
-                      color: "rose",
-                      round: true
-                    }}
-                    changeButtonProps={{
-                      color: "rose",
-                      round: true
-                    }}
-                    removeButtonProps={{
-                      color: "danger",
-                      round: true
-                    }}
+                  <CustomInput
+                      success={tokenThumbnailState === "success"}
+                      error={tokenThumbnailState === "error"}
+                      id="token_thumbnail"
+                      value={tokenThumbnail ? tokenThumbnail : ''}
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        onChange: event => {
+                          if (verifyLength(event.target.value, 0)) {
+                            setTokenThumbnailState("success");
+                          } else {
+                            setTokenThumbnailState("error");
+                          }
+                          setTokenThumbnail(event.target.value);
+                        },
+                        type: "text",
+                        endAdornment:
+                          tokenThumbnailState === "error" ? (
+                            <InputAdornment position="end">
+                              <Close className={classes.validationError} />
+                            </InputAdornment>
+                          ) : (
+                            undefined
+                          )
+                      }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} lg={3}></GridItem>

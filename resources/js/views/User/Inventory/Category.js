@@ -68,7 +68,7 @@ export default function CategoryPage() {
         else if(category === 'virus') setCategoryId(4);
         else if(category === 'paracites') setCategoryId(5);
         else if(category === 'variants') setCategoryId(6);
-        else if(category === 'lands') setCategoryId(7);
+        else if(category === 'plots') setCategoryId(7);
         else history.push('/inventory');    
         
         if(!status) {
@@ -107,11 +107,15 @@ export default function CategoryPage() {
                 else if(category === 'virus') {categoryIndex = 4;}
                 else if(category === 'paracites') {categoryIndex = 5;}
                 else if(category === 'variants') {categoryIndex = 6;}
-                else if(category === 'lands') {categoryIndex = 7;}
+                else if(category === 'plots') {categoryIndex = 7;}
 
                 const selectedTokenList = res.tokenList.filter((data) => {
-                    if(data.preset.category)
+                    if(data.preset.category) {
                         return data.preset.category.id === categoryIndex;
+                    } else if(categoryIndex === 7) {
+                        if(data.preset.tokentype)
+                            return data.preset.tokentype.name === "Zone";
+                    }
                 });
 
                 setTokenCount(selectedTokenList.length);
@@ -120,9 +124,9 @@ export default function CategoryPage() {
                         tokenId: prop.token_id,
                         name: prop.preset.name,
                         description: prop.preset.description,
-                        category: prop.preset.category.name,
-                        rarity: prop.preset.rarity.id,
-                        rarityName: prop.preset.rarity.name,
+                        category: prop.preset.category ? prop.preset.category.name : '',
+                        rarity: prop.preset.rarity ? prop.preset.rarity.id : '',
+                        rarityName: prop.preset.rarity ? prop.preset.rarity.name : '',
                         state: prop.state.id,
                         image: prop.preset.thumbnail,
                         attributes: JSON.parse(prop.preset.attributes)
@@ -167,7 +171,7 @@ export default function CategoryPage() {
     };    
     
     const showString = (msg) => {
-        const length_limit = 14;
+        const length_limit = 36;
         return msg.length > length_limit ? msg.substring(0, length_limit - 3) + '...' : msg;
     }
 
@@ -190,7 +194,7 @@ export default function CategoryPage() {
         else if(rarity === 5) return 'E';
         else if(rarity === 6) return 'L';
         else if(rarity === 7) return 'M';
-        return 'K';
+        return '';
     };
 
     return(

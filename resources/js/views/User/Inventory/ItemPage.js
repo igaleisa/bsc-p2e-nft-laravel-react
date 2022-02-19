@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import ReactPlayer from 'react-player/lazy'
 import $ from "jquery";
 
 import React360Viewer from "@/components/360/React360Viewer.js";
@@ -82,6 +83,7 @@ export default function ItemPage() {
         else if(category === 'virus') setCategoryId(4);
         else if(category === 'paracites') setCategoryId(5);
         else if(category === 'variants') setCategoryId(6);
+        else if(category === 'plots') setCategoryId(7);
         else history.push('/inventory');    
         
         if(!status) {
@@ -110,11 +112,11 @@ export default function ItemPage() {
             } 
           
             const tokenContractData = await umblCoreContract.methods
-            .tokenUmblData(tokenId)
-            .call({ from: account })
-            .catch(err => {
-                history.push('/inventory');
-            });
+                .tokenUmblData(tokenId)
+                .call({ from: account })
+                .catch(err => {
+                    history.push('/inventory');
+                });
 
             // console.log(tokenContractData);
 
@@ -125,8 +127,8 @@ export default function ItemPage() {
             }
             
             let tokenURI = await umblCoreContract.methods
-            .uri(tokenId)
-            .call({ from: account });
+                .uri(tokenId)
+                .call({ from: account });
 
             // console.log('Token URI => ' + tokenURI);
             // let replacedTokenUri1 = tokenURI.replace(".cc", ".localhost");
@@ -142,24 +144,33 @@ export default function ItemPage() {
             setTokenAttributes(responseJson.attributes);
 
             let tokenData = await umblCoreContract.methods
-            .tokenUmblData(tokenId)
-            .call({ from: account })
-            .catch(err => {
-                history.push('/inventory');
-            });
+                .tokenUmblData(tokenId)
+                .call({ from: account })
+                .catch(err => {
+                    history.push('/inventory');
+                });
+
+            console.log(tokenData);
 
             setTokenRarityId(parseInt(tokenData.rarity));
+
             GetRaritiesService()
             .then(res => {
                 const rarity = res.rarities.find(element => element.id === parseInt(tokenData.rarity));
-                setTokenRarity(rarity.name);
+                if(rarity === undefined)
+                    setTokenRarity('');
+                else
+                    setTokenRarity(rarity.name);
             });
 
             setTokenCategoryId(tokenData.category);
             GetObjectCategoriesService()
             .then(res => {
                 const category = res.categories.find(element => element.id === parseInt(tokenData.category));
-                setTokenCategory(category.name);
+                if(category === undefined)
+                    setTokenCategory('');   
+                else 
+                    setTokenCategory(category.name);
             });
 
             setTokenHealth(tokenData.health);
@@ -174,7 +185,7 @@ export default function ItemPage() {
     }, [status, account])
 
     useEffect(() => {
-        if(tokenV360 !== null && tokenV360 !== '') {
+        if(tokenV360 !== null && tokenV360 !== '' && categoryId !== 7 && tokenV360.search('.mview') > 0) {
             var width = 256;
             if (targetRef.current) {
                 width = targetRef.current.offsetWidth;
@@ -264,14 +275,14 @@ export default function ItemPage() {
                                             {tokenCategory === '' ? '          ' : tokenCategory }
                                         </div> 
                                         <div className="raritySmallText" style={{color: getRarityColor(tokenRarityId)}}>
-                                            ({tokenRarity})
+                                            {tokenRarity === '' ? '' : '(' + tokenRarity + ')'}
                                         </div>
                                     </div>
                                     <div className="itemDescText">
                                         {tokenDescription}
                                     </div>  
                                     <div className="itemImage">
-                                        { tokenV360 !== null && tokenV360 !== '' ?
+                                        { tokenV360 !== null && tokenV360 !== '' ? categoryId === 7 && tokenV360.search('.mp4') !== -1 ?
                                             // (<React360Viewer
                                             //     amount={72}
                                             //     imagePath={process.env.MIX_UMBL_CLOUDIMAGE_URI + 'objects/' + tokenV360 + '/xxxx?func=crop&width=540&height=540'}
@@ -281,6 +292,12 @@ export default function ItemPage() {
                                             //     loop
                                             //     buttonClass="dark"
                                             // />) :
+                                            (<ReactPlayer 
+                                                url={process.env.MIX_UMBL_STORAGE_URI + 'plots/' + tokenV360}
+                                                playing={true} 
+                                                loop={true} 
+                                                width='100%'
+                                                height='100%'/>) :
                                             (<div id="mviewer_container"></div>) :
                                             (<img src={tokenThumbnail === null ? sampleThumbnail : tokenThumbnail} />)
                                         }

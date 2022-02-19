@@ -252,7 +252,7 @@ class TokenController extends Controller
         $preset = Preset::where('id', $token->preset_id)->first();
 
         if(!$preset) {
-            return response()->json(['error' => 'TokenId is invalid'], 400);
+            return response()->json(['error' => 'PresetId is invalid'], 400);
         }
 
         return response()->json([
