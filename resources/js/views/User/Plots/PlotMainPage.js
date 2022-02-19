@@ -30,6 +30,11 @@ export default function PlotMainPage() {
         } 
     }, [isAdmin, isAuthenticated]);
 
+    useEffect(() => {
+        backgroundImg = 'url(/images/cityplots/box1_blur.png)';
+        document.getElementById('plot_main_block').style.backgroundImage = backgroundImg;
+    }, [])
+
     const handleMouseEnter = (id) => {
         let backgroundImg = '';
         if(id === 1) {
