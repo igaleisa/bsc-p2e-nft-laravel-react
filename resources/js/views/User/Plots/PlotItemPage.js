@@ -91,8 +91,11 @@ export default function CityPlotItemPage() {
 
             await GetPlotInfoService(plotId).then(res => {                
                 if(res.hasOwnProperty('success') && res.success === true) {
-                    res.plot.
-                    setPlotInfo(res.plot);
+                    if(res.plot.zonetype) {
+                        setPlotInfo(res.plot);
+                    } else {
+                        history.push('/plots');
+                    }
                 } else {
                     if(res.hasOwnProperty('error') && res.error === 'token') {
                         dispatch(LogoutAction(history));
