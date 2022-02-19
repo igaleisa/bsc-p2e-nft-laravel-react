@@ -5,9 +5,7 @@
 /storage/*.key
 /vendor
 .env
-.env.live
-.env.backup
-.env*.backup
+.env.*
 .phpunit.result.cache
 docker-compose.override.yml
 Homestead.json
