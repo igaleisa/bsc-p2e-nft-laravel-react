@@ -12,14 +12,14 @@ import Card from "@/components/Card/Card.js";
 import CardBody from "@/components/Card/CardBody.js";
 
 // Icons
-import armorIcon from "@/assets/img/icons/armorIcon.svg";
-import weaponIcon from "@/assets/img/icons/weaponIcon.svg";
-import accesoriesIcon from "@/assets/img/icons/accesoriesIcon.svg";
-import virusIcon from "@/assets/img/icons/virusIcon.svg";
+import armorIcon from "@/assets/img/icons/shield.png";
+import weaponIcon from "@/assets/img/icons/Gun2.png";
+import accesoriesIcon from "@/assets/img/icons/accessory.png";
+import virusIcon from "@/assets/img/icons/virus.png";
 // import paracitesIcon from "@/assets/img/icons/paracitesIcon.svg";
-import paracitesIcon from "@/assets/img/icons/parasites_and_fungus.png";
-import variantsIcon from "@/assets/img/icons/variantsIcon.svg";
-import cityplotIcon from "@/assets/img/icons/cityplotIcon.svg";
+import paracitesIcon from "@/assets/img/icons/parasites-and-fungus.png";
+import variantsIcon from "@/assets/img/icons/variants.png";
+import cityplotIcon from "@/assets/img/icons/plot-map.png";
 
 
 // styles

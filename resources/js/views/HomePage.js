@@ -26,15 +26,15 @@ import CardBody from "@/components/Card/CardBody.js";
 
 import UmblInput from "@/components/CustomInput/UmblInput.js";
 
-import principalBanner from "@/assets/img/banners/banner-principal.jpg";
+import principalBanner from "@/assets/img/banners/umbrella-project-main-banner.png";
 import presaleBanner from "@/assets/img/banners/umbl_presale.jpg";
 import signupBanner from "@/assets/img/banners/user-signup.jpg";
-import signinBanner from "@/assets/img/banners/user-signin.jpg";
+import signinBanner from "@/assets/img/banners/user-login-banner.png";
 import followUsBanner from "@/assets/img/banners/follow-us-banner.png";
-import mainPortalBanner from "@/assets/img/banners/umbl_project_portal.jpg";
-import factionBanner from "@/assets/img/banners/choose_your_faction.jpg";
-import incubatorBanner from "@/assets/img/banners/menu_incubator.jpeg";
-import chapterOneBanner from "@/assets/img/banners/chapter_one_banner.jpg";
+import mainPortalBanner from "@/assets/img/banners/umbrella-portal-dashboard.png";
+import factionBanner from "@/assets/img/banners/choose-your-faction2-dashboard.png";
+import incubatorBanner from "@/assets/img/banners/incubator-dashboard.png";
+import chapterOneBanner from "@/assets/img/banners/the-beginning-banner-dashboard.png";
 import buyBioCratesBanner from "@/assets/img/banners/buy_biocrates.jpeg";
 import cityPlotsSectionBanner from "@/assets/img/banners/city_plots_section.jpeg";
 import sendReferralsBanner from "@/assets/img/banners/send_referrals.jpeg";
@@ -410,7 +410,7 @@ export default function HomePage() {
           <Card main>
             <CardBody border>
               <div className={classes.welcomeBanner}>
-                <div className={classes.welcomTitle}>Welcome to the lab</div>
+                {/* <div className={classes.welcomTitle}>Welcome to the lab</div> */}
               </div>              
               <div
                 className={classes.fullBackImage}
@@ -462,10 +462,10 @@ export default function HomePage() {
             <Card main>
               <CardBody border>
                 <div className={classes.authBlock + ' ' + classes.leftCenterFlex}>
-                  <div className={classes.userLoginBlock}>
+                  {/* <div className={classes.userLoginBlock}>
                     <div className={classes.authCardTitle}>User Login</div>
                     <div className={classes.authCardDesc + ' ' + classes.loginButtonMargin}>Get In the City</div>
-                  </div>                
+                  </div>                 */}
                   <div className={classes.authButton}>
                     <Button color="auth" size="lgAuth" className={classes.marginRight} onClick={handleLoginAction}>
                       LOGIN
