@@ -65,8 +65,18 @@ export default function CityPlotItemPage() {
     useEffect(async () => {
         if(plotId > 0) {
             // check contract status
-            if (!umblMarketContract || !umblCoreContract || !busdContract) {
-                console.log('contract issue!');
+            if (!umblMarketContract) {
+                console.log('umblMarketContract contract issue!');
+                return;
+            }
+
+            if (!umblCoreContract) {
+                console.log('umblCoreContract contract issue!');
+                return;
+            }
+
+            if (!busdContract) {
+                console.log('busdContract contract issue!');
                 return;
             }
 
