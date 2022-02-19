@@ -65,7 +65,7 @@ export default function CityPlotItemPage() {
     useEffect(async () => {
         if(plotId > 0) {
             // check contract status
-            if (!umblMarketContract || !umblCoreContract || !busdContract || !zapbContract) {
+            if (!umblMarketContract || !umblCoreContract || !busdContract) {
                 console.log('contract issue!');
                 return;
             }
@@ -243,7 +243,7 @@ export default function CityPlotItemPage() {
             }
 
             // check contract status
-            if (!umblMarketContract || !umblCoreContract || !busdContract || !zapbContract) {
+            if (!umblMarketContract || !umblCoreContract || !busdContract) {
                 console.log('contract issue!');
                 return;
             }
@@ -269,7 +269,7 @@ export default function CityPlotItemPage() {
             console.log(plotData);
             
             // approve busd payment            
-            const approveResult = await zapbContract.methods
+            const approveResult = await busdContract.methods
                 .approve(process.env.MIX_UMBL_MARKET_ADDRESS, plotData.price)
                 .send({ from: account }, (error, transactionHash) => {
                     if(transactionHash === undefined) {
@@ -281,7 +281,7 @@ export default function CityPlotItemPage() {
                 });
 
             // check allowance of BUSD payment
-            const allowanceResult = await zapbContract.methods
+            const allowanceResult = await busdContract.methods
                 .allowance(account, process.env.MIX_UMBL_MARKET_ADDRESS)
                 .call({ from: account });
 
