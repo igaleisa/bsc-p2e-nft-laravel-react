@@ -46,7 +46,7 @@ export default function PlotMainPage() {
     };
 
     const goTocityplotPage = (id) => {
-        history.push('/plots/' + id);
+        // history.push('/plots/' + id);
     }
 
     return(
