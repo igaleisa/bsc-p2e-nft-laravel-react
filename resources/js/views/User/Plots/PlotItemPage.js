@@ -89,7 +89,7 @@ export default function CityPlotItemPage() {
                 setIsPresaleStarted(true);
             }
 
-            await GetPlotInfoService(plotId).then(res => {                
+            GetPlotInfoService(plotId).then(res => {                
                 if(res.hasOwnProperty('success') && res.success === true) {
                     if(res.plot.zonetype) {
                         setPlotInfo(res.plot);
