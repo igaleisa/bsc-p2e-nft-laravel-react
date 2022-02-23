@@ -107,7 +107,17 @@ const commonPageStyle = theme => ({
       marginRight: "12px",
     }  
   },
+  flexContainer: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
   blockIcon: {
+    marginRight: "40px",
+    [theme.breakpoints.down("sm")]: {
+      minWidth: "20px",
+    },
   },
   imageIcon: {
     marginTop: "-3px",

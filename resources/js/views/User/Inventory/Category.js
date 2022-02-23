@@ -14,12 +14,9 @@ import CardBody from "@/components/Card/CardBody.js";
 import SweetAlert from "react-bootstrap-sweetalert";
 
 // Icons
-import armorIcon from "@/assets/img/icons/armorIcon.svg";
-import weaponIcon from "@/assets/img/icons/weaponIcon.svg";
-import accesoriesIcon from "@/assets/img/icons/accesoriesIcon.svg";
-import virusIcon from "@/assets/img/icons/virusIcon.svg";
-import paracitesIcon from "@/assets/img/icons/paracitesIcon.svg";
-import variantsIcon from "@/assets/img/icons/variantsIcon.svg";
+import commonIcon from "@/assets/img/icons/common.png";
+import unCommonIcon from "@/assets/img/icons/uncommon.png";
+import uniqueIcon from "@/assets/img/icons/unique.png";
 
 // styles
 import { makeStyles } from "@material-ui/core/styles";
@@ -197,6 +194,20 @@ export default function CategoryPage() {
         return '';
     };
 
+    const getRarityIcon = (rarity) => {
+        if(rarity === 1) return commonIcon;
+        else if(rarity === 2) return unCommonIcon;
+        else if(rarity === 3) return uniqueIcon;
+        return null;
+    };
+
+    const getRarityText = (rarity) => {
+        if(rarity === 1) return 'Common';
+        else if(rarity === 2) return 'Uncommon';
+        else if(rarity === 3) return 'Unique';
+        return null;
+    };
+
     return(
         <div className={classes.container}> 
             <GridContainer justifyContent="center">
@@ -246,7 +257,10 @@ export default function CategoryPage() {
                                 <div className="itemAction" onClick={() => handleClick(prop.tokenId)}>
                                     <i className="fas fa-arrow-right"></i>
                                 </div>
-                                <div className="itemRarity" style={{color: getBorderColor(prop.rarity) }}>{getRarityMarker(prop.rarity)}</div>
+                                <div className="itemRarity" style={{color: getBorderColor(prop.rarity) }}>
+                                    <img src={getRarityIcon(prop.rarity)} className={classes.imageIcon} alt={getRarityText(prop.rarity)} />
+                                    {/* {getRarityMarker(prop.rarity)} */}
+                                </div>
                             </div>
                         </GridItem>
                     )

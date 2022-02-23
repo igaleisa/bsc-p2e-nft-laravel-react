@@ -21,6 +21,14 @@ import paracitesIcon from "@/assets/img/icons/parasites-and-fungus.png";
 import variantsIcon from "@/assets/img/icons/variants.png";
 import cityplotIcon from "@/assets/img/icons/plot-map.png";
 
+import weaponsBanner from "@/assets/img/inventory/weapons.png";
+import armorBanner from "@/assets/img/inventory/armor.png";
+import accesoriesBanner from "@/assets/img/inventory/accesories.png";
+import virusVariantBanner from "@/assets/img/inventory/virus-variant.png";
+import parasitesFungusBanner from "@/assets/img/inventory/parasites-and-fungus.png";
+import virusBanner from "@/assets/img/inventory/virus.png";
+import landPlotsBanner from "@/assets/img/inventory/land-plots.png";
+
 
 // styles
 import { makeStyles } from "@material-ui/core/styles";
@@ -79,21 +87,24 @@ export default function InventoryPage() {
                     <Card inventory>
                         <CardBody nopadding>
                             <div className="inventoryBlock">
-                                <div className={classes.blockIcon}>
-                                    <img src={weaponIcon} className={classes.imageIcon} alt="Weapon" />
-                                </div>
-                                <div className={classes.blockContent}>
-                                    <div className="content-title">
-                                        Weapons
+                                <div className={classes.flexContainer}>
+                                    <div className={classes.blockIcon}>
+                                        <img src={weaponIcon} className={classes.imageIcon} alt="Weapon" />
                                     </div>
-                                    <div className="content-small-text">
-                                        View Owned Weapons
+                                    <div className={classes.blockContent}>
+                                        <div className="content-title">
+                                            Weapons
+                                        </div>
+                                        <div className="content-small-text">
+                                            View Owned Weapons
+                                        </div>
                                     </div>
                                 </div>
                                 <div className={classes.blockArrow} onClick={() => goToCategory(1)}>
                                     <i className="fas fa-arrow-circle-right"></i>
                                 </div>                                
                             </div>
+                            <div className={classes.fullBackImage} style={{ backgroundImage: "url(" + weaponsBanner + ")", backgroundColor: "transparent", backgroundSize: "cover", backgroundPosition: "center" }}/>
                         </CardBody>
                     </Card>
                 </GridItem>
@@ -101,21 +112,24 @@ export default function InventoryPage() {
                     <Card inventory>
                         <CardBody nopadding>
                             <div className="inventoryBlock">
-                                <div className={classes.blockIcon}>
-                                    <img src={armorIcon} className={classes.imageIcon} alt="Armor" />
-                                </div>
-                                <div className={classes.blockContent}>
-                                    <div className="content-title">
-                                        Armor
+                                <div className={classes.flexContainer}>
+                                    <div className={classes.blockIcon}>
+                                        <img src={armorIcon} className={classes.imageIcon} alt="Armor" />
                                     </div>
-                                    <div className="content-small-text">
-                                        View Owned Armor
+                                    <div className={classes.blockContent}>
+                                        <div className="content-title">
+                                            Armor
+                                        </div>
+                                        <div className="content-small-text">
+                                            View Owned Armor
+                                        </div>
                                     </div>
                                 </div>
                                 <div className={classes.blockArrow} onClick={() => goToCategory(2)}>
                                     <i className="fas fa-arrow-circle-right"></i>
                                 </div>                                
                             </div>
+                            <div className={classes.fullBackImage} style={{ backgroundImage: "url(" + armorBanner + ")", backgroundColor: "transparent", backgroundSize: "cover", backgroundPosition: "center" }}/>
                         </CardBody>
                     </Card>
                 </GridItem>
@@ -123,21 +137,24 @@ export default function InventoryPage() {
                     <Card inventory>
                         <CardBody nopadding>
                             <div className="inventoryBlock">
-                                <div className={classes.blockIcon}>
-                                    <img src={accesoriesIcon} className={classes.imageIcon} alt="Accesories" />
-                                </div>
-                                <div className={classes.blockContent}>
-                                    <div className="content-title">
-                                        Accessories
+                                <div className={classes.flexContainer}>
+                                    <div className={classes.blockIcon}>
+                                        <img src={accesoriesIcon} className={classes.imageIcon} alt="Accesories" />
                                     </div>
-                                    <div className="content-small-text">
-                                        View Owned Accessories
+                                    <div className={classes.blockContent}>
+                                        <div className="content-title">
+                                            Accessories
+                                        </div>
+                                        <div className="content-small-text">
+                                            View Owned Accessories
+                                        </div>
                                     </div>
                                 </div>
                                 <div className={classes.blockArrow} onClick={() => goToCategory(3)}>
                                     <i className="fas fa-arrow-circle-right"></i>
                                 </div>                                
                             </div>
+                            <div className={classes.fullBackImage} style={{ backgroundImage: "url(" + accesoriesBanner + ")", backgroundColor: "transparent", backgroundSize: "cover", backgroundPosition: "center" }}/>
                         </CardBody>
                     </Card>
                 </GridItem>
@@ -145,21 +162,24 @@ export default function InventoryPage() {
                     <Card inventory>
                         <CardBody nopadding>
                             <div className="inventoryBlock">
-                                <div className={classes.blockIcon}>
-                                    <img src={virusIcon} className={classes.imageIcon} alt="Viruses and Bacteria" />
-                                </div>
-                                <div className={classes.blockContent}>
-                                    <div className="content-title">
-                                        Viruses and Bacteria
+                                <div className={classes.flexContainer}>
+                                    <div className={classes.blockIcon}>
+                                        <img src={virusIcon} className={classes.imageIcon} alt="Viruses and Bacteria" />
                                     </div>
-                                    <div className="content-small-text">
-                                        View Owned Viruses and Bacteria
+                                    <div className={classes.blockContent}>
+                                        <div className="content-title">
+                                            Viruses and Bacteria
+                                        </div>
+                                        <div className="content-small-text">
+                                            View Owned Viruses and Bacteria
+                                        </div>
                                     </div>
                                 </div>
                                 <div className={classes.blockArrow} onClick={() => goToCategory(4)}>
                                     <i className="fas fa-arrow-circle-right"></i>
                                 </div>                                
                             </div>
+                            <div className={classes.fullBackImage} style={{ backgroundImage: "url(" + virusVariantBanner + ")", backgroundColor: "transparent", backgroundSize: "cover", backgroundPosition: "center" }}/>
                         </CardBody>
                     </Card>
                 </GridItem>
@@ -167,21 +187,24 @@ export default function InventoryPage() {
                     <Card inventory>
                         <CardBody nopadding>
                             <div className="inventoryBlock">
-                                <div className={classes.blockIcon}>
-                                    <img src={paracitesIcon} className={classes.imageIcon} alt="Parasites and Fungus" />
-                                </div>
-                                <div className={classes.blockContent}>
-                                    <div className="content-title">
-                                        Parasites and Fungus
+                                <div className={classes.flexContainer}>
+                                    <div className={classes.blockIcon}>
+                                        <img src={paracitesIcon} className={classes.imageIcon} alt="Parasites and Fungus" />
                                     </div>
-                                    <div className="content-small-text">
-                                        View Owned Parasites and Fungus
+                                    <div className={classes.blockContent}>
+                                        <div className="content-title">
+                                            Parasites and Fungus
+                                        </div>
+                                        <div className="content-small-text">
+                                            View Owned Parasites and Fungus
+                                        </div>
                                     </div>
                                 </div>
                                 <div className={classes.blockArrow} onClick={() => goToCategory(5)}>
                                     <i className="fas fa-arrow-circle-right"></i>
                                 </div>                                
                             </div>
+                            <div className={classes.fullBackImage} style={{ backgroundImage: "url(" + parasitesFungusBanner + ")", backgroundColor: "transparent", backgroundSize: "cover", backgroundPosition: "center" }}/>
                         </CardBody>
                     </Card>
                 </GridItem>
@@ -189,21 +212,24 @@ export default function InventoryPage() {
                     <Card inventory>
                         <CardBody nopadding>
                             <div className="inventoryBlock">
-                                <div className={classes.blockIcon}>
-                                    <img src={variantsIcon} className={classes.imageIcon} alt="Virus Variants" />
-                                </div>
-                                <div className={classes.blockContent}>
-                                    <div className="content-title">
-                                        Virus Variants
+                                <div className={classes.flexContainer}>
+                                    <div className={classes.blockIcon}>
+                                        <img src={variantsIcon} className={classes.imageIcon} alt="Virus Variants" />
                                     </div>
-                                    <div className="content-small-text">
-                                        View Owned Virus Variants
+                                    <div className={classes.blockContent}>
+                                        <div className="content-title">
+                                            Virus Variants
+                                        </div>
+                                        <div className="content-small-text">
+                                            View Owned Virus Variants
+                                        </div>
                                     </div>
                                 </div>
                                 <div className={classes.blockArrow} onClick={() => goToCategory(6)}>
                                     <i className="fas fa-arrow-circle-right"></i>
                                 </div>                                
                             </div>
+                            <div className={classes.fullBackImage} style={{ backgroundImage: "url(" + virusBanner + ")", backgroundColor: "transparent", backgroundSize: "cover", backgroundPosition: "center" }}/>
                         </CardBody>
                     </Card>
                 </GridItem>
@@ -211,21 +237,24 @@ export default function InventoryPage() {
                     <Card inventory>
                         <CardBody nopadding>
                             <div className="inventoryBlock">
-                                <div className={classes.blockIcon}>
-                                    <img src={cityplotIcon} className={classes.imageIcon} alt="Virus Variants" />
-                                </div>
-                                <div className={classes.blockContent}>
-                                    <div className="content-title">
-                                        My Land Plots
+                                <div className={classes.flexContainer}>
+                                    <div className={classes.blockIcon}>
+                                        <img src={cityplotIcon} className={classes.imageIcon} alt="Virus Variants" />
                                     </div>
-                                    <div className="content-small-text">
-                                        View Owned Land Plots
+                                    <div className={classes.blockContent}>
+                                        <div className="content-title">
+                                            My Land Plots
+                                        </div>
+                                        <div className="content-small-text">
+                                            View Owned Land Plots
+                                        </div>
                                     </div>
                                 </div>
                                 <div className={classes.blockArrow} onClick={() => goToCategory(7)}>
                                     <i className="fas fa-arrow-circle-right"></i>
                                 </div>                                
                             </div>
+                            <div className={classes.fullBackImage} style={{ backgroundImage: "url(" + landPlotsBanner + ")", backgroundColor: "transparent", backgroundSize: "cover", backgroundPosition: "center" }}/>
                         </CardBody>
                     </Card>
                 </GridItem>

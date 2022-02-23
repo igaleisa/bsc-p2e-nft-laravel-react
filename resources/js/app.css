@@ -16,8 +16,14 @@
     src: url('./assets/fonts/Microgramma D Extended Bold.otf'); 
   }
 
-/* michroma-regular - latin */
+/* Resident */
 @font-face {
   font-family: Resident;
   src: url('./assets/fonts/resident_evil_7_biohazard_game_font_final_version_by_peter_jonca.otf'); 
+}
+
+/* Resident */
+@font-face {
+  font-family: TrajanPro3;
+  src: url('./assets/fonts/trajan-pro-3-2[1].otf'); 
 }

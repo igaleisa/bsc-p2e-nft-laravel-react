@@ -3,6 +3,7 @@ $light-blue-color: #569DBC;
 $light-green-color: #19E378;
 
 .inventoryBlock {
+    background-image: url(/images/inventory/accesories.png);
     font-family: Microgramma;
     width: 100%;
     height: 100%;    
@@ -20,16 +21,25 @@ $light-green-color: #19E378;
     }      
 
     .content-title {
+        font-family: TrajanPro3;
         color: #fff;
-        font-size: 24px;
+        font-size: 32px;
+        @media (max-width: $screen-sm) {
+            font-size: 22px;
+            line-height: 1.5;
+        }
         text-transform: uppercase;
         font-weight: 600;
     }
 
     .content-small-text {
-        margin-top: 2px;
+        font-family: TrajanPro3;
+        margin-top: 8px;
         color: #98989A;
-        font-size: 12px;
+        font-size: 20px;
+        @media (max-width: $screen-sm) {
+            font-size: 14px;
+        }
         text-transform: uppercase;
         font-weight: normal;
     }
@@ -162,8 +172,13 @@ $light-green-color: #19E378;
         font-weight: bold;
         color: $light-blue-color;
         position: absolute;
-        top: 6px;
-        right: 12px;
+        top: 10px;
+        right: 6px;
+
+        img {
+            width: 20px;
+            height: 20px;
+        }
     }
 
     &:hover {
