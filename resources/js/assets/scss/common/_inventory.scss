@@ -185,25 +185,36 @@ $light-green-color: #19E378;
         }
     }
     .itemContent {
-        margin-left: 5px;
+        margin-left: 10px;
+        padding: 6px 0;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         .itemName {
-            font-size: 16px;
+            font-family: TrajanPro3;
+            text-align: left;
+            font-size: 14px;
             font-weight: bold;
             transition: all .5s ease-in-out;   
         }
+        .itemCategory{
+            text-align: center;
+            font-family: TrajanPro3;
+            font-size: 10px;
+            color: $light-blue-color;                
+        }
         .itemBottom {
-            margin-top: 20px;
-            display: flex;
-            .itemCategory{
-                font-size: 10px;
-                color: $light-blue-color;                
-            }
+            // margin-top: 8px;
+            // display: flex;            
             .itemRarity {
                 margin-left: 8px;
                 font-size: 10px;
+                color: #fff;
+            }
+            .itemHealth {     
+                text-transform: uppercase;           
+                font-weight: 100;
+                font-size: 9px;
                 color: #fff;
             }
         }
@@ -317,4 +328,23 @@ $light-green-color: #19E378;
     }
 }
 
+.progress-wrapper {
+    .progress-container {
+        height: 12px;
+        background: rgba(224, 224, 222, 0);
+        border-radius: 50px;
+        width: 100%;
+        border: 1px solid #fff;
 
+        div {
+            height: 10px !important;
+            margin: 1px !important;
+            justify-content: center !important;
+
+            .progress-label {
+                font-size: 8px;
+                color: #000;
+            }
+        }
+    }
+}

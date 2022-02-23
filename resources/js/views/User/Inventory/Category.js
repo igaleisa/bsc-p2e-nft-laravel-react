@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // @material-ui/core components
 
+// progress bar
+import ProgressBar from "@ramonak/react-progress-bar";
+
 // core components
 import GridContainer from "@/components/Grid/GridContainer.js";
 import GridItem from "@/components/Grid/GridItem.js";
@@ -139,11 +142,13 @@ export default function CategoryPage() {
                         name: prop.preset.name,
                         description: prop.preset.description,
                         category: prop.preset.category ? prop.preset.category.name : '',
+                        faction: prop.preset.faction ? prop.preset.faction.name : '',
                         rarity: prop.preset.rarity ? prop.preset.rarity.id : '',
                         rarityName: prop.preset.rarity ? prop.preset.rarity.name : '',
                         state: prop.state.id,
                         image: prop.preset.thumbnail,
-                        attributes: JSON.parse(prop.preset.attributes)
+                        attributes: JSON.parse(prop.preset.attributes),
+                        health: prop.health
                     };
                 }));                
             })
@@ -200,6 +205,12 @@ export default function CategoryPage() {
         return '#ffffff';
     };
 
+    const getBackgroundImage = (faction) => {
+        if(faction == 'Survivors') return 'url("/images/objects/survivors-object-background.png")';
+        if(faction == 'Scientists') return 'url("/images/objects/scientists-object-background.png")';
+        return '';
+    }
+
     const getRarityMarker = (rarity) => {
         if(rarity === 1) return 'C';
         else if(rarity === 2) return 'U';
@@ -246,6 +257,15 @@ export default function CategoryPage() {
         else if(id === 7) return landPlotsBanner;
         return null;
     };
+
+    const getProgressBarColor = (value) => {
+        let health = parseInt(value);
+
+        if(health < 20) return "#ff0000";
+        else if(health < 50) return "#ffff00";
+        else if(health <= 100) return "#00ff00";
+        return "#000000";
+    }
 
     return(
         <div className={classes.container}> 
@@ -303,21 +323,32 @@ export default function CategoryPage() {
                 {tokenList.map((prop, key) => {
                     return (
                         <GridItem xs={12} sm={6} md={3} key={key}>                            
-                            <div className="itemBlock" style={{borderColor: getBorderColor(prop.rarity) }}>
+                            <div className="itemBlock" style={{borderColor: getBorderColor(prop.rarity), backgroundImage: getBackgroundImage(prop.faction) }}>
                                 <div className="itemImg">
                                     <img src={process.env.MIX_UMBL_STORAGE_URI + 'thumbnails/' + prop.image} />
                                 </div>
                                 <div className="itemContent">
                                     <div className="itemName">{showString(prop.name)}</div>                                    
+                                    <div className="itemCategory">{prop.category}</div>
                                     <div className="itemBottom">
-                                        <div className="itemCategory">{prop.category}</div>
+                                        <div className="itemHealth">HEALTH</div>
+                                        <ProgressBar 
+                                            completed={prop.health}
+                                            bgColor={getProgressBarColor(prop.health)}
+                                            className="progress-wrapper"
+                                            barContainerClassName="progress-container"
+                                            // completedClassName="progress-barCompleted"
+                                            labelClassName="progress-label"
+                                            />
                                     </div>  
                                 </div>
                                 <div className="itemAction" onClick={() => handleClick(prop.tokenId)}>
                                     <i className="fas fa-arrow-right"></i>
                                 </div>
                                 <div className="itemRarity" style={{color: getBorderColor(prop.rarity) }}>
-                                    <img src={getRarityIcon(prop.rarity)} className={classes.imageIcon} alt={getRarityText(prop.rarity)} />
+                                    { getRarityIcon(prop.rarity) !== null ? (
+                                        <img src={getRarityIcon(prop.rarity)} className={classes.imageIcon} alt={getRarityText(prop.rarity)} />
+                                        ) : (<></>) }
                                     {/* {getRarityMarker(prop.rarity)} */}
                                 </div>
                             </div>

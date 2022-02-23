@@ -32,6 +32,7 @@ const commonPageStyle = theme => ({
     color: '#fff',
   },
   fullBackImage: {
+    backgroundColor: "#333 !important",
     position: "absolute",
     top: 0,
     left: 0,
