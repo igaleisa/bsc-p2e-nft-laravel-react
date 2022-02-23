@@ -190,7 +190,7 @@ export default function CategoryPage() {
     };    
     
     const showString = (msg) => {
-        const length_limit = 36;
+        const length_limit = 18;
         return msg.length > length_limit ? msg.substring(0, length_limit - 3) + '...' : msg;
     }
 
