@@ -24,9 +24,9 @@ import cityplotIcon from "@/assets/img/icons/plot-map.png";
 import weaponsBanner from "@/assets/img/inventory/weapons-inventory.png";
 import armorBanner from "@/assets/img/inventory/armor-inventory.png";
 import accesoriesBanner from "@/assets/img/inventory/accesories-inventory.png";
-import virusVariantBanner from "@/assets/img/inventory/virus-variant-inventory.png";
-import parasitesFungusBanner from "@/assets/img/inventory/parasites-and-fungus-inventory.png";
 import virusBanner from "@/assets/img/inventory/virus-inventory.png";
+import parasitesFungusBanner from "@/assets/img/inventory/parasites-and-fungus-inventory.png";
+import virusVariantBanner from "@/assets/img/inventory/virus-variant-inventory.png";
 import landPlotsBanner from "@/assets/img/inventory/land-plots-inventory.png";
 
 
@@ -179,7 +179,7 @@ export default function InventoryPage() {
                                     <i className="fas fa-arrow-circle-right"></i>
                                 </div>                                
                             </div>
-                            <div className={classes.fullBackImage} style={{ backgroundImage: "url(" + virusVariantBanner + ")", backgroundColor: "transparent", backgroundSize: "cover", backgroundPosition: "center" }}/>
+                            <div className={classes.fullBackImage} style={{ backgroundImage: "url(" + virusBanner + ")", backgroundColor: "transparent", backgroundSize: "cover", backgroundPosition: "center" }}/>
                         </CardBody>
                     </Card>
                 </GridItem>
@@ -229,7 +229,7 @@ export default function InventoryPage() {
                                     <i className="fas fa-arrow-circle-right"></i>
                                 </div>                                
                             </div>
-                            <div className={classes.fullBackImage} style={{ backgroundImage: "url(" + virusBanner + ")", backgroundColor: "transparent", backgroundSize: "cover", backgroundPosition: "center" }}/>
+                            <div className={classes.fullBackImage} style={{ backgroundImage: "url(" + virusVariantBanner + ")", backgroundColor: "transparent", backgroundSize: "cover", backgroundPosition: "center" }}/>
                         </CardBody>
                     </Card>
                 </GridItem>

@@ -30,6 +30,23 @@ import { GetCategoryNameService, GetTokenListService, } from '@/services/UserSer
 // contract
 import { useUmblCoreContract, useUmblMarketPlaceContract } from "@/hooks";
 
+import weaponsBanner from "@/assets/img/inventory/weapons-inventory.png";
+import armorBanner from "@/assets/img/inventory/armor-inventory.png";
+import accesoriesBanner from "@/assets/img/inventory/accesories-inventory.png";
+import virusVariantBanner from "@/assets/img/inventory/virus-variant-inventory.png";
+import parasitesFungusBanner from "@/assets/img/inventory/parasites-and-fungus-inventory.png";
+import virusBanner from "@/assets/img/inventory/virus-inventory.png";
+import landPlotsBanner from "@/assets/img/inventory/land-plots-inventory.png";
+
+// Icons
+import armorIcon from "@/assets/img/icons/shield.png";
+import weaponIcon from "@/assets/img/icons/Gun2.png";
+import accesoriesIcon from "@/assets/img/icons/accessory.png";
+import virusIcon from "@/assets/img/icons/virus.png";
+import paracitesIcon from "@/assets/img/icons/parasites-and-fungus.png";
+import variantsIcon from "@/assets/img/icons/variants.png";
+import cityplotIcon from "@/assets/img/icons/plot-map.png";
+
 export default function CategoryPage() {
     const history = useHistory();
     const { category } = useParams();
@@ -208,18 +225,60 @@ export default function CategoryPage() {
         return null;
     };
 
+    const getCategoryIcon = (id) => {
+        if(id === 1) return weaponIcon;
+        else if(id === 2) return armorIcon;
+        else if(id === 3) return accesoriesIcon;
+        else if(id === 4) return virusIcon;
+        else if(id === 5) return paracitesIcon;
+        else if(id === 6) return variantsIcon;
+        else if(id === 7) return cityplotIcon;
+        return null;
+    };
+
+    const getCategoryBanner = (id) => {
+        if(id === 1) return weaponsBanner;
+        else if(id === 2) return armorBanner;
+        else if(id === 3) return accesoriesBanner;
+        else if(id === 4) return virusBanner;
+        else if(id === 5) return parasitesFungusBanner;
+        else if(id === 6) return virusVariantBanner;
+        else if(id === 7) return landPlotsBanner;
+        return null;
+    };
+
     return(
         <div className={classes.container}> 
             <GridContainer justifyContent="center">
                 <GridItem xs={12} sm={12} md={12}>
                     <Card transparent>
-                        <CardBody>
-                            <div className="whiteTitleText">
+                        <CardBody style={{ padding: "0"}}>
+                            {/* <div className="whiteTitleText">
                                 {categoryName}
                             </div>
                             <div className="lightBlueLink" onClick={handleBack}>
                                 back
+                            </div> */}
+                            <div className="inventoryCategoryBlock">
+                                <div className={classes.flexContainer}>
+                                    <div className={classes.blockIcon}>
+                                        <img src={getCategoryIcon(categoryId)} className={classes.imageIcon} alt="Weapon" />
+                                    </div>
+                                    <div className={classes.blockContent}>
+                                        <div className="content-title">
+                                            {categoryName}
+                                        </div>
+                                        {/* <div className="content-small-text">
+                                            View Owned Weapons
+                                        </div> */}
+                                    </div>
+                                </div>
+                                <div className={classes.blockArrow} onClick={() => handleBack()}>
+                                    <i className="fas fa-arrow-circle-left"></i>
+                                </div>                                
                             </div>
+                            {/* <div className={classes.fullBackImage} style={{ backgroundImage: "url(" + weaponsBanner + ")", backgroundColor: "transparent", backgroundSize: "cover", backgroundPosition: "center" }}/> */}
+                            <div className={classes.fullBackImage} style={{ backgroundImage: "url(" + getCategoryBanner(categoryId) + ")", backgroundColor: "transparent", backgroundSize: "cover", backgroundPosition: "center" }}/>
                         </CardBody>
                     </Card>
                 </GridItem>
