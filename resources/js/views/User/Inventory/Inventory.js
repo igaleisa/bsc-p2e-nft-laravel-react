@@ -21,13 +21,13 @@ import paracitesIcon from "@/assets/img/icons/parasites-and-fungus.png";
 import variantsIcon from "@/assets/img/icons/variants.png";
 import cityplotIcon from "@/assets/img/icons/plot-map.png";
 
-import weaponsBanner from "@/assets/img/inventory/weapons.png";
-import armorBanner from "@/assets/img/inventory/armor.png";
-import accesoriesBanner from "@/assets/img/inventory/accesories.png";
-import virusVariantBanner from "@/assets/img/inventory/virus-variant.png";
-import parasitesFungusBanner from "@/assets/img/inventory/parasites-and-fungus.png";
-import virusBanner from "@/assets/img/inventory/virus.png";
-import landPlotsBanner from "@/assets/img/inventory/land-plots.png";
+import weaponsBanner from "@/assets/img/inventory/weapons-inventory.png";
+import armorBanner from "@/assets/img/inventory/armor-inventory.png";
+import accesoriesBanner from "@/assets/img/inventory/accesories-inventory.png";
+import virusVariantBanner from "@/assets/img/inventory/virus-variant-inventory.png";
+import parasitesFungusBanner from "@/assets/img/inventory/parasites-and-fungus-inventory.png";
+import virusBanner from "@/assets/img/inventory/virus-inventory.png";
+import landPlotsBanner from "@/assets/img/inventory/land-plots-inventory.png";
 
 
 // styles
