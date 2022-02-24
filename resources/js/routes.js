@@ -41,8 +41,8 @@ import ForgetPasswordPage from "@/views/Forget/ForgetPasswordPage.js";
 import ResetPasswordPage from "@/views/Forget/ResetPasswordPage.js";
 import PresalePage from "@/views/User/Presale/Presale.js";
 
-// import CrateMainPage from "@/views/User/Crate/CrateMainPage.js";
-// import CrateItemPage from "@/views/User/Crate/CrateItemPage.js";
+import CrateMainPage from "@/views/User/Crate/CrateMainPage.js";
+import CrateItemPage from "@/views/User/Crate/CrateItemPage.js";
 
 import PlotMainPage from "@/views/User/Plots/PlotMainPage.js";
 import PlotItemPage from "@/views/User/Plots/PlotItemPage.js";
@@ -118,24 +118,24 @@ var dashRoutes = [
     component: SecurityPage,
     layout: "/user"
   },
-  // {
-  //   path: "/presale",
-  //   name: "UMBL Presale Page",
-  //   component: PresalePage,
-  //   layout: "/user"
-  // },
-  // {
-  //   path: "/crates",
-  //   name: "Crate Main Page",
-  //   component: CrateMainPage,
-  //   layout: "/user"
-  // },
-  // {
-  //   path: "/crates/:crateId",
-  //   name: "Crate Item Page",
-  //   component: CrateItemPage,
-  //   layout: "/user"
-  // },
+  {
+    path: "/presale",
+    name: "UMBL Presale Page",
+    component: PresalePage,
+    layout: "/user"
+  },
+  {
+    path: "/crates",
+    name: "Crate Main Page",
+    component: CrateMainPage,
+    layout: "/user"
+  },
+  {
+    path: "/crates/:crateId",
+    name: "Crate Item Page",
+    component: CrateItemPage,
+    layout: "/user"
+  },
   {
     path: "/plots",
     name: "Plot Main Page",

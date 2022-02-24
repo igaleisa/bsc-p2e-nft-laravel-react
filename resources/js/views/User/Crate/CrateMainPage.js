@@ -48,6 +48,11 @@ export default function CrateMainPage() {
         } 
     }, [isAdmin, isAuthenticated]);
 
+    useEffect(() => {
+        let backgroundImg = 'url(/images/crates/survivor-back-1.jpg)';
+        document.getElementById('crate_main_block').style.backgroundImage = backgroundImg;
+    }, [])
+
     const handleMouseEnter = (id) => {
         let backgroundImg = '';
         if(id === 1) {
@@ -70,50 +75,50 @@ export default function CrateMainPage() {
     return(
         <div className="crate-main-container">
             <GridContainer className="crate-grid-container" id="crate_main_block">
-                <GridItem xs={12} sm={12} md={3} className="crate-block survivor-1" onMouseEnter={() => handleMouseEnter(1)} onClick={() => goToCratePage(1)}>
+                <GridItem xs={12} sm={12} md={3} className="crate-block survivor-1" onMouseEnter={() => handleMouseEnter(1)} onClick={() => goToCratePage(5)}>
                     <div className="block-body">
-                        <div className="title-container">
+                        {/* <div className="title-container">
                             <h5 className="card-title">SURVIVORS</h5>
                             <p className="card-text"><span>BASIC</span> CRATE</p>
                         </div>
                         <div className="rarity-container">
                             <label className="card-text common">COMMON</label>
                             <label className="card-text uncommon">UNCOMMON</label>
-                        </div>
+                        </div> */}
                     </div>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={3} className="crate-block survivor-2" onMouseEnter={() => handleMouseEnter(2)} onClick={() => goToCratePage(2)}>
+                <GridItem xs={12} sm={12} md={3} className="crate-block survivor-2" onMouseEnter={() => handleMouseEnter(2)} onClick={() => goToCratePage(6)}>
                     <div className="block-body">
-                        <div className="title-container">
+                        {/* <div className="title-container">
                             <h5 className="card-title">SURVIVORS</h5>
                             <p className="card-text"><span>TACTICAL</span> CRATE</p>
                         </div>
                         <div className="rarity-container">
                             <label className="card-text unique">UNIQUE</label>
-                        </div>
+                        </div> */}
                     </div>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={3} className="crate-block scientist-1" onMouseEnter={() => handleMouseEnter(3)} onClick={() => goToCratePage(3)}>
+                <GridItem xs={12} sm={12} md={3} className="crate-block scientist-1" onMouseEnter={() => handleMouseEnter(3)} onClick={() => goToCratePage(7)}>
                     <div className="block-body">
-                        <div className="title-container">
+                        {/* <div className="title-container">
                             <h5 className="card-title">SCIENTIST</h5>
                             <p className="card-text"><span>ALPHA</span> TYPE</p>
                         </div>
                         <div className="rarity-container">
                             <label className="card-text common">COMMON</label>
                             <label className="card-text uncommon">UNCOMMON</label>
-                        </div>
+                        </div> */}
                     </div>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={3} className="crate-block scientist-2" onMouseEnter={() => handleMouseEnter(4)} onClick={() => goToCratePage(4)}>
+                <GridItem xs={12} sm={12} md={3} className="crate-block scientist-2" onMouseEnter={() => handleMouseEnter(4)} onClick={() => goToCratePage(8)}>
                     <div className="block-body">
-                        <div className="title-container">
+                        {/* <div className="title-container">
                             <h5 className="card-title">SCIENTIST</h5>
                             <p className="card-text"><span>OMEGA</span> TYPE</p>
                         </div>
                         <div className="rarity-container">
                             <label className="card-text unique">UNIQUE</label>
-                        </div>
+                        </div> */}
                     </div>
                 </GridItem>
             </GridContainer>

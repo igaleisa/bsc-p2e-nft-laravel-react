@@ -130,7 +130,7 @@ $screen-xs: 480px !default;
 
         .survivor-1 {
             @media (max-width: $screen-sm) {
-                background-image: url(/images/crates/survivor-1.jpg);
+                background-image: url(/images/crates/survivor-1.png);
             } 
             .card-title {
                 letter-spacing: 0.2rem;
@@ -140,13 +140,13 @@ $screen-xs: 480px !default;
                 color: #e6232a;                            
             }
             &:hover {
-                background-image: url(/images/crates/survivor-1.jpg);
+                background-image: url(/images/crates/survivor-1.png);
             }
         }
 
         .survivor-2 {
             @media (max-width: $screen-sm) {
-                background-image: url(/images/crates/survivor-2.jpg);
+                background-image: url(/images/crates/survivor-2.png);
             } 
             .card-title {
                 letter-spacing: 0.2rem;
@@ -156,13 +156,13 @@ $screen-xs: 480px !default;
                 color: #e6232a;
             }
             &:hover {
-                background-image: url(/images/crates/survivor-2.jpg);                
+                background-image: url(/images/crates/survivor-2.png);                
             }
         }
 
         .scientist-1 {
             @media (max-width: $screen-sm) {
-                background-image: url(/images/crates/scientist-1.jpg);
+                background-image: url(/images/crates/scientist-1.png);
             } 
             .card-title {
                 font-size: 2.5vw;
@@ -171,13 +171,13 @@ $screen-xs: 480px !default;
                 text-shadow: 0 0 10px #00acb4, 0 0 20px #1f8a8f, 0 0 40px #000000;
             }
             &:hover {
-                background-image: url(/images/crates/scientist-1.jpg);                
+                background-image: url(/images/crates/scientist-1.png);                
             }
         }
 
         .scientist-2 {
             @media (max-width: $screen-sm) {
-                background-image: url(/images/crates/scientist-2.jpg);
+                background-image: url(/images/crates/scientist-2.png);
             } 
             .card-title {
                 font-size: 2.5vw;

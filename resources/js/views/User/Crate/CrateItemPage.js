@@ -29,7 +29,7 @@ import {
 } from '@/services/UserServices';
 
 // contract
-import { useUmblCoreContract, useUmblMarketPlaceContract, useBusdContract } from "@/hooks";
+import { useUmblCoreContract, useUmblMarketPlaceContract, useBusdContract, useZapbContract } from "@/hooks";
 
 export default function CrateItemPage() {
     const history = useHistory();
@@ -50,6 +50,7 @@ export default function CrateItemPage() {
     const umblCoreContract = useUmblCoreContract();
     const umblMarketContract = useUmblMarketPlaceContract();
     const busdContract = useBusdContract();
+    // const zapbContract = useZapbContract();
 
     useEffect(() => {
         if(isAdmin && isAuthenticated) {
@@ -103,9 +104,14 @@ export default function CrateItemPage() {
     }; 
     
     const buyCrate = async (acquiredPresetIds) => {
+        if(!crateInfo || !crateInfo.crate_id) {
+            setLoading(false);
+            return;
+        }
+
         // run marketplace contract function for buying crate
         const transaction = await umblMarketContract.methods
-            .buyCrate(parseInt(crateId), acquiredPresetIds)
+            .buyCrate(parseInt(crateInfo.crate_id), acquiredPresetIds)
             .send({ from: account }, (error, transactionHash) => {
                 if(transactionHash === undefined) {
                     setLoading(false);
@@ -215,21 +221,27 @@ export default function CrateItemPage() {
             return;
         } else {
             // check contract status
-            if (!umblMarketContract || !umblCoreContract || !busdContract) {
+            if (!umblMarketContract || !umblCoreContract || !busdContract) { //} || !zapbContract) {
+                console.log('contract issue');
                 return;
             }
 
             // start loading
             setLoading(true);
 
+            if(!crateInfo || !crateInfo.crate_id) {
+                setLoading(false);
+                return;
+            }               
+
             // get crate information
-            const crateInfo = await umblCoreContract.methods
-                .crateUmblData(parseInt(crateId))
+            const crateInfoVal = await umblCoreContract.methods
+                .crateUmblData(parseInt(crateInfo.crate_id))
                 .call({ from: account });
             
             // approve busd payment            
             const approveResult = await busdContract.methods
-                .approve(process.env.MIX_UMBL_MARKET_ADDRESS, crateInfo.price)
+                .approve(process.env.MIX_UMBL_MARKET_ADDRESS, crateInfoVal.price)
                 .send({ from: account }, (error, transactionHash) => {
                     if(transactionHash === undefined) {
                         setLoading(false);
@@ -244,7 +256,7 @@ export default function CrateItemPage() {
                 .allowance(account, process.env.MIX_UMBL_MARKET_ADDRESS)
                 .call({ from: account });
 
-            if(allowanceResult !== crateInfo.price) {
+            if(allowanceResult !== crateInfoVal.price) {
                 setLoading(false);
                 showErrorMsg('You must approve BUSD payment.');
                 return;
@@ -255,7 +267,7 @@ export default function CrateItemPage() {
                 .nextTokenId()
                 .call({ from: account });
 
-            GetCratePresetService({id: crateId}).then((res) => {
+            GetCratePresetService({id: crateInfo.crate_id}).then((res) => {
                 if(res.hasOwnProperty('success') && res.success === true) {
                     buyCrate(res.presetIds);
                 } else {
@@ -368,7 +380,7 @@ export default function CrateItemPage() {
                     // />
                     <ReactPlayer 
                         // url='/videos/test-video.mp4' 
-                        url={process.env.MIX_UMBL_STORAGE_URI + 'crates/' + crateInfo.v360 + '.mp4'}
+                        url={process.env.MIX_UMBL_STORAGE_URI + crateInfo.v360}
                         playing={true} 
                         loop={true} 
                         width='100%'
