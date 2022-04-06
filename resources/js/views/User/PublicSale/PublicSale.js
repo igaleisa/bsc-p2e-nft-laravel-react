@@ -77,7 +77,7 @@ export default function PublicSale() {
     const [errorMessage, setErrorMessage] = useState('');
     const [className, setClassName] = useState('');
     const [value, setValue] = useState(null);
-    const [softCap, setSoftCap] = useState(50);
+    const [softCap, setSoftCap] = useState(10);
     const [remainingLimit, setRemainingLimit] = useState(0);
     const [exRate, setExRate] = useState(8.33);
     const [reExRate, setReExRate] = useState(0.12);
