@@ -202,7 +202,7 @@ export default function PublicSale() {
               confirmBtnCssClass={classes.button + " " + classes.info}
               customClass="blackMsg"
             >
-              {message}
+                {message}
             </SweetAlert>
         );
     };
@@ -343,7 +343,7 @@ export default function PublicSale() {
 
         setLoading(false);
 
-        showSuccessMsg('You purchased tokens succesfully! Please check your wallet');
+        showSuccessMsg('You purchased tokens succesfully! Please check your wallet. Add UMBL tokens to metamask?');
     }
 
     const getBackImg = () => {
