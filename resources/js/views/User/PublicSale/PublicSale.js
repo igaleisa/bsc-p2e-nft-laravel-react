@@ -72,7 +72,6 @@ export default function PublicSale() {
     }, [screenSize])  
 
     const [loading, setLoading] = useState(false);  
-    const [publicStatus, setpublicStatus] = useState(null);
     const [alert, setAlert] = useState(null);
     const [accountError, setAccountError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -85,7 +84,6 @@ export default function PublicSale() {
     const [publicProgress, setpublicProgress] = useState(0);
     const [initialTime, setInitialTime] = useState(0);
     const [startTimer, setStartTimer] = useState(false);
-    const [isPresaleStarted, setIsPresaleStarted] = useState(false);
     const [userBalance, setUserBalance] = useState(0);
     const [referrerAddress, setReferrerAddress] = useState('0x0000000000000000000000000000000000000000');
 
@@ -120,15 +118,21 @@ export default function PublicSale() {
             .fundingGoal()
             .call();
 
+        console.log('fundingGoal => ' + fundingGoal.toString());
+
         const busdRaised = await umblPublicSaleContract.methods
             .busdRaised()
             .call();
+
+        console.log('busdRaised => ' + busdRaised.toString());
 
         const tokensRaised = await umblPublicSaleContract.methods
             .tokensRaised()
             .call();
 
-        // console.log('Progress => ' + (tokensRaised / fundingGoal).toString());
+        console.log('tokensRaised => ' + tokensRaised.toString());
+
+        console.log('Progress => ' + (tokensRaised / fundingGoal).toString());
 
         // setpublicProgress(Math.floor((100.0 * tokensRaised) / fundingGoal));
         setpublicProgress(Math.trunc((10000.0 * tokensRaised) / fundingGoal) / 100);
@@ -137,6 +141,8 @@ export default function PublicSale() {
         const tokenPrice = await umblPublicSaleContract.methods
             .tokenPrice()
             .call();
+
+        console.log('tokenPrice => ' + tokenPrice.toString());  
 
         setExRate(Math.trunc(window.web3.utils.fromWei(tokenPrice, 'ether') * 100) / 100);
         setReExRate(1.0 / window.web3.utils.fromWei(tokenPrice, 'ether'));
@@ -148,6 +154,7 @@ export default function PublicSale() {
             .softCap()
             .call();
 
+        console.log('softCapVal => ' + softCapVal.toString()); 
         setSoftCap(window.web3.utils.fromWei(softCapVal.toString(16), 'ether'));
 
         setLoading(false);
