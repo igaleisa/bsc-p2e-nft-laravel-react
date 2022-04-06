@@ -474,7 +474,7 @@ export default function PublicSale() {
                                             <p>
                                                 1. Go to your profile section. <br/>
                                                 2. Click on 'Referrals' and share your code with your friends.<br/>
-                                                3. Receive 10% of each referral's token purchase instantly
+                                                3. Receive 10%(in BUSD) of each referral's token purchase instantly
                                             </p>
                                         </div>
                                 </div>                              
