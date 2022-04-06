@@ -79,8 +79,8 @@ export default function PublicSale() {
     const [value, setValue] = useState(null);
     const [softCap, setSoftCap] = useState(50);
     const [remainingLimit, setRemainingLimit] = useState(0);
-    const [exRate, setExRate] = useState(1);
-    const [reExRate, setReExRate] = useState(1);
+    const [exRate, setExRate] = useState(8.33);
+    const [reExRate, setReExRate] = useState(0.12);
     const [publicProgress, setpublicProgress] = useState(0);
     const [initialTime, setInitialTime] = useState(0);
     const [startTimer, setStartTimer] = useState(false);
@@ -101,38 +101,41 @@ export default function PublicSale() {
     }, [isAdmin, isAuthenticated]);
 
     useEffect(async () => {
+        if (!status || !account) return;
         if (!umblPublicSaleContract) return;
 
         setLoading(true);
 
         GetUserReferrer().then(res => {
             if(res.hasOwnProperty('success') && res.success === true) {
-                // console.log(res.referrer.address);
+                // // console.log(res.referrer.address);
                 setReferrerAddress(res.referrer.address);
             }
         }).catch(error => {
-            console.log(error);
+            // console.log(error);
         })
+
+        // console.log('Call contract method => ');
 
         const fundingGoal = await umblPublicSaleContract.methods
             .fundingGoal()
             .call();
 
-        console.log('fundingGoal => ' + fundingGoal.toString());
+        // console.log('fundingGoal => ' + fundingGoal.toString());
 
         const busdRaised = await umblPublicSaleContract.methods
             .busdRaised()
             .call();
 
-        console.log('busdRaised => ' + busdRaised.toString());
+        // console.log('busdRaised => ' + busdRaised.toString());
 
         const tokensRaised = await umblPublicSaleContract.methods
             .tokensRaised()
             .call();
 
-        console.log('tokensRaised => ' + tokensRaised.toString());
+        // console.log('tokensRaised => ' + tokensRaised.toString());
 
-        console.log('Progress => ' + (tokensRaised / fundingGoal).toString());
+        // console.log('Progress => ' + (tokensRaised / fundingGoal).toString());
 
         // setpublicProgress(Math.floor((100.0 * tokensRaised) / fundingGoal));
         setpublicProgress(Math.trunc((10000.0 * tokensRaised) / fundingGoal) / 100);
@@ -142,7 +145,7 @@ export default function PublicSale() {
             .tokenPrice()
             .call();
 
-        console.log('tokenPrice => ' + tokenPrice.toString());  
+        // console.log('tokenPrice => ' + tokenPrice.toString());  
 
         setExRate(Math.trunc(window.web3.utils.fromWei(tokenPrice, 'ether') * 100) / 100);
         setReExRate(1.0 / window.web3.utils.fromWei(tokenPrice, 'ether'));
@@ -154,7 +157,7 @@ export default function PublicSale() {
             .softCap()
             .call();
 
-        console.log('softCapVal => ' + softCapVal.toString()); 
+        // console.log('softCapVal => ' + softCapVal.toString()); 
         setSoftCap(window.web3.utils.fromWei(softCapVal.toString(16), 'ether'));
 
         setLoading(false);
@@ -224,7 +227,7 @@ export default function PublicSale() {
     }
 
     const copyContractAddr = () => {
-        // console.log(publicSaleContractAddress);
+        // // console.log(publicSaleContractAddress);
         navigator.clipboard.writeText(publicSaleContractAddress);
     }
 
@@ -308,7 +311,7 @@ export default function PublicSale() {
                     setLoading(false);
                     return;
                 } else {
-                    // console.log(transactionHash);
+                    // // console.log(transactionHash);
                 }
             });
 
@@ -317,7 +320,7 @@ export default function PublicSale() {
             .allowance(account, process.env.MIX_UMBL_PUBLIC_ADDRESS)
             .call({ from: account });
 
-        // console.log('allowanceResult => ' + allowanceResult);
+        // // console.log('allowanceResult => ' + allowanceResult);
 
         if(allowanceResult !== amount) {
             setLoading(false);
@@ -332,11 +335,11 @@ export default function PublicSale() {
                     setLoading(false);
                     return;
                 } else {
-                    // console.log(transactionHash);
+                    // // console.log(transactionHash);
                 }
             });
 
-        // console.log(transaction);        
+        // // console.log(transaction);        
 
         setLoading(false);
 
@@ -384,7 +387,7 @@ export default function PublicSale() {
                                             <div className="public-content-flex-space" style={{marginTop: "10px"}}>
                                                 <div>
                                                     <div style={{marginBottom: "10px"}}>Remaining Limit: </div>
-                                                    <div className="yellow-text">{remainingLimit.toLocaleString()} BUSD</div>
+                                                    <div className="yellow-text">{status && account ? remainingLimit.toLocaleString() + " BUSD" : ""}</div>
                                                 </div>
                                                 <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                                                     <div style={{display: "flex", alignItems: "center"}}>
