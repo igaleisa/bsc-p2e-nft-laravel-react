@@ -106,21 +106,21 @@ export default function UserNavbar(props) {
             />
           </NavLink>
         </ListItem>    
-        {/* <ListItem className={classes.listItem}>
+        <ListItem className={classes.listItem}>
           <NavLink
-            to={"/presale"}
+            to={"/publicsale"}
             className={cx(classes.navLink, {
-              [classes.navLinkActive]: activeRoute("/presale")
+              [classes.navLinkActive]: activeRoute("/publicsale")
             })}
           >
             <AttachMoneyIcon className={classes.listItemIcon} />
             <ListItemText
-              primary={"Presale"}
+              primary={"Public Sale"}
               disableTypography={true}
               className={classes.listItemText}
             />
           </NavLink>
-        </ListItem>         */}
+        </ListItem>        
       </List>
       <List className={classes.list + ' ' + classes.rightSubNav}>
         <ListItem className={classes.listItem}>

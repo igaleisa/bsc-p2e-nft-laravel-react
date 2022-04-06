@@ -12,7 +12,7 @@ const pagesStyle = theme => ({
     top: "0"
   },
   fullPage: {
-    padding: "64px 0",
+    padding: "64px 0 0 0",
     position: "relative",
     minHeight: "100vh",
     display: "flex!important",

@@ -6,3 +6,4 @@ export { default as useUmblMarketPlaceContract } from "./useUmblMarketPlaceContr
 export { default as useBusdContract } from "./useBusdContract";
 export { default as useZapbContract } from "./useZapbContract";
 export { default as useUmblPresaleContract } from "./useUmblPresaleContract";
+export { default as useUmblPublicSaleContract } from "./useUmblPublicSaleContract";

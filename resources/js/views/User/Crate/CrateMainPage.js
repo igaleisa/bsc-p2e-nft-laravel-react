@@ -75,7 +75,7 @@ export default function CrateMainPage() {
     return(
         <div className="crate-main-container">
             <GridContainer className="crate-grid-container" id="crate_main_block">
-                <GridItem xs={12} sm={12} md={3} className="crate-block survivor-1" onMouseEnter={() => handleMouseEnter(1)} onClick={() => goToCratePage(1)}>
+                <GridItem xs={12} sm={12} md={3} className="crate-block survivor-1" onMouseEnter={() => handleMouseEnter(1)} onClick={() => goToCratePage(5)}>
                     <div className="block-body">
                         {/* <div className="title-container">
                             <h5 className="card-title">SURVIVORS</h5>
@@ -87,7 +87,7 @@ export default function CrateMainPage() {
                         </div> */}
                     </div>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={3} className="crate-block survivor-2" onMouseEnter={() => handleMouseEnter(2)} onClick={() => goToCratePage(2)}>
+                <GridItem xs={12} sm={12} md={3} className="crate-block survivor-2" onMouseEnter={() => handleMouseEnter(2)} onClick={() => goToCratePage(6)}>
                     <div className="block-body">
                         {/* <div className="title-container">
                             <h5 className="card-title">SURVIVORS</h5>
@@ -98,7 +98,7 @@ export default function CrateMainPage() {
                         </div> */}
                     </div>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={3} className="crate-block scientist-1" onMouseEnter={() => handleMouseEnter(3)} onClick={() => goToCratePage(3)}>
+                <GridItem xs={12} sm={12} md={3} className="crate-block scientist-1" onMouseEnter={() => handleMouseEnter(3)} onClick={() => goToCratePage(7)}>
                     <div className="block-body">
                         {/* <div className="title-container">
                             <h5 className="card-title">SCIENTIST</h5>
@@ -110,7 +110,7 @@ export default function CrateMainPage() {
                         </div> */}
                     </div>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={3} className="crate-block scientist-2" onMouseEnter={() => handleMouseEnter(4)} onClick={() => goToCratePage(4)}>
+                <GridItem xs={12} sm={12} md={3} className="crate-block scientist-2" onMouseEnter={() => handleMouseEnter(4)} onClick={() => goToCratePage(8)}>
                     <div className="block-body">
                         {/* <div className="title-container">
                             <h5 className="card-title">SCIENTIST</h5>

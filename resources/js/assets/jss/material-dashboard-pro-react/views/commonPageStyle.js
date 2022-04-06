@@ -31,6 +31,42 @@ const commonPageStyle = theme => ({
     zIndex: 99999,
     color: '#fff',
   },
+  publicSaleContainer: {
+    padding: "64px 0",
+    position: "relative",
+    minHeight: "100vh",
+    width: "100%",
+    display: "flex!important",
+    margin: "0",
+    border: "0",
+    color: whiteColor,
+    alignItems: "top",
+    backgroundSize: "cover",
+    backgroundPosition: "center center",
+    height: "100%",
+    [theme.breakpoints.down("sm")]: {
+      // minHeight: "700px!important"
+    },
+    "& footer": {
+      position: "absolute",
+      bottom: "0",
+      width: "100%",
+      border: "none !important"
+    },
+    "&:before": {
+      // backgroundColor: "rgba(0, 0, 0, 0.65)"
+    },
+    "&:before,&:after": {
+      // display: "block",
+      // content: '""',
+      // position: "absolute",
+      // width: "100%",
+      // height: "100%",
+      // top: "0",
+      // left: "0",
+      // zIndex: "2"
+    }
+  },
   fullBackImage: {
     backgroundColor: "#333 !important",
     position: "absolute",
