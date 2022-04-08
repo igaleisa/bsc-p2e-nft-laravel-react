@@ -6,6 +6,10 @@ use App\Http\Controllers\TestMailController;
 use App\Http\Controllers\VerificationController;
 use App\Mail\ForgotEmail;
 
+if (env('APP_ENV') === 'production') {
+    URL::forceSchema('https');
+}
+
 
 // use App\Mail\FunnyEmail;
 
