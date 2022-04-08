@@ -33,12 +33,10 @@ class EmailVerificationNotification extends VerifyEmail
     {
         // $prefix = 'https://portal.umbrellaproject.cc/verify-email?url=';
         $verificationUrl = $this->verificationUrl($notifiable);
-        $updateVerificationUrl = str_replace('http://', 'https://', $verificationUrl);
 
         return (new MailMessage)
             ->line('Please click the button below to verify your email address.')
-            // ->action('Verify Email Address', $prefix . urlencode($verificationUrl))
-            ->action('Verify Email Address', $updateVerificationUrl)
+            ->action('Verify Email Address', $verificationUrl)
             ->line('If you did not create an account, no further action is required.');
     }
 
