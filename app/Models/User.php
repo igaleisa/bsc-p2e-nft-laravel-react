@@ -11,7 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject, MustVerifyEmail
+class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -119,10 +119,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         return $this->belongsToMany(Wallet::class, 'user_wallets', 'user_id', 'wallet_id');
     }
 
-    // Method to send email verification
-    public function sendEmailVerificationNotification()
-    {
-        // We override the default notification and will use our own
-        $this->notify(new EmailVerificationNotification());
-    }
+    // // Method to send email verification
+    // public function sendEmailVerificationNotification()
+    // {
+    //     // We override the default notification and will use our own
+    //     $this->notify(new EmailVerificationNotification());
+    // }
 }
