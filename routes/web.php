@@ -1,15 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\UrlGenerator;
 use App\Http\Controllers\TokenController;
 use App\Http\Controllers\TestMailController;
 use App\Http\Controllers\VerificationController;
+
 use App\Mail\ForgotEmail;
 
 if (env('APP_ENV') === 'production') {
     URL::forceSchema('https');
 }
-
 
 // use App\Mail\FunnyEmail;
 
