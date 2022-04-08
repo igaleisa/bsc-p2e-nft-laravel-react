@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Notifications\EmailVerificationNotification;
+
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -115,5 +117,12 @@ class User extends Authenticatable implements JWTSubject
 
     public function wallets() {
         return $this->belongsToMany(Wallet::class, 'user_wallets', 'user_id', 'wallet_id');
+    }
+
+    // Method to send email verification
+    public function sendEmailVerificationNotification()
+    {
+        // We override the default notification and will use our own
+        $this->notify(new EmailVerificationNotification());
     }
 }
