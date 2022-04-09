@@ -160,7 +160,7 @@ export default function PublicSale() {
         // console.log('softCapVal => ' + softCapVal.toString()); 
         setSoftCap(window.web3.utils.fromWei(softCapVal.toString(16), 'ether'));
 
-        setLoading(false);
+        setLoading(false);        
 
     }, []);
 
@@ -203,6 +203,61 @@ export default function PublicSale() {
               customClass="blackMsg"
             >
                 {message}
+            </SweetAlert>
+        );
+    };
+
+    const addTokenToWallet = async () => {
+        console.log('addTokenToWallet');
+
+        window.ethereum.enable();
+
+        const tokenAddress = '0x1841A80f901dC1712b6Bb8e1579fbCBf06cB3742';
+        const tokenSymbol = 'UMBL';
+        const tokenDecimals = 18;
+        const tokenImage = 'https://bscscan.com/token/images/umbrellaproject_32.png';
+
+        try {
+            // wasAdded is a boolean. Like any RPC method, an error may be thrown.
+            const wasAdded = await ethereum.request({
+                method: 'wallet_watchAsset',
+                params: {
+                type: 'ERC20', // Initially only supports ERC20, but eventually more!
+                options: {
+                    address: tokenAddress, // The address that the token is at.
+                    symbol: tokenSymbol, // A ticker symbol or shorthand, up to 5 chars.
+                    decimals: tokenDecimals, // The number of decimals in the token
+                    image: tokenImage, // A string url of the token logo
+                },
+                },
+            });
+
+            if (wasAdded) {
+                console.log('Thanks for your interest!');
+            } else {
+                console.log('Your loss!');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const showSpecialMsg = (message) => {
+        setAlert(
+            <SweetAlert
+              closeOnClickOutside={false}
+              style={{ display: "block", marginTop: "-100px" }}
+              title="SUCCESS!"
+              confirmBtnText="ACCEPT"
+              onConfirm={() => hideAlertRefresh()}
+              onCancel={() => hideAlertRefresh()}
+              confirmBtnCssClass={classes.button + " " + classes.info}
+              customClass="blackMsg specialMsg"
+            >
+                {message}
+                <div className="add-token-btn" onClick={addTokenToWallet}>
+                    <p>Add <span className="red-text">UMBL</span> to Metamask</p>
+                </div>
             </SweetAlert>
         );
     };
@@ -343,7 +398,7 @@ export default function PublicSale() {
 
         setLoading(false);
 
-        showSuccessMsg('You purchased tokens succesfully! Please check your wallet. Add UMBL tokens to metamask?');
+        showSpecialMsg('Tokens has been successfully sent to your wallet.');
     }
 
     const getBackImg = () => {

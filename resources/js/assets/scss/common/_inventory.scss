@@ -144,6 +144,58 @@ $light-green-color: #19E378;
             box-shadow: none !important;
         }
     }
+
+    &.specialMsg {        
+        padding: 7rem 6rem 5rem 6rem !important;
+        font-size: 20px;
+        font-family: TrajanPro3;
+        text-transform: uppercase;
+        background-image: url(/images/publicsale/backSpecialMsg.png);
+        background-size: cover;
+        background-position: center center;
+        background-color: transparent !important;
+        box-shadow: none !important;
+        color: #C0DC23 !important;
+        text-shadow: 0 0 2px #000, 0 0 4px #000, 0 0 8px #0000;
+
+        h2 {
+            color: #fff !important;
+            font-family: TrajanPro3;
+            font-size: 24px;
+        }
+
+        .btn {
+            border-radius: 8px;
+            font-family: TrajanPro3;
+            font-size: 22px;
+            text-shadow: 0 0 2px #000, 0 0 4px #000, 0 0 8px #0000;
+            box-shadow: none !important;
+            background-color: #88007D !important;
+        }
+
+        .add-token-btn {
+            cursor: pointer;
+            text-align: center;
+            color: #fff !important;
+            margin: 10px;
+            padding: 10px 30px 6px 10px;
+            background-color: #000;
+            border-radius: 4px;
+            background-image: url(/images/publicsale/metamask.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: right calc(0.375em + 0.1875rem) center;
+            background-size: 36px;
+
+            p {
+                margin: 0 !important;
+
+                .red-text {
+                    color: #EC0000 !important;
+                }
+            }
+        }
+    }
 }
 
 .emptyBlock {
